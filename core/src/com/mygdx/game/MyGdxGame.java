@@ -12,7 +12,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("dt.jpg");
 	}
 
 	@Override
@@ -20,6 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
 		batch.draw(img, 0, 0);
+		batch.getProjectionMatrix().setToOrtho2D(0, 0, 1200, 650);
 		batch.end();
 	}
 	
