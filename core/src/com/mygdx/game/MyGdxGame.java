@@ -8,18 +8,24 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+	Player player;
+	Board board;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		player = new Player("bob",batch,img);
+		board = new Board(batch,img);
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		batch.draw(img, 0, 0);
+
+		//All draw methods here
+		player.draw();
+		board.draw();
+
 		batch.end();
 	}
 	
