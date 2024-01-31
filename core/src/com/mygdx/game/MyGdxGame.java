@@ -27,20 +27,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
+	private Music background;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		player = new Player(batch,img);
 		board = new Board(batch,img);
-
 		camera.setToOrtho(false);
-		
 		camera.position.set((camera.viewportWidth / 2f)-80, (camera.viewportHeight /2f)-100, 0);
 
+		background = Gdx.audio.newMusic(Gdx.files.internal("background.mp3"));
+		background.setLooping(true);
+		background.play();
 		tiledMap =  new TmxMapLoader().load("map.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		// tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		// tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		//background.dispose();
-		//img.dispose();
+		background.dispose();
+		img.dispose();
 	}
 }
