@@ -51,8 +51,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.begin();
 
 		//All draw methods here
-		// player.draw();
-		// board.draw();
+		player.draw();
+		board.draw();
 
 		batch.setProjectionMatrix(camera.combined);
 
