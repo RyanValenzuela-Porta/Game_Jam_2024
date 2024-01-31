@@ -2,11 +2,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player {
-    String name;
     SpriteBatch batch;
     Texture img;
-    public Player(String newName, SpriteBatch newBatch, Texture newImg){
-        name = newName;
+    public Player( SpriteBatch newBatch, Texture newImg){
         batch = newBatch;
         img = newImg;
     }
