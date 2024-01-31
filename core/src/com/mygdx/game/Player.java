@@ -74,6 +74,11 @@ public class Player {
 			playerX += (Gdx.graphics.getDeltaTime() * speed);
 			facingRight=true;
 		}
+		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+			speed = 400;
+		} else{
+			speed = 200;
+		}
 		batch.draw(currentFrame, !facingRight ? playerX+width : playerX,playerY,!facingRight ? -width:width,height);
 	}
 	}
