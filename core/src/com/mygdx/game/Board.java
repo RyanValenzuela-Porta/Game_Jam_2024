@@ -11,7 +11,7 @@ public class Board {
         img = newImg;
     }
     public void draw(){
-        img = new Texture("totoro_decal_whitebg-removebg-preview.png");
-        batch.draw(img, 0, 0);
+        //img = new Texture("totoro_decal_whitebg-removebg-preview.png");
+        //batch.draw(img, 0, 0);
     }
 }

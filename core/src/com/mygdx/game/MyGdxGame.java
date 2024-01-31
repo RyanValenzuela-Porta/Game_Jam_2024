@@ -48,18 +48,19 @@ public class MyGdxGame extends ApplicationAdapter {
 		//handleInput();
 		camera.update();
 		ScreenUtils.clear(42/255f, 45/255f, 60/255f, 1);
+		tiledMapRenderer.setView(camera);
+		tiledMapRenderer.render();
 		batch.begin();
 
 		//All draw methods here
 		player.draw();
-		board.draw();
+		//board.draw();
 
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
 
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+		
 	}
 	@Override
 	public void resize(int width, int height) {

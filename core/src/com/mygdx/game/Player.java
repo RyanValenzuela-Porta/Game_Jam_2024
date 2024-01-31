@@ -9,7 +9,8 @@ public class Player {
         img = newImg;
     }
     public void draw(){
-        img = new Texture("badlogic.jpg");
-        batch.draw(img, 0, 0);
+        img = new Texture("tileset.png");
+        batch.draw(img, 50, 50,126,237,18,18);
+        // batch.draw(img, 0, 0,0,0,100,100);
     }
 }
