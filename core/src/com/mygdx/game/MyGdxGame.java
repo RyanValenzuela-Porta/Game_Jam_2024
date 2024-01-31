@@ -28,6 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
+	
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
