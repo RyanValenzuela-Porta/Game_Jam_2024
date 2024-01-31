@@ -17,10 +17,13 @@ import java.awt.*;
 
 public class MyGdxGame extends Game {
 
+	Soundtrack soundtrack;
 
 	@Override
 	public void create () {
 		setScreen(new Start());
+		soundtrack = new Soundtrack();
+		soundtrack.load();
 	}
 
 	@Override
@@ -32,6 +35,6 @@ public class MyGdxGame extends Game {
 	@Override
 	public void dispose () {
 		super.dispose();
-
+		soundtrack.dispose();
 	}
 }
