@@ -26,9 +26,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	Board board;
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
-	OrthographicCamera camera;
+	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
-
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
@@ -42,10 +41,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
-		tiledMap = new TmxMapLoader().load("newmap.tmx");
+		tiledMap =  new TmxMapLoader().load("newmap.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		// tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		// tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+
 	}
 
 	@Override
@@ -81,8 +79,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		music.dispose();
+		img.dispose();
 		player.dispose();
 		tiledMap.dispose();
-		music.dispose();
 	}
 }
