@@ -77,5 +77,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.dispose();
 		background.dispose();
 		img.dispose();
+		tiledMap.dispose();
 	}
 }
