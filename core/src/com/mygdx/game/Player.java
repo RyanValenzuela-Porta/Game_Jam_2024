@@ -9,8 +9,8 @@ import com.badlogic.gdx.Input.Keys;
 public class Player {
 	private SpriteBatch batch;
 	private Texture img;
-	private float playerX = 50;
-	private float playerY = 50;
+	private float playerX = 505;
+	private float playerY = 327;
 	private float speed = 500;
 	private int hp;
 	private float regen;
@@ -25,10 +25,11 @@ public class Player {
 		img = new Texture("tileset.png");
 		batch.draw(img, playerX, playerY, 126, 237, 18, 18);
 		// batch.draw(img, 0, 0,0,0,100,100);
-		int maxY = 240;
-		int minY = 60;
-		int maxX = 440;
-		int minX = 20;
+		int maxY = 655;
+		int minY = 55;
+		int maxX = 1205;
+		int minX = 50;
+		System.out.println(playerY);
 		if (Gdx.input.isKeyPressed(Input.Keys.W) && playerY < maxY) {
 			playerY += (Gdx.graphics.getDeltaTime() * speed);
 		}
@@ -43,14 +44,15 @@ public class Player {
 		}
 	}
 
-	public void dispose(){
+	public void dispose() {
 		img.dispose();
 	}
 
-    public float getPlayerX(){
-        return playerX;
-    }
-    public float getPlayerY(){
-        return playerY;
-    }
+	public float getPlayerX() {
+		return playerX;
+	}
+
+	public float getPlayerY() {
+		return playerY;
+	}
 }
