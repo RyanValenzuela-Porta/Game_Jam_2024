@@ -29,48 +29,51 @@ public class MyGdxGame extends ApplicationAdapter {
 	OrthographicCamera camera = new OrthographicCamera();
 	private Music background;
 	@Override
-	public void create () {
+	public void create() {
+		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		player = new Player(batch,img);
 		board = new Board(batch,img);
 		camera.setToOrtho(false);
-		camera.position.set((camera.viewportWidth / 2f)-80, (camera.viewportHeight /2f)-100, 0);
+
+		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
 		background = Gdx.audio.newMusic(Gdx.files.internal("background.mp3"));
 		background.setLooping(true);
 		background.play();
-		tiledMap =  new TmxMapLoader().load("map.tmx");
+		tiledMap =  new TmxMapLoader().load("newmap.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 	}
 
 	@Override
-	public void render () {
-		//handleInput();
+	public void render() {
+		// handleInput();
 		camera.update();
-		ScreenUtils.clear(42/255f, 45/255f, 60/255f, 1);
+		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 		batch.begin();
 
-		//All draw methods here
+		// All draw methods here
 		player.draw();
-		//board.draw();
+		// board.draw();
 
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
 
-		
 	}
+
 	@Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = 450f;
-		camera.viewportHeight = 450f * height/width;
+		camera.viewportHeight = 450f * height / width;
 		camera.update();
 	}
+
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
 		background.dispose();
 		img.dispose();
