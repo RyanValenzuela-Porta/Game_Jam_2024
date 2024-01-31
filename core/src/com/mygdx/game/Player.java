@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 
@@ -27,6 +29,8 @@ public class Player {
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
+	private Rectangle player_hitbox, sword_hitbox;
+	private ShapeRenderer shaperender;
 	public Player(SpriteBatch newBatch, Texture newImg) {
 		batch = newBatch;
 		img = newImg;
@@ -34,6 +38,9 @@ public class Player {
 	}
 
 	public void draw() {
+
+		player_hitbox = new Rectangle( !facingRight ? playerX+width : playerX,playerY,!facingRight ? -width:width,height);
+		shaperender = new ShapeRenderer();
 		img = new Texture("tileset.png");
 		//batch.draw(img, playerX, playerY, 126, 237, 18, 18);
 		// batch.draw(img, 0, 0,0,0,100,100);
