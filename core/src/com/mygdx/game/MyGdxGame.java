@@ -26,14 +26,18 @@ public class MyGdxGame extends ApplicationAdapter {
 	Board board;
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
-	OrthographicCamera camera = new OrthographicCamera();
+	OrthographicCamera camera;
+	Soundtrack music;
 
 	@Override
 	public void create() {
+		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		player = new Player(batch, img);
 		board = new Board(batch, img);
-
+		music = new Soundtrack();
+		
+		music.load();
 		camera.setToOrtho(false);
 
 		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
@@ -73,7 +77,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		// background.dispose();
-		// img.dispose();
+		player.dispose();
+		tiledMap.dispose();
+		music.dispose();
 	}
 }

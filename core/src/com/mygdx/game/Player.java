@@ -42,4 +42,9 @@ public class Player {
 			playerX += (Gdx.graphics.getDeltaTime() * speed);
 		}
 	}
+
+	public void dispose(){
+		batch.dispose();
+		img.dispose();
+	}
 }
