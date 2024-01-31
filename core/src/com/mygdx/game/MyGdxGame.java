@@ -34,12 +34,13 @@ public class MyGdxGame extends ApplicationAdapter {
 		board = new Board(batch,img);
 
 		camera.setToOrtho(false);
-		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight /2f, 0);
+		
+		camera.position.set((camera.viewportWidth / 2f)-80, (camera.viewportHeight /2f)-100, 0);
 
 		tiledMap =  new TmxMapLoader().load("map.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+		// tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
+		// tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
 	}
 
 	@Override
