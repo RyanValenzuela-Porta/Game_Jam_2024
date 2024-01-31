@@ -23,7 +23,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	Player player;
-	Board board;
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
@@ -34,7 +33,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		player = new Player(batch, img);
-		board = new Board(batch, img);
 		music = new Soundtrack();
 
 		music.load();
