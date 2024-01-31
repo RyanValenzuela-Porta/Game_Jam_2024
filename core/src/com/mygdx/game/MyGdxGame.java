@@ -28,6 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
+	Enemy enemy;
 
 	@Override
 	public void create() {
@@ -36,6 +37,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch, img);
 		board = new Board(batch, img);
 		music = new Soundtrack();
+		enemy = new Enemy(batch, img);
 
 		music.load();
 		camera.setToOrtho(false);
@@ -59,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		// All draw methods here
 		player.draw();
-
+		enemy.draw();
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
