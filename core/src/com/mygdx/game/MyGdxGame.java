@@ -27,51 +27,53 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
+
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
-		player = new Player(batch,img);
-		board = new Board(batch,img);
+		player = new Player(batch, img);
+		board = new Board(batch, img);
 
 		camera.setToOrtho(false);
-		
-		camera.position.set((camera.viewportWidth / 2f)-80, (camera.viewportHeight /2f)-100, 0);
 
-		tiledMap =  new TmxMapLoader().load("map.tmx");
+		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
+
+		tiledMap = new TmxMapLoader().load("newmap.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		// tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
 		// tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
 	}
 
 	@Override
-	public void render () {
-		//handleInput();
+	public void render() {
+		// handleInput();
 		camera.update();
-		ScreenUtils.clear(42/255f, 45/255f, 60/255f, 1);
+		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 		batch.begin();
 
-		//All draw methods here
+		// All draw methods here
 		player.draw();
-		//board.draw();
+		// board.draw();
 
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
 
-		
 	}
+
 	@Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = 450f;
-		camera.viewportHeight = 450f * height/width;
+		camera.viewportHeight = 450f * height / width;
 		camera.update();
 	}
+
 	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
-		//background.dispose();
-		//img.dispose();
+		// background.dispose();
+		// img.dispose();
 	}
 }
