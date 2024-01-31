@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch, img);
 		board = new Board(batch, img);
 		music = new Soundtrack();
-		
+
 		music.load();
 		camera.setToOrtho(false);
 
@@ -59,11 +59,15 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		// All draw methods here
 		player.draw();
-		// board.draw();
 
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
+
+		// close game after pressing Esc button
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			Gdx.app.exit();
+		}
 
 	}
 

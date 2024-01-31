@@ -44,7 +44,6 @@ public class Player {
 	}
 
 	public void dispose(){
-		batch.dispose();
 		img.dispose();
 	}
 }
