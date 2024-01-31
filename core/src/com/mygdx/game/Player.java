@@ -47,4 +47,11 @@ public class Player {
 		batch.dispose();
 		img.dispose();
 	}
+
+    public float getPlayerX(){
+        return playerX;
+    }
+    public float getPlayerY(){
+        return playerY;
+    }
 }

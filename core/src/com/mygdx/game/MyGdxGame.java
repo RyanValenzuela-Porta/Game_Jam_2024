@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		board = new Board(batch,img);
 		camera.setToOrtho(false);
 
-		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
+		//camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
 		background = Gdx.audio.newMusic(Gdx.files.internal("background.mp3"));
 		background.setLooping(true);
@@ -49,6 +49,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		// handleInput();
+		camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
 		camera.update();
 		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
 		tiledMapRenderer.setView(camera);
