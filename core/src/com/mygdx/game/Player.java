@@ -1,12 +1,20 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 
 public class Player {
+
+	// animation
+	private static final int cols = 9, rows = 1;
+	Animation<TextureRegion> walkAnimation;
+	Texture walkSheet;
+	float stateTime;
+
 	private SpriteBatch batch;
 	private Texture img;
 	private float playerX = 505;
@@ -19,12 +27,16 @@ public class Player {
 	public Player(SpriteBatch newBatch, Texture newImg) {
 		batch = newBatch;
 		img = newImg;
+		createIdleAnimation();
 	}
 
 	public void draw() {
 		img = new Texture("tileset.png");
-		batch.draw(img, playerX, playerY, 126, 237, 18, 18);
+		//batch.draw(img, playerX, playerY, 126, 237, 18, 18);
 		// batch.draw(img, 0, 0,0,0,100,100);
+		stateTime += Gdx.graphics.getDeltaTime();
+		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime,true);
+		batch.draw(currentFrame, playerX,playerY);
 		int maxY = 655;
 		int minY = 55;
 		int maxX = 1205;
@@ -46,6 +58,26 @@ public class Player {
 
 	public void dispose() {
 		img.dispose();
+		walkSheet.dispose();
+	}
+
+	public void createIdleAnimation(){
+		walkSheet = new Texture(Gdx.files.internal("dinoWalksheet.png"));
+
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet,
+                                    walkSheet.getWidth()/ cols,
+                                    walkSheet.getHeight()/ rows);
+
+        TextureRegion[] walkFrames = new TextureRegion[cols * rows];
+        int index = 0;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                walkFrames[index++] = tmp[i][j];
+            }
+        }
+
+        walkAnimation = new Animation<TextureRegion>(0.11f, walkFrames);
+        stateTime = 0f;
 	}
 
 	public float getPlayerX() {
