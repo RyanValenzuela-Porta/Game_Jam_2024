@@ -16,12 +16,14 @@ public class Enemy {
     public Enemy(SpriteBatch newBatch, Texture newImg) {
 		batch = newBatch;
 		img = newImg;
+        createIdleAnimation();
 	}
 
     public void draw(){
         img = new Texture("tileset.png");
         stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime,true);
+        batch.draw(currentFrame, 600, 400);
     }
 
     public void createIdleAnimation(){
