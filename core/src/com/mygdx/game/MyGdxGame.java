@@ -27,7 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
-
+	int gameState=0; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
@@ -35,6 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch, img);
 		music = new Soundtrack();
 
+		//Note that all of this is set as soon as the game opens, may want to change this later for startup screen.
 		music.load();
 		camera.setToOrtho(false);
 
@@ -47,28 +48,40 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		// handleInput();
-		camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
-		camera.update();
-		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
-		batch.begin();
-
-		// All draw methods here
-		player.draw();
-
-		batch.setProjectionMatrix(camera.combined);
-
-		batch.end();
-
-		// close game after pressing Esc button
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-			Gdx.app.exit();
+		switch(gameState){
+			case 0:
+				renderGameMap();
+				break;
+			case 1:
+				renderStartScreen();
+				break;
 		}
 
 	}
-
+	public void renderStartScreen(){
+		//Render the startup screen here
+	}
+	public void renderGameMap(){
+				// handleInput();
+				camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
+				camera.update();
+				ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
+				tiledMapRenderer.setView(camera);
+				tiledMapRenderer.render();
+				batch.begin();
+		
+				// All draw methods here
+				player.draw();
+		
+				batch.setProjectionMatrix(camera.combined);
+		
+				batch.end();
+		
+				// close game after pressing Esc button
+				if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+					Gdx.app.exit();
+				}
+	}
 	@Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = 450f;
