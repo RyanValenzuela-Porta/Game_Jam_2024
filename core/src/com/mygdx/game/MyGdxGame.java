@@ -39,7 +39,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		music.load();
 		camera.setToOrtho(false);
 
-		camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
+		//camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
 		tiledMap =  new TmxMapLoader().load("newmap.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -49,6 +49,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		// handleInput();
+		camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
 		camera.update();
 		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
 		tiledMapRenderer.setView(camera);

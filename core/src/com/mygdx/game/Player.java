@@ -46,4 +46,11 @@ public class Player {
 	public void dispose(){
 		img.dispose();
 	}
+
+    public float getPlayerX(){
+        return playerX;
+    }
+    public float getPlayerY(){
+        return playerY;
+    }
 }
