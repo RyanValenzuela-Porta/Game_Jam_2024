@@ -44,7 +44,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		//camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
-		tiledMap =  new TmxMapLoader().load("newmap.tmx");
+		tiledMap =  new TmxMapLoader().load("newmap2.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 	}
