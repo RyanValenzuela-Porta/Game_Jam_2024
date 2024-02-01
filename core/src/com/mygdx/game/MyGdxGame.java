@@ -38,12 +38,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		player = new Player(batch, img);
 		music = new Soundtrack();
+		sword = new Sword(batch);
 		//zombie = new Zombie(batch);
 		enemies= new Enemies(batch,player);
 		//Note that all of this is set as soon as the game opens, may want to change this later for startup screen.
 		music.load();
 		camera.setToOrtho(false);
 
+		
 		//camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
 
 		tiledMap =  new TmxMapLoader().load("newmap2.tmx");
@@ -73,10 +75,17 @@ public class MyGdxGame extends ApplicationAdapter {
 				ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
 				tiledMapRenderer.setView(camera);
 				tiledMapRenderer.render();
+				// ties the sword X and Y positions to the players x and y
+				sword.setSwordX(player.getPlayerX());
+				sword.setSwordY(player.getPlayerY());
+
+				// the sword needs to know what direction the character is facing to control which sword image is shown
+				sword.setDirectionFacing(player.isFacingRight());
 				batch.begin();
 		
 				// All draw methods here
 				player.draw();
+				sword.draw();
 				if(!waveStarted){
 					enemies.spawnEnemies(wave);
 					waveStarted=true;
