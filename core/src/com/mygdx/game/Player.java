@@ -52,7 +52,7 @@ public class Player {
 		int maxY = 655;
 		int minY = 55;
 		int maxX = 1205;
-		int minX = 50;
+		int minX = 52;
 		//No input being pressed
 		if(!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
 			//If the player is not facing right, draw the player with negative width to flip them.
