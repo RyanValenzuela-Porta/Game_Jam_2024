@@ -118,4 +118,7 @@ public class Player {
 	public float getPlayerY() {
 		return playerY;
 	}
+	public boolean isFacingRight() {
+		return facingRight;
+	}
 }
