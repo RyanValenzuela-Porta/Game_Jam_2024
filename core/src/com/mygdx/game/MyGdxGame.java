@@ -21,6 +21,7 @@ import com.badlogic.gdx.InputProcessor;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	Sword sword;
 	Texture img;
 	Player player;
 	TiledMap tiledMap;
