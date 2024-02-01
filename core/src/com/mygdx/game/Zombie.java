@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
+import java.util.Random;
 public class Zombie extends Enemy{
     
     private static final int cols = 8, rows = 1;
@@ -18,14 +18,14 @@ public class Zombie extends Enemy{
         batch = newBatch;
         createAnimation();
         //Initialising variables from superclass
-        enemyY=350;
-        enemyX = 510;
+        enemyY=randomiser.nextInt(maxY-minY)+minY;
+        enemyX = randomiser.nextInt(maxX-minX)+minX;
         speed = 100;
         width = 32;
         height = 32;
         facingRight = true;
         spawn= true;
-        alive=false;
+        alive=true;
     }
     @Override
     public void draw(float targetX, float targetY){

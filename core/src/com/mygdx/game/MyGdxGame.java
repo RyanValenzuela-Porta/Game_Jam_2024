@@ -28,16 +28,18 @@ public class MyGdxGame extends ApplicationAdapter {
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
 	int gameState=0; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
-	Zombie zombie;
-	
+	//Zombie zombie;
+	int wave=1;
+	boolean waveStarted=false;
+	Enemies enemies;
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		player = new Player(batch, img);
 		music = new Soundtrack();
-		zombie = new Zombie(batch);
-
+		//zombie = new Zombie(batch);
+		enemies= new Enemies(batch,player);
 		//Note that all of this is set as soon as the game opens, may want to change this later for startup screen.
 		music.load();
 		camera.setToOrtho(false);
@@ -75,8 +77,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 				// All draw methods here
 				player.draw();
-				zombie.draw(player.getPlayerX(),player.getPlayerY());
-		
+				if(!waveStarted){
+					enemies.spawnEnemies(wave);
+					waveStarted=true;
+				}
+				//zombie.draw(player.getPlayerX(),player.getPlayerY());
+				enemies.draw();
 				batch.setProjectionMatrix(camera.combined);
 		
 				batch.end();
@@ -99,6 +105,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		music.dispose();
 		player.dispose();
 		tiledMap.dispose();
-		zombie.dispose();
+		//zombie.dispose();
 	}
 }

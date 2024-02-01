@@ -5,14 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
+import java.util.Random;
 public class Enemy {
     //All subclasses of enemies must have these variables.
     SpriteBatch batch;
     float stateTime;
     float enemyX,enemyY,speed,hp,dmg,targetX,targetY,width,height;
     boolean facingRight,spawn,alive;
-
+    int maxY = 655;
+    int minY = 55;
+    int maxX = 1205;
+    int minX = 50;
+    Random randomiser = new Random();
     public Enemy createEnemy(){
         Zombie test = new Zombie(batch);
         return test;
