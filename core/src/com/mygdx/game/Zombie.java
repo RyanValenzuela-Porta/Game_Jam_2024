@@ -6,58 +6,65 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Zombie {
+public class Zombie extends Enemy{
     
     private static final int cols = 8, rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture zombieSheet;
-    float stateTime;
+
 
     SpriteBatch batch;
-    float zombieX = 510;
-    float zombieY = 350;
-    float speed = 100;
-    float hp;
-    float dmg;
-    boolean facingRight = true;
-    float targetX;
-    float targetY;
-    boolean spawn = true;
-    float width = 32;
-    float height = 32;
-    
     public Zombie(SpriteBatch newBatch){
         batch = newBatch;
         createAnimation();
+        //Initialising variables from superclass
+        enemyY=350;
+        enemyX = 510;
+        speed = 100;
+        width = 32;
+        height = 32;
+        facingRight = true;
+        spawn= true;
+        alive=false;
     }
-
+    @Override
     public void draw(float targetX, float targetY){
         stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion currentFrame = huntAnimation.getKeyFrame(stateTime, true);
+        TextureRegion currentFrame = huntAnimation.getKeyFrame(stateTime, false);
         if(spawn){
-            batch.draw(currentFrame, zombieX, zombieY);
+            batch.draw(currentFrame, enemyX, enemyY);
             spawn = false;
+        }if(alive){
+            currentFrame = huntAnimation.getKeyFrame(stateTime, true);
+            hunt(currentFrame, targetX, targetY);
+        }else{
+
+            //If dead, draw the enemy as tinted and freeze the enemy.
+            batch.setColor(0.1f,0.1f,0.1f,0.7f);
+            batch.draw(currentFrame, enemyX, enemyY);
+            batch.setColor(1,1,1,1);
+            
         }
-        hunt(currentFrame, targetX, targetY);
+        
         
     }
 
     public void hunt(TextureRegion currentFrame, float targetX, float targetY){
-        if(zombieX > targetX){
-            zombieX -= (Gdx.graphics.getDeltaTime() * speed);
+        if(enemyX > targetX){
+            enemyX -= (Gdx.graphics.getDeltaTime() * speed);
             facingRight = false;
         }
-        if(zombieX < targetX){
-            zombieX += (Gdx.graphics.getDeltaTime() * speed);
+        if(enemyX < targetX){
+            enemyX += (Gdx.graphics.getDeltaTime() * speed);
             facingRight = true;
         }
-        if(zombieY > targetY){
-            zombieY -= (Gdx.graphics.getDeltaTime() * speed);
+        if(enemyY > targetY){
+            enemyY -= (Gdx.graphics.getDeltaTime() * speed);
         }
-        if(zombieY < targetY){
-            zombieY += (Gdx.graphics.getDeltaTime() * speed);
+        if(enemyY < targetY){
+            enemyY += (Gdx.graphics.getDeltaTime() * speed);
         }
-        batch.draw(currentFrame, !facingRight ? zombieX+width : zombieX,zombieY,!facingRight ? -width:width,height);
+        batch.draw(currentFrame, !facingRight ? enemyX+width : enemyX,enemyY,!facingRight ? -width:width,height);
     }
 
     public void createAnimation(){
