@@ -15,11 +15,13 @@ public class MyGdxGame extends ApplicationAdapter {
 	Map map;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
-	int gameState=0; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
+	int gameState=1; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
 	//Zombie zombie;
 	int wave=1;
 	boolean waveStarted=false;
 	Enemies enemies;
+	SpriteBatch screen;
+	Texture start;
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
@@ -36,6 +38,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		// instiate map
 		map = new Map();
 
+		screen = new SpriteBatch();
+        start = new Texture("menu.jpg");   
 	}
 
 	@Override
@@ -51,7 +55,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 	public void renderStartScreen(){
-		//Render the startup screen here
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			gameState = 0;
+		}
+		screen.begin();
+		screen.draw(start, camera.viewportWidth, camera.viewportHeight);
+		screen.end();
 	}
 	public void renderGameMap(){
 				// handleInput();
