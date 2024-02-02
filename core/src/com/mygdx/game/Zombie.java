@@ -29,8 +29,10 @@ public class Zombie extends Enemy{
     }
     @Override
     public void draw(float targetX, float targetY){
-        stateTime += Gdx.graphics.getDeltaTime();
+        stateTime += Gdx.graphics.getDeltaTime(); //Used for animation
+        
         TextureRegion currentFrame = huntAnimation.getKeyFrame(stateTime, false);
+        
         if(spawn){
             batch.draw(currentFrame, enemyX, enemyY);
             spawn = false;

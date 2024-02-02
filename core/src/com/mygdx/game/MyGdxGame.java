@@ -68,12 +68,12 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 	public void renderGameMap(){
 				// handleInput();
-				camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
-				camera.update();
-				ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
-				tiledMapRenderer.setView(camera);
+				camera.position.set(player.getPlayerX(), player.getPlayerY(), 0); //Set the camera to where the player is
+				camera.update(); //Refresh
+				ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1); //Set color of background
+				tiledMapRenderer.setView(camera); //map render
 				tiledMapRenderer.render();
-				batch.begin();
+				batch.begin(); 
 		
 				// All draw methods here
 				player.draw();
