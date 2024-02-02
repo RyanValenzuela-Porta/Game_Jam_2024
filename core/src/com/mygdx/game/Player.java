@@ -19,7 +19,6 @@ public class Player {
 	float stateTime;
 
 	private SpriteBatch batch;
-	private Texture img;
 	private float playerX = 505;
 	private float playerY = 327;
 	private float speed = 200;
@@ -31,9 +30,8 @@ public class Player {
 	private float height = 16;
 	private Rectangle player_hitbox, sword_hitbox;
 	private ShapeRenderer shaperender;
-	public Player(SpriteBatch newBatch, Texture newImg) {
+	public Player(SpriteBatch newBatch) {
 		batch = newBatch;
-		img = newImg;
 		createIdleAnimation();
 	}
 
@@ -41,9 +39,6 @@ public class Player {
 
 		player_hitbox = new Rectangle( !facingRight ? playerX+width : playerX,playerY,!facingRight ? -width:width,height);
 		shaperender = new ShapeRenderer();
-		img = new Texture("tileset.png");
-		//batch.draw(img, playerX, playerY, 126, 237, 18, 18);
-		// batch.draw(img, 0, 0,0,0,100,100);
 		stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime,true);
 		//If the player is not facing right, draw the player with negative width to flip them.
@@ -84,7 +79,6 @@ public class Player {
 	}
 
 	public void dispose() {
-		img.dispose();
 		walkSheet.dispose();
 	}
 
@@ -117,5 +111,8 @@ public class Player {
 
 	public float getPlayerY() {
 		return playerY;
+	}
+	public boolean isFacingRight() {
+		return facingRight;
 	}
 }
