@@ -2,30 +2,17 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.maps.Map;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.InputProcessor;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Sword sword;
-	Texture img;
 	Player player;
-	TiledMap tiledMap;
-	TiledMapRenderer tiledMapRenderer;
+	Map map;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
 	int gameState=0; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
@@ -37,7 +24,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create() {
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
-		player = new Player(batch, img);
+		player = new Player(batch);
 		music = new Soundtrack();
 		sword = new Sword(batch);
 		//zombie = new Zombie(batch);
@@ -46,11 +33,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		music.load();
 		camera.setToOrtho(false);
 
-		
-		//camera.position.set((camera.viewportWidth / 2f) - 80, (camera.viewportHeight / 2f) - 100, 0);
-
-		tiledMap =  new TmxMapLoader().load("newmap2.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		// instiate map
+		map = new Map();
 
 	}
 
@@ -74,8 +58,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
 				camera.update();
 				ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
-				tiledMapRenderer.setView(camera);
-				tiledMapRenderer.render();
+				
+				// update map
+				map.render(camera);
+
 				// ties the sword X and Y positions to the players x and y
 				sword.setSwordX(player.getPlayerX());
 				sword.setSwordY(player.getPlayerY());
@@ -114,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.dispose();
 		music.dispose();
 		player.dispose();
-		tiledMap.dispose();
+		map.dispose();
 		//zombie.dispose();
 	}
 }
