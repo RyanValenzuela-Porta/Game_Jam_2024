@@ -21,14 +21,14 @@ public class Player {
 	private SpriteBatch batch;
 	private float playerX = 505;
 	private float playerY = 327;
-	private float speed = 200;
-	private int hp;
+	private float speed = 2000;
+	private int hp = 200;
 	private float regen;
 	private float dmg;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
-	private Rectangle player_hitbox, sword_hitbox;
+	private Rectangle player_hitbox;
 	private ShapeRenderer shaperender;
 	public Player(SpriteBatch newBatch) {
 		batch = newBatch;
@@ -49,6 +49,9 @@ public class Player {
 		int maxX = 1205;
 		int minX = 52;
 		//No input being pressed
+		if (hp < 0) {
+			System.out.println("dead");
+		}
 		if(!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
 			//If the player is not facing right, draw the player with negative width to flip them.
 			batch.draw(currentFrame2, !facingRight ? playerX+width : playerX,playerY,!facingRight ? -width:width,height);
@@ -109,10 +112,19 @@ public class Player {
 		return playerX;
 	}
 
+	public int getHP() {
+		return hp;
+	}
 	public float getPlayerY() {
 		return playerY;
 	}
+
+	public void setHP(int x) { hp = x;}
 	public boolean isFacingRight() {
 		return facingRight;
+	}
+
+	public Rectangle getHitbox() {
+		return player_hitbox;
 	}
 }

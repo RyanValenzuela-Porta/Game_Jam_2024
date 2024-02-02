@@ -30,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		music = new Soundtrack();
 		sword = new Sword(batch);
 		//zombie = new Zombie(batch);
-		enemies= new Enemies(batch,player);
+		enemies= new Enemies(batch,player,sword);
 		//Note that all of this is set as soon as the game opens, may want to change this later for startup screen.
 		music.load();
 		camera.setToOrtho(false);
@@ -78,7 +78,9 @@ public class MyGdxGame extends ApplicationAdapter {
 				// the sword needs to know what direction the character is facing to control which sword image is shown
 				sword.setDirectionFacing(player.isFacingRight());
 				batch.begin(); 
-		
+
+
+
 				// All draw methods here
 				player.draw();
 				sword.draw();
