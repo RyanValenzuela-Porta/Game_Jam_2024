@@ -1,4 +1,5 @@
 package com.mygdx.game;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -86,6 +87,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				upgrades.generateUpgrade();
 				wave++;
 				waveStarted = false;
 			}
@@ -93,6 +95,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				upgrades.generateUpgrade();
 				wave++;
 				waveStarted = false;
 			}

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Upgrades {
     private SpriteBatch batch;
@@ -25,6 +27,48 @@ public class Upgrades {
     public Upgrades(SpriteBatch newBatch, Player newPlayer) {
         batch = newBatch;
         player = newPlayer;
+    }
+
+    public void generateUpgrade() {
+        int benefit;
+        int downside;
+        Random rand = new Random();
+        benefit = rand.nextInt(3);
+        do {
+            downside = rand.nextInt(4);
+        } while (benefit == downside);
+        switch (benefit) {
+            case 0:
+                player.increaseSpeed(50);
+                System.out.println("+speed");
+                break;
+            case 1:
+                player.increaseHP(50);
+                System.out.println("+hp");
+                break;
+            case 2:
+                player.increaseDmg(5);
+                System.out.println("+dmg");
+                break;
+        }
+        switch (downside) {
+            case 0:
+                player.increaseSpeed(-100);
+                System.out.println("-speed");
+                break;
+            case 1:
+                player.increaseHP(-50);
+                System.out.println("-hp");
+                break;
+            case 2:
+                player.increaseDmg(-5);
+                System.out.println("-dmg");
+                break;
+            case 3:
+                player.increaseHitbox(8);
+                System.out.println("-hitbox");
+
+        }
     }
 
     public void draw() {

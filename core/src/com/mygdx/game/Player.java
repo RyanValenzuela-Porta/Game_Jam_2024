@@ -175,9 +175,11 @@ public class Player {
 	private float playerX = 505;
 	private float playerY = 327;
 	private float speed = 200;
+	private float baseSpeed = 200;
+	private float sprintSpeed = 400;
 	private int hp = 200;
 	private float regen;
-	private float dmg;
+	private float dmg = 20;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
@@ -241,9 +243,9 @@ public class Player {
 				facingRight = true;
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				speed = 400;
+				speed = sprintSpeed;
 			} else {
-				speed = 200;
+				speed = baseSpeed;
 			}
 			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
@@ -284,8 +286,9 @@ public class Player {
 		hp = newmax;
 	}
 
-	public void setSpeed(float newspeed) {
-		speed = newspeed;
+	public void increaseSpeed(float newSpeed) {
+		baseSpeed += newSpeed;
+		sprintSpeed += 2 * newSpeed;
 	}
 
 	public float getPlayerX() {
@@ -296,12 +299,25 @@ public class Player {
 		return hp;
 	}
 
+	public float getDmg() {
+		return dmg;
+	}
+
+	public void increaseDmg(float x) {
+		dmg += x;
+	}
+
+	public void increaseHitbox(float x) {
+		width += x;
+		height += x;
+	}
+
 	public float getPlayerY() {
 		return playerY;
 	}
 
-	public void setHP(int x) {
-		hp = x;
+	public void increaseHP(int x) {
+		hp += x;
 	}
 
 	public boolean isFacingRight() {
