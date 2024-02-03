@@ -59,6 +59,15 @@ public class Enemies {
                 player.setState(true);
                 player.increaseHP(-1);
             }
+
+            // if enemy collides with enemy
+            for ( int k = i+1; k < enemies.size(); k++){
+                if (enemies.get(i).getHitbox().overlaps(enemies.get(k).getHitbox())) {
+                    enemies.get(i).setX(enemies.get(i).getPrevX());
+                    enemies.get(i).setY(enemies.get(i).getPrevY());
+                }
+            }
+
         }
         return false;
     }
