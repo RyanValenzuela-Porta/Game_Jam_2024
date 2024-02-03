@@ -6,13 +6,21 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundEffects {
     
     Sound sound;
+    boolean x = true;
     public SoundEffects(){
         
     }
 
     public void swordplay(){
         sound = Gdx.audio.newSound(Gdx.files.internal("swordAttack.mp3"));
-        sound.play(1.0f);
+        if(x){
+            sound.play(1.0f);
+            x = false;
+        }
+    }
+
+    public void restart(){
+        x = true;
     }
 
     public void dispose(){
