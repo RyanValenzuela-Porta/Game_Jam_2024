@@ -163,19 +163,29 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 
 public class Player {
-
+	/**
+	 * List:
+	 * display health
+	 * take damage animation - iframes
+	 * upgrades
+	 * 
+	 * 
+	 */
 	// animation
 	private static final int cols = 9, rows = 1;
 	Animation<TextureRegion> walkAnimation;
 	Animation<TextureRegion> standAnimation;
 	Texture walkSheet;
+	Texture hearts;
+	TextureRegion fullHeart;
+	TextureRegion halfHeart;
 	float stateTime;
 
 	private SpriteBatch batch;
 	private float playerX = 505;
 	private float playerY = 327;
 	private float speed = 200;
-	private int hp = 200;
+	private int hp = 6;
 	private float regen;
 	private float dmg;
 	private boolean facingRight = true;
@@ -196,7 +206,9 @@ public class Player {
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
 
 	}
+	public void drawHearts(){
 
+	}
 	public void draw() {
 
 		player_hitbox = new Rectangle(!facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
