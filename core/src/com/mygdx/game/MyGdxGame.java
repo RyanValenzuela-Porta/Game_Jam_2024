@@ -33,6 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	int wave;
 	boolean waveStarted;
 	Enemies enemies;
+	checkCollidable collideCheck;
 
 	@Override
 	public void create() {
@@ -40,7 +41,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		player = new Player(batch,hudBatch,shapeRenderer);
+		player = new Player(batch, hudBatch, shapeRenderer);
 		music = new Soundtrack();
 		music.load();
 		shapeRenderer = new ShapeRenderer();
@@ -61,10 +62,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void newCreate() {
 		gameState = 1;
-		player = new Player(batch,hudBatch,shapeRenderer);
-		sword = new Sword(batch,shapeRenderer);
+		player = new Player(batch, hudBatch, shapeRenderer);
+		sword = new Sword(batch, shapeRenderer);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword, shapeRenderer);
+		collideCheck = new checkCollidable(player, enemies, sword);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;
@@ -107,6 +109,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	public void upgradeSelect() {
+		upgrades.generateUpgradeLeft();
+		upgrades.generateUpgradeRight();
 		upgrades.draw();
 
 		// move player back to start so buttons are in correct place
@@ -117,7 +121,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-				upgrades.generateUpgrade();
+				upgrades.applyUpgradeL();
 				wave++;
 				waveStarted = false;
 			}
@@ -125,7 +129,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-				upgrades.generateUpgrade();
+				upgrades.applyUpgradeR();
 				wave++;
 				waveStarted = false;
 			}
@@ -180,13 +184,13 @@ public class MyGdxGame extends ApplicationAdapter {
 		sword.drawHitbox();
 		enemies.drawHitboxes(shapeRenderer);
 		shapeRenderer.end();
-		
+
 		// close game after pressing Esc button
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
 
-		if (player.getHP() < 0) {
+		if (player.getHP() <= 0) {
 			gameState = 2;
 		}
 	}
@@ -218,6 +222,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		map.dispose();
 		sword.dispose();
 		hudBatch.dispose();
-		// zombie.dispose();
+		deathScreen.dispose();
+		shapeRenderer.dispose();
+		dead.dispose();
+		screen.dispose();
+		map.dispose();
+		hudBatch.dispose();
 	}
 }

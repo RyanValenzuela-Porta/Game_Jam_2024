@@ -14,7 +14,7 @@ public class Enemies {
     Sword sword;
     int aliveCount;
     ShapeRenderer renderer;
-
+    SoundEffects sound = new SoundEffects();
 
     public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
@@ -51,6 +51,7 @@ public class Enemies {
             // if sword hits enemy
             if (enemies.get(i).getHitbox().overlaps(sword.getHitbox()) && sword.isSwung()) {
                 enemies.get(i).setHp(enemies.get(i).getHp() - player.getDmg());
+                sound.monsterDeath();
                 return true;
             }
             // if enemy hits player
@@ -63,6 +64,15 @@ public class Enemies {
                     player.increaseHP(-1);
                 }
             }
+
+            // if enemy collides with enemy
+            for ( int k = i+1; k < enemies.size(); k++){
+                if (enemies.get(i).getHitbox().overlaps(enemies.get(k).getHitbox())) {
+                    enemies.get(i).setX(enemies.get(i).getPrevX());
+                    enemies.get(i).setY(enemies.get(i).getPrevY());
+                }
+            }
+
         }
         return false;
     }
@@ -89,9 +99,10 @@ public class Enemies {
         }
     }
 
-    public void drawHitboxes(ShapeRenderer shapeRenderer){
+    public void drawHitboxes(ShapeRenderer shapeRenderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
     }
+
     public boolean checkEndOfWave() {
         if (countAliveEnemies() == 0) {
             enemies.clear();
@@ -101,7 +112,7 @@ public class Enemies {
         }
     }
 
-    public void drawHitbox(ShapeRenderer renderer){
+    public void drawHitbox(ShapeRenderer renderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(renderer));
     }
 }

@@ -17,6 +17,7 @@ public class Archer extends Enemy{
     SpriteBatch batch;
     Rock rock;
     ShapeRenderer shapeRenderer;
+    float prevX= 0,prevY = 0;
 
     public Archer(SpriteBatch newBatch, ShapeRenderer renderer) {
         shapeRenderer = new ShapeRenderer();
@@ -60,6 +61,8 @@ public class Archer extends Enemy{
     }
 
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {
+	prevX = enemyX;
+	prevY = enemyY;
         if (enemyX > targetX) {
             enemyX -= (Gdx.graphics.getDeltaTime() * speed);
             facingRight = false;
@@ -98,7 +101,7 @@ public class Archer extends Enemy{
 
     public void drawHitbox(ShapeRenderer renderer){
         
-		renderer.circle(enemyX, enemyY, 50);
+		renderer.circle(enemyX+8, enemyY+8, 100);
     }
 
     public void dispose() {
@@ -112,4 +115,10 @@ public class Archer extends Enemy{
     public boolean getAlive() {
         return alive;
     }
+    public float getPrevX(){ return prevX;}
+    public float getPrevY(){return prevY;}
+
+    public void setX(float x) { enemyX = x; }
+    public void setY(float y) { enemyY = y; }
+
 }

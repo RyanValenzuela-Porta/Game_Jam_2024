@@ -1,4 +1,5 @@
 package com.mygdx.game;
+import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,22 +10,24 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Zombie extends Enemy {
 
-    private static final int rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture zombieSheet;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
+    float prevX =0,prevY=0;
 
     public Zombie(SpriteBatch newBatch) {
         batch = newBatch;
         createAnimation();
+        Random rand = new Random();
         // Initialising variables from superclass
         enemyY = randomiser.nextInt(maxY - minY) + minY;
         enemyX = randomiser.nextInt(maxX - minX) + minX;
-        speed = 0;
-        width = 32;
-        height = 32;
-        hp = 50;
+        int random = rand.nextInt(8);
+        speed = 100+random*3;
+        width = 32-random*2;
+        height = 32-random*2;
+        hp = 50+random;
         facingRight = true;
         spawn = true;
         alive = true;
@@ -57,6 +60,8 @@ public class Zombie extends Enemy {
         height);
     }
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {
+        prevX = enemyX;
+        prevY = enemyY;
         if (enemyX > targetX) {
             enemyX -= (Gdx.graphics.getDeltaTime() * speed);
             facingRight = false;
@@ -82,17 +87,16 @@ public class Zombie extends Enemy {
 
         TextureRegion[][] tmp = TextureRegion.split(zombieSheet,
                 16,
-                zombieSheet.getHeight() / rows);
+                zombieSheet.getHeight());
 
         TextureRegion[] frames = new TextureRegion[3];
         int index = 0;
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 3; j++) {
                 frames[index++] = tmp[i][j];
             }
         }
         huntAnimation = new Animation<TextureRegion>(0.33f, frames);
-        stateTime = 0f;
     }
 
     public void dispose() {
@@ -106,4 +110,9 @@ public class Zombie extends Enemy {
     public boolean getAlive() {
         return alive;
     }
+    public float getPrevX(){ return prevX;}
+    public float getPrevY(){return prevY;}
+
+    public void setX(float x) { enemyX = x; }
+    public void setY(float y) { enemyY = y; }
 }

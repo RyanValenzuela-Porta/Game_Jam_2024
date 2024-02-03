@@ -13,6 +13,7 @@ public class Pumpkin extends Enemy{
     Texture pumpkinSheet;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
+    float prevX=0, prevY=0;
 
     public Pumpkin(SpriteBatch newBatch) {
         batch = newBatch;
@@ -51,6 +52,8 @@ public class Pumpkin extends Enemy{
     }
 
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {
+        prevX = enemyX;
+        prevY = enemyY;
         if (enemyX > targetX) {
             enemyX -= (Gdx.graphics.getDeltaTime() * speed);
             facingRight = false;
@@ -98,4 +101,10 @@ public class Pumpkin extends Enemy{
     public boolean getAlive() {
         return alive;
     }
+
+    public float getPrevX(){ return prevX;}
+    public float getPrevY(){return prevY;}
+
+    public void setX(float x) { enemyX = x; }
+    public void setY(float y) { enemyY = y; }
 }
