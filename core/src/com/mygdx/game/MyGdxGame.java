@@ -2,7 +2,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
@@ -135,7 +134,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		enemies.draw();
 		batch.setProjectionMatrix(camera.combined);
-
 		batch.end();
 
 		// close game after pressing Esc button
@@ -167,6 +165,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			waveStarted = false;
 			gameState = 1;
 		}
+		wave = 0;
 		deathScreen.begin();
 		deathScreen.draw(dead, camera.viewportWidth, camera.viewportHeight);
 		deathScreen.end();
@@ -179,7 +178,5 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.dispose();
 		map.dispose();
 		sword.dispose();
-
-		// zombie.dispose();
 	}
 }
