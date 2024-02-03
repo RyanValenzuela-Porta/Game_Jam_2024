@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import java.util.ArrayList;
@@ -44,8 +46,8 @@ public class Player {
 	private float speed = 200;
 	private float baseSpeed = 200;
 	private float sprintSpeed = 400;
-	private int hp = 1000;
-	private int maxhp = 3;
+	private int hp = 6;
+	private int maxhp = 6;
 	private float dmg = 20;
 	private boolean facingRight = true;
 	private float width = 16;
@@ -54,10 +56,11 @@ public class Player {
 	int aliveCount;
 	private AssetManager assetManager;
 	private Sound sound;
+	private ShapeRenderer shapeRenderer;
 	private ArrayList<Float> heartList = new ArrayList<Float>(); // array list that can store 0, 0.5, or 1 corresponding
 																	// to whether heart is full
 
-	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch) {
+	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch, ShapeRenderer newShapeRenderer) {
 		batch = newBatch;
 		createIdleAnimation();
 		createHitAnimation();
@@ -66,6 +69,7 @@ public class Player {
 		assetManager.finishLoading();
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
 		hudBatch = newHudBatch;
+		shapeRenderer = newShapeRenderer;
 	}
 
 	public void drawHearts() {
@@ -141,11 +145,17 @@ public class Player {
 					height);
 		}
 	}
+	public void drawHitbox(){
+		
 
+		shapeRenderer.rect(playerX, playerY, width,
+		height);
+	}
 	public void draw() {
 
 		player_hitbox = new Rectangle(playerX, playerY, width,
 				height);
+		
 		stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion walkFrame = walkAnimation.getKeyFrame(stateTime, true);
 		// If the player is not facing right, draw the player with negative width to

@@ -1,5 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 public class Enemy {
@@ -21,7 +23,7 @@ public class Enemy {
     }
     //All subclasses should have one draw method that calls batch.draw()
     public void draw(float targetX, float targetY){}
-
+    public void drawHitbox(ShapeRenderer shapeRenderer){};
     //All subclasses must have a createAnimation method
     public void createAnimation(){}
 

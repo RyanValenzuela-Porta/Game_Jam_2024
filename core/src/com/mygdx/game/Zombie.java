@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Zombie extends Enemy {
@@ -50,7 +51,11 @@ public class Zombie extends Enemy {
             batch.setColor(1, 1, 1, 1);
         }
     }
-
+    @Override
+    public void drawHitbox(ShapeRenderer shapeRenderer){
+        shapeRenderer.rect(enemyX, enemyY, width,
+        height);
+    }
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {
         if (enemyX > targetX) {
             enemyX -= (Gdx.graphics.getDeltaTime() * speed);
@@ -68,7 +73,7 @@ public class Zombie extends Enemy {
         }
 
         batch.draw(currentFrame, !facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
-        enemy_hitbox = new Rectangle(!facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width,
+        enemy_hitbox = new Rectangle(enemyX, enemyY, width,
                 height);
     }
 
