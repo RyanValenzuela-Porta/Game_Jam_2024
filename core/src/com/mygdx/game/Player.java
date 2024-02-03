@@ -73,11 +73,12 @@ public class Player {
 		hearts = new Texture(Gdx.files.internal("hearts.png"));
 		fullHeart = new TextureRegion(hearts,0,0,13,12 );
 		halfHeart = new TextureRegion(hearts,16,0,13,12 );
-		halfHeart = new TextureRegion(hearts,32,0,13,12 );
+		emptyHeart = new TextureRegion(hearts,32,0,13,12 );
 		heartList.clear();
+		int tempHp = hp;
 		//fill up the array list
 		for(int i=0;i<maxhp/2;i++){
-			int tempHp = hp;
+			
 			if(tempHp>=2){ //Health greater than or equal to 2
 				heartList.add(1f);
 				tempHp-=2;
@@ -88,7 +89,7 @@ public class Player {
 				heartList.add(0f);
 			}
 		}
-
+		System.out.println(heartList.toString());
 		//draw the array list of hearts to the screen
 		for(int i=0;i<heartList.size();i++){
 			if(heartList.get(i)==1){
@@ -145,7 +146,6 @@ public class Player {
 
 		player_hitbox = new Rectangle(!facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 				height);
-		shaperender = new ShapeRenderer();
 		stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion walkFrame = walkAnimation.getKeyFrame(stateTime, true);
 		// If the player is not facing right, draw the player with negative width to
@@ -232,7 +232,9 @@ public class Player {
 	public int getHP() {
 		return hp;
 	}
-
+	public void resetHp(){
+		hp = maxhp;
+	}
 	public float getDmg() {
 		return dmg;
 	}
@@ -252,9 +254,12 @@ public class Player {
 
 	public void increaseHP(int x) {
 		hp += x;
+		// /maxhp += x;
+	}
+	public void increaseHPUpgrade(int x) {
+		hp += x;
 		maxhp += x;
 	}
-
 	public boolean isFacingRight() {
 		return facingRight;
 	}
