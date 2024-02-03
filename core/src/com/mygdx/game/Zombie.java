@@ -14,6 +14,7 @@ public class Zombie extends Enemy {
     Texture zombieSheet;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
+    float prevX =0,prevY=0;
 
     public Zombie(SpriteBatch newBatch) {
         batch = newBatch;
@@ -59,6 +60,8 @@ public class Zombie extends Enemy {
         height);
     }
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {
+        prevX = enemyX;
+        prevY = enemyY;
         if (enemyX > targetX) {
             enemyX -= (Gdx.graphics.getDeltaTime() * speed);
             facingRight = false;
@@ -107,4 +110,9 @@ public class Zombie extends Enemy {
     public boolean getAlive() {
         return alive;
     }
+    public float getPrevX(){ return prevX;}
+    public float getPrevY(){return prevY;}
+
+    public void setX(float x) { enemyX = x; }
+    public void setY(float y) { enemyY = y; }
 }

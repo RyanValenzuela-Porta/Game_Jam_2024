@@ -189,7 +189,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			Gdx.app.exit();
 		}
 
-		if (player.getHP() < 0) {
+		if (player.getHP() <= 0) {
 			gameState = 2;
 		}
 	}
