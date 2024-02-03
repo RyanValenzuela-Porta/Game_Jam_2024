@@ -11,7 +11,7 @@ import com.badlogic.gdx.audio.Sound;
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     String[][][] waveList = { { { "EnemyType1", "1" }, { "EnemyType2", "0" }, { "EnemyType3", "0" } },
-            { { "EnemyType1", "1" }, { "EnemyType2", "0" }, { "EnemyType3", "0" } },
+            { { "EnemyType1", "5" }, { "EnemyType2", "0" }, { "EnemyType3", "0" } },
             { { "EnemyType1", "10" }, { "EnemyType2", "10" }, { "EnemyType3", "10" } } };
     
     SpriteBatch batch;
@@ -88,8 +88,6 @@ public class Enemies {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() < 0) {
                 enemies.get(i).setAlive(false);
-                System.out.println("killed 1 enemy");
-                //spawnEnemies(wave);
             }
         }
     }
