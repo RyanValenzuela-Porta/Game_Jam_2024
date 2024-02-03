@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+
 import java.util.Random;
 public class Zombie extends Enemy{
     
     private static final int cols = 8, rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture zombieSheet;
-
-
+    Rectangle enemy_hitbox;
+    float hp = 200;
     SpriteBatch batch;
     public Zombie(SpriteBatch newBatch){
         batch = newBatch;
@@ -66,7 +68,9 @@ public class Zombie extends Enemy{
         if(enemyY < targetY){
             enemyY += (Gdx.graphics.getDeltaTime() * speed);
         }
+
         batch.draw(currentFrame, !facingRight ? enemyX+width : enemyX,enemyY,!facingRight ? -width:width,height);
+        enemy_hitbox = new Rectangle( !facingRight ? enemyX+width : enemyX,enemyY,!facingRight ? -width:width,height);
     }
 
     public void createAnimation(){
@@ -87,7 +91,14 @@ public class Zombie extends Enemy{
         stateTime = 0f;
     }
 
+
+
     public void dispose(){
         zombieSheet.dispose();
     }
+
+    public Rectangle getHitbox() {
+        return enemy_hitbox;
+    }
+
 }

@@ -35,7 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
 		// zombie = new Zombie(batch);
-		enemies = new Enemies(batch, player);
+		enemies = new Enemies(batch, player, sword);
 		// Note that all of this is set as soon as the game opens, may want to change
 		// this later for startup screen.
 		music.load();

@@ -21,14 +21,14 @@ public class Player {
 	private SpriteBatch batch;
 	private float playerX = 505;
 	private float playerY = 327;
-	private float speed = 200;
-	private int hp;
+	private float speed = 2000;
+	private int hp = 200;
 	private float regen;
 	private float dmg;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
-	private Rectangle player_hitbox, sword_hitbox;
+	private Rectangle player_hitbox;
 	private ShapeRenderer shaperender;
 
 	public Player(SpriteBatch newBatch) {
@@ -52,6 +52,9 @@ public class Player {
 		int maxX = 1205;
 		int minX = 52;
 		// No input being pressed
+		if (hp < 0) {
+			System.out.println("dead");
+		}
 		if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S)
 				&& !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
 			// If the player is not facing right, draw the player with negative width to
@@ -109,9 +112,23 @@ public class Player {
 		standAnimation = new Animation<TextureRegion>(0.5f, standFrames);
 		stateTime = 0f;
 	}
+	// start of upgrade methods...
+
+	public void changeHP(int newmax) {
+		// this can be used to upgrade / downgrade hp depending on upgrade choice
+		hp = newmax;
+	}
+
+	public void setSpeed(float newspeed) {
+		speed = newspeed;
+	}
 
 	public float getPlayerX() {
 		return playerX;
+	}
+
+	public int getHP() {
+		return hp;
 	}
 
 	public float getPlayerY() {
@@ -121,13 +138,4 @@ public class Player {
 	public boolean isFacingRight() {
 		return facingRight;
 	}
-
-	public void setPlayerX(int xCoord) {
-		playerX = xCoord;
-	}
-
-	public void setPlayerY(int yCoord) {
-		playerY = yCoord;
-	}
-
 }
