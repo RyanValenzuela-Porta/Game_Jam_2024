@@ -1,13 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.Keys;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,11 +9,8 @@ public class Upgrades {
     private SpriteBatch batch;
     private Player player;
     private Texture leftUpgrade = new Texture("leftupgrade.png");
-    private Boolean leftHovered = false;
     private Texture rightUpgrade = new Texture("rightupgrade.png");
-    private Boolean rightHovered = false;
-    private Rectangle leftHitbox;
-    private Rectangle rightHitbox;
+
     private float leftX;
     private float Y;
     private float rightX;
@@ -43,7 +34,7 @@ public class Upgrades {
                 System.out.println("+speed");
                 break;
             case 1:
-                player.increaseHP(50);
+                player.increaseHP(2);
                 System.out.println("+hp");
                 break;
             case 2:
@@ -57,7 +48,7 @@ public class Upgrades {
                 System.out.println("-speed");
                 break;
             case 1:
-                player.increaseHP(-50);
+                player.increaseHP(-2);
                 System.out.println("-hp");
                 break;
             case 2:
@@ -76,9 +67,7 @@ public class Upgrades {
         leftX = 385;
         rightX = 555;
         batch.draw(leftUpgrade, leftX, Y);
-        leftHitbox = new Rectangle(100, 100, leftX, Y);
         batch.draw(rightUpgrade, rightX, Y);
-        rightHitbox = new Rectangle(100, 100, rightX, Y);
     }
 
     public void leftHovered() {

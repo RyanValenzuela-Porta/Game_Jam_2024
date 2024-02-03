@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Pumpkin extends Enemy{
-    private static final int cols = 8, rows = 1;
+    private static final int rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture pumpkinSheet;
     Rectangle enemy_hitbox;
@@ -67,8 +67,7 @@ public class Pumpkin extends Enemy{
         }
 
         batch.draw(currentFrame, !facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
-        enemy_hitbox = new Rectangle(!facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width,
-                height);
+        enemy_hitbox = new Rectangle(!facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
     }
 
     public void createAnimation() {

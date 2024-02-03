@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Zombie extends Enemy {
 
-    private static final int cols = 8, rows = 1;
+    private static final int rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture zombieSheet;
     Rectangle enemy_hitbox;

@@ -1,36 +1,25 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "5" }, { "Pumpkin", "0" }, { "Pumpkin", "0" } },
+    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "3" }, { "Pumpkin", "0" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
-
     Player player;
     Sword sword;
     int aliveCount;
-    private AssetManager assetManager;
-    private Sound sound;
-    private int wave;
 
     public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword) {
         batch = newBatch;
         player = newPlayer;
         sword = newSword;
-        assetManager = new AssetManager();
     }
 
     public void spawnEnemies(int wave) {
-
         for (int j = 0; j < waveList[wave].length; j++) {
             switch (waveList[wave][j][0]) {
                 case "Pumpkin":
@@ -49,7 +38,6 @@ public class Enemies {
                         enemies.add(new Zombie(batch));
                     }
                     break;
-
             }
         }
     }
@@ -63,7 +51,7 @@ public class Enemies {
             }
             // if enemy hits player
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
-                player.increaseHP(-5);
+                player.increaseHP(-1);
             }
         }
         return false;
