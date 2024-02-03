@@ -67,6 +67,7 @@ public class Player {
 																	// to whether heart is full
 	private boolean invincible=false;
 	private int invincibilityTimer=0;
+	private boolean invincibleCooldownTimerRunning=false;
 	private int invincibilityCooldownTimer=0;
 	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch, ShapeRenderer newShapeRenderer) {
 		batch = newBatch;
@@ -128,9 +129,18 @@ public class Player {
 			if(invincibilityTimer==180){
 				invincible=false;
 				invincibilityTimer=0;
+				invincibleCooldownTimerRunning=true;
 			}
 		}
-
+		if(invincibleCooldownTimerRunning){
+			if(invincibilityCooldownTimer==30){
+				invincibleCooldownTimerRunning=false;
+			}
+			invincibilityCooldownTimer++;
+			
+		}else{
+			invincibilityCooldownTimer=0;
+		}
 		if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S)
 				&& !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
 			// If the player is not facing right, draw the player with negative width to
@@ -193,7 +203,10 @@ public class Player {
 		if (isHit) {
 			control(hitFrame, standHitFrame);
 			isHit = false;
-			invincible=true;
+			if(!invincibleCooldownTimerRunning){
+				invincible=true;
+			}
+			
 		} else {
 			control(walkFrame, standFrame);
 		}
