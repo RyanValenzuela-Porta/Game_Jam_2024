@@ -1,10 +1,5 @@
 package com.mygdx.game;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 public class Enemy {
@@ -22,18 +17,13 @@ public class Enemy {
     Random randomiser = new Random();
     public Enemy createEnemy(){
         Zombie test = new Zombie(batch);
-
         return test;
     }
     //All subclasses should have one draw method that calls batch.draw()
-    public void draw(float targetX, float targetY){
-
-    }
+    public void draw(float targetX, float targetY){}
 
     //All subclasses must have a createAnimation method
-    public void createAnimation(){
-
-    }
+    public void createAnimation(){}
 
     //Getters and setters are shared between all methods
     public float getWidth() {
