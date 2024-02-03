@@ -80,6 +80,7 @@ public class Sword {
             sound.swordplay();
         } else {
             displaySword();
+            sound.restart();
         }
         if (facingRight) {
             batch.draw(swordimg, swordX + 8, swordY - 3); // adjust x and y slightly so sword appears infront of player
