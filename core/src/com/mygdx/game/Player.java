@@ -44,7 +44,7 @@ public class Player {
 	private float speed = 200;
 	private float baseSpeed = 200;
 	private float sprintSpeed = 400;
-	private int hp = 1000;
+	private int hp = 6;
 	private int maxhp = 3;
 	private float dmg = 20;
 	private boolean facingRight = true;

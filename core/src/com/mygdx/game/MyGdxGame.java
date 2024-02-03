@@ -49,8 +49,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		// death screen
 		deathScreen = new SpriteBatch();
-		dead = new Texture("death.png");
-
+		dead = new Texture("endscreen.png");
 
 		newCreate();
 	}
@@ -70,9 +69,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render() {
 		switch (gameState) {
 			case 0:
-				
 				renderGameMap();
-				
 				break;
 			case 1:
 				screen.begin();
@@ -84,6 +81,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				break;
 			case 2: // player dies
 				renderDeathScreen();
+		}
+		// close game after pressing Esc button
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
 		}
 
 	}
@@ -157,11 +158,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.end();
 		renderHUD();
 
-		
-		// close game after pressing Esc button
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
 
 		if (player.getHP() < 0) {
 			gameState = 2;
