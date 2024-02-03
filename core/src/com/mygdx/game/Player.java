@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,9 +32,20 @@ public class Player {
 	private float height = 16;
 	private Rectangle player_hitbox;
 	private ShapeRenderer shaperender;
+	int aliveCount;
+	private AssetManager assetManager;
+	private Sound sound;
+
+
 	public Player(SpriteBatch newBatch) {
 		batch = newBatch;
 		createIdleAnimation();
+		assetManager = new AssetManager();
+		assetManager.load("playerdeath.mp3", Sound.class);
+		assetManager.finishLoading();
+		sound = assetManager.get("playerdeath.mp3", Sound.class);
+
+
 	}
 
 	public void draw() {
@@ -50,7 +63,7 @@ public class Player {
 		int minX = 52;
 		//No input being pressed
 		if (hp < 0) {
-			System.out.println("dead");
+			sound.play();
 		}
 		if(!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
 			//If the player is not facing right, draw the player with negative width to flip them.
@@ -107,6 +120,11 @@ public class Player {
 		standAnimation = new Animation<TextureRegion>(0.5f, standFrames);
         stateTime = 0f;
 	}
+
+
+
+
+
 	// start of upgrade methods...
 
 	public void changeHP(int newmax) {
@@ -117,7 +135,13 @@ public class Player {
 		speed = newspeed;
 	}
 
-	
+
+
+
+
+
+
+
 
 	public float getPlayerX() {
 		return playerX;

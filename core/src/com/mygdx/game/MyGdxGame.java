@@ -13,6 +13,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Sword sword;
 	Player player;
 	Map map;
+	SpriteBatch deathScreen;
 	OrthographicCamera camera = new OrthographicCamera();
 	Soundtrack music;
 	int gameState=1; //gameState 0 means load the actual game, 1 means load the start screen, more states can be added later
@@ -22,6 +23,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Enemies enemies;
 	SpriteBatch screen;
 	Texture start;
+	private Texture dead;
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
@@ -39,7 +41,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		map = new Map();
 
 		screen = new SpriteBatch();
-        start = new Texture("menu.jpg");   
+		deathScreen = new SpriteBatch();
+        start = new Texture("menu.jpg");
+		dead = new Texture("death.png");
 	}
 
 	@Override
@@ -51,7 +55,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			case 1:
 				renderStartScreen();
 				break;
+			case 2: // player dies
+				renderDeathScreen();
 		}
+
 
 	}
 	public void renderStartScreen(){
@@ -98,6 +105,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 					Gdx.app.exit();
 				}
+
+				if (player.getHP() < 0) {
+					gameState = 2;
+				}
 	}
 	@Override
 	public void resize(int width, int height) {
@@ -105,6 +116,23 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera.viewportHeight = 450f * height / width;
 		camera.update();
 	}
+	public void renderDeathScreen() {
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			Gdx.app.exit();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			player = new Player(batch);
+			sword = new Sword(batch);
+			enemies= new Enemies(batch,player,sword);
+			waveStarted = false;
+			gameState = 1;
+		}
+		deathScreen.begin();
+		deathScreen.draw(dead, camera.viewportWidth, camera.viewportHeight);
+		deathScreen.end();
+	}
+
 
 	@Override
 	public void dispose() {
@@ -112,6 +140,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		music.dispose();
 		player.dispose();
 		map.dispose();
+		sword.dispose();
+
 		//zombie.dispose();
 	}
 }

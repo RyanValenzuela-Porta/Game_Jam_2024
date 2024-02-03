@@ -100,5 +100,7 @@ public class Zombie extends Enemy{
     public Rectangle getHitbox() {
         return enemy_hitbox;
     }
-
+    public boolean getAlive() {
+        return alive;
+    }
 }
