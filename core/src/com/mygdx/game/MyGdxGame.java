@@ -21,7 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	int gameState = 1; // gameState 0 means load the actual game, 1 means load the start screen, more
 						// states can be added later
 	// Zombie zombie;
-	int wave = 1;
+	int wave = 0;
 	boolean waveStarted = false;
 	Enemies enemies;
 	SpriteBatch screen;
@@ -87,13 +87,15 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-				System.out.println("left clicked");
+				wave++;
+				System.out.println("WAVES HAS BEEN INCREMENTED");
 			}
 		} else if (Gdx.input.getX() > 1800 && Gdx.input.getX() < 1940
 				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-				System.out.println("right clicked");
+				wave++;
+				System.out.println("WAVES HAS BEEN INCREMENTED");
 			}
 		} else {
 			upgrades.leftNotHovered();
@@ -127,7 +129,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			enemies.spawnEnemies(wave);
 			waveStarted = true;
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+		if (enemies.checkEndOfWave()) {
 			upgradeSelect();
 		}
 		// zombie.draw(player.getPlayerX(),player.getPlayerY());
