@@ -213,6 +213,7 @@ public class Player {
 		int maxX = 1205;
 		int minX = 52;
 		// No input being pressed
+		// System.out.println(hp);
 		if (hp < 0) {
 			sound.play();
 		}
@@ -240,7 +241,7 @@ public class Player {
 				facingRight = true;
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				speed =400;
+				speed = 400;
 			}
 			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
