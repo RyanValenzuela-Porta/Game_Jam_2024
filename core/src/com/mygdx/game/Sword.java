@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +42,12 @@ public class Sword {
     public Sword(SpriteBatch newBatch) {
         batch = newBatch;
         displaySword();
+    }
+
+    public void update(float playerX, float playerY, boolean facing){
+        swordX = playerX;
+        swordY = playerY;
+        facingRight = facing;
     }
 
     public void displaySword() {
