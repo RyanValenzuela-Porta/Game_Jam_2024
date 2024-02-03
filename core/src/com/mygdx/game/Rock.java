@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Rock extends Projectile{
-
-    private static final int rows = 1;
     Texture rockSheet;
     Rectangle rock_hitbox;
     SpriteBatch batch;
@@ -19,11 +17,12 @@ public class Rock extends Projectile{
         projectileX = enemyX; //This is where the rock will spawn - change so its not random.
         projectileY = enemyY;
         speed = 150;
-        width = 32;
-        height = 32;
+        width = 10;
+        height = 10;
         hp = 50;
         spawn = true;
         active = true;
+
     }
 
     @Override
@@ -33,7 +32,7 @@ public class Rock extends Projectile{
         Texture currentFrame = new Texture(Gdx.files.internal("rock.png"));
         TextureRegion rock = new TextureRegion(currentFrame,10,10);
         if (spawn) {
-            batch.draw(rock, projectileX, projectileY,50,50);
+            batch.draw(rock, projectileX, projectileY,width,height);
             spawn = false;
         }
         if (active) {
@@ -55,7 +54,7 @@ public class Rock extends Projectile{
             projectileY += (Gdx.graphics.getDeltaTime() * speed);
         }
         
-        batch.draw(rock, projectileX, projectileY,16,16);
+        batch.draw(rock, projectileX, projectileY,width,height);
 
     }
 

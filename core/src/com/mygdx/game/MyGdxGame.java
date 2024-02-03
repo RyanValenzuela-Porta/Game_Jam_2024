@@ -32,6 +32,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	int wave;
 	boolean waveStarted;
 	Enemies enemies;
+	checkCollidable collideCheck;
 
 	@Override
 	public void create() {
@@ -64,6 +65,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword, shapeRenderer);
+		collideCheck = new checkCollidable(player, enemies, sword);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;

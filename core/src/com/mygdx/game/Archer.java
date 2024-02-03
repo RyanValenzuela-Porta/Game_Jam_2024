@@ -98,7 +98,7 @@ public class Archer extends Enemy{
 
     public void drawHitbox(ShapeRenderer renderer){
         
-		renderer.circle(enemyX, enemyY, 50);
+		renderer.circle(enemyX+8, enemyY+8, 100);
     }
 
     public void dispose() {
