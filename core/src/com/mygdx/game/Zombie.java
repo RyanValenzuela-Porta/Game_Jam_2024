@@ -1,5 +1,4 @@
 package com.mygdx.game;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -7,15 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.util.Random;
-
 public class Zombie extends Enemy {
 
     private static final int cols = 8, rows = 1;
     Animation<TextureRegion> huntAnimation;
     Texture zombieSheet;
     Rectangle enemy_hitbox;
-
     SpriteBatch batch;
 
     public Zombie(SpriteBatch newBatch) {
@@ -52,9 +48,7 @@ public class Zombie extends Enemy {
             batch.setColor(0.1f, 0.1f, 0.1f, 0.7f);
             batch.draw(currentFrame, enemyX, enemyY);
             batch.setColor(1, 1, 1, 1);
-
         }
-
     }
 
     public void hunt(TextureRegion currentFrame, float targetX, float targetY) {

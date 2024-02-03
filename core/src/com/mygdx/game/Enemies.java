@@ -10,9 +10,8 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "EnemyType1", "1" }, { "EnemyType2", "0" }, { "EnemyType3", "0" } },
-            { { "EnemyType1", "5" }, { "EnemyType2", "0" }, { "EnemyType3", "0" } },
-            { { "EnemyType1", "10" }, { "EnemyType2", "10" }, { "EnemyType3", "10" } } };
+    String[][][] waveList = { { { "Pumpkin", "5" }, { "Pumpkin", "0" }, { "Pumpkin", "0" } },
+                              { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0"}}};
     
     SpriteBatch batch;
 
@@ -34,13 +33,13 @@ public class Enemies {
 
         for (int j = 0; j < waveList[wave].length; j++) {
             switch (waveList[wave][j][0]) {
-                case "EnemyType1":
+                case "Pumpkin":
                     for(int k=0; k<Integer.valueOf(waveList[wave][j][1]); k++){
-                        enemies.add(new Zombie(batch));
+                        enemies.add(new Pumpkin(batch));
                     }
                     break;
 
-                case "EnemyType2":
+                case "Zombie":
                     for(int k=0; k<Integer.valueOf(waveList[wave][j][1]); k++){
                         enemies.add(new Zombie(batch));
                     }
@@ -94,6 +93,7 @@ public class Enemies {
 
     public boolean checkEndOfWave(){
         if(countAliveEnemies() == 0){
+            enemies.clear();
             return true;
         }else{
             return false;
