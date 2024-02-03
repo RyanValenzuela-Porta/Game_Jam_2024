@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "3" }, { "Pumpkin", "0" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Archer", "2" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
@@ -33,9 +33,9 @@ public class Enemies {
                         enemies.add(new Zombie(batch));
                     }
                     break;
-                case "EnemyType3":
+                case "Archer":
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
-                        enemies.add(new Zombie(batch));
+                        enemies.add(new Archer(batch));
                     }
                     break;
             }
