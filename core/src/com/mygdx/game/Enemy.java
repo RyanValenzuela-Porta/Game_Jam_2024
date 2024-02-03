@@ -24,7 +24,7 @@ public class Enemy {
     }
     //All subclasses should have one draw method that calls batch.draw()
     public void draw(float targetX, float targetY){}
-
+    public void drawHitbox(ShapeRenderer shapeRenderer){};
     //All subclasses must have a createAnimation method
     public void createAnimation(){}
 
@@ -85,6 +85,5 @@ public class Enemy {
         return enemy_hitbox;
     }
 
-    public void drawHitbox(ShapeRenderer renderer){}
 
 }

@@ -32,26 +32,33 @@ public class Sword {
     private float swordX = 505;
     private float swordY = 327;
 
-    private float width = 16;
-    private float height = 16;
+    private float width = 21;
+    private float height = 9;
     private boolean facingRight;
     private boolean swordswung;
     SoundEffects sound;
 
-    private ShapeRenderer shaperender;
+    private ShapeRenderer shapeRenderer;
 
-    public Sword(SpriteBatch newBatch) {
+    public Sword(SpriteBatch newBatch,ShapeRenderer newShapeRenderer) {
         batch = newBatch;
         sound = new SoundEffects();
         displaySword();
+        shapeRenderer = newShapeRenderer;
     }
 
-    public void update(float playerX, float playerY, boolean facing){
-        swordX = playerX;
+    public void update(float playerX, float playerY, boolean newFacingRight){
+        facingRight = newFacingRight;
+        swordX = facingRight? playerX+10:playerX-10;
         swordY = playerY;
-        facingRight = facing;
+        
     }
+    public void drawHitbox(){
+		
 
+		shapeRenderer.rect(swordX, swordY, width,
+		height);
+	}
     public void displaySword() {
         if (facingRight) {
             swordimg = new Texture("swordRIGHT.png");
@@ -73,18 +80,19 @@ public class Sword {
     public void draw() {
         sword_hitbox = new Rectangle(swordX, swordY,width,
                 height);
-        shaperender = new ShapeRenderer();
+        //shaperender = new ShapeRenderer();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             swingSword();
             sound.swordplay();
         } else {
             displaySword();
+            sound.restart();
         }
         if (facingRight) {
-            batch.draw(swordimg, swordX + 8, swordY - 3); // adjust x and y slightly so sword appears infront of player
+            batch.draw(swordimg, swordX , swordY ); // adjust x and y slightly so sword appears infront of player
         } else {
-            batch.draw(swordimg, swordX - 18, swordY - 3); // adjust x and y slightly so sword appears infront of player
+            batch.draw(swordimg, swordX , swordY ); // adjust x and y slightly so sword appears infront of player
         }
 
     }
