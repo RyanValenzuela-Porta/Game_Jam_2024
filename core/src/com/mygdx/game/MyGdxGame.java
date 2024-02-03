@@ -103,6 +103,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	public void upgradeSelect() {
+		upgrades.generateUpgradeLeft();
+		upgrades.generateUpgradeRight();
 		upgrades.draw();
 
 		// move player back to start so buttons are in correct place
@@ -113,7 +115,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-				upgrades.generateUpgrade();
+				upgrades.applyUpgradeL();
 				wave++;
 				waveStarted = false;
 			}
@@ -121,7 +123,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-				upgrades.generateUpgrade();
+				upgrades.applyUpgradeR();
 				wave++;
 				waveStarted = false;
 			}
@@ -161,7 +163,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		enemies.draw();
 		batch.end();
 		renderHUD();
-
 
 		if (player.getHP() < 0) {
 			gameState = 2;
