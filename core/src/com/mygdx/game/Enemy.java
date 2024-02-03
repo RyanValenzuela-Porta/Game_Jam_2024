@@ -22,6 +22,7 @@ public class Enemy {
     Random randomiser = new Random();
     public Enemy createEnemy(){
         Zombie test = new Zombie(batch);
+
         return test;
     }
     //All subclasses should have one draw method that calls batch.draw()
