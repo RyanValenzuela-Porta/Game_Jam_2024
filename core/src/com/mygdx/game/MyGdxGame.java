@@ -143,7 +143,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		// All draw methods here
 		if(player.isHit){
-			player.drawHit();
+			//player.drawHit();
+			player.draw();
 		} else{
 			player.draw();
 		}

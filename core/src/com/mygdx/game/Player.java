@@ -147,7 +147,7 @@ public class Player {
 
 	public void draw() {
 
-		player_hitbox = new Rectangle(!facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
+		player_hitbox = new Rectangle(playerX, playerY, width,
 				height);
 		shaperender = new ShapeRenderer();
 		stateTime += Gdx.graphics.getDeltaTime();

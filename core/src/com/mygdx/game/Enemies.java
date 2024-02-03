@@ -52,7 +52,7 @@ public class Enemies {
             // if enemy hits player
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
                 player.setState(true);
-                player.increaseHP(-1);
+                player.increaseHP(1);
             }
         }
         return false;

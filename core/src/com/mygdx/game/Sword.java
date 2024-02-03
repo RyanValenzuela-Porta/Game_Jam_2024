@@ -69,7 +69,7 @@ public class Sword {
     }
 
     public void draw() {
-        sword_hitbox = new Rectangle(!facingRight ? swordX + width : swordX, swordY, !facingRight ? -width : width,
+        sword_hitbox = new Rectangle(swordX, swordY,width,
                 height);
         shaperender = new ShapeRenderer();
 
