@@ -51,8 +51,10 @@ public class Archer extends Enemy{
 
         if (alive) {
             currentFrame = huntAnimation.getKeyFrame(stateTime, true);
+            if (collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox())){
+                rock.deactivate();;
+            }
             rock.draw(targetX, targetY);
-            collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox());
             hunt(currentFrame, targetX, targetY);
         } else {
 

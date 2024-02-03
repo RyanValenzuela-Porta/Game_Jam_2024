@@ -42,7 +42,6 @@ public class Rock extends Projectile{
         }
         if (active) {
             hunt(rock, targetX, targetY);
-            
         }
     }
 
@@ -86,5 +85,8 @@ public class Rock extends Projectile{
         return active;
     }
 
+    public void deactivate(){
+        active = false;
+    }
     
 }
