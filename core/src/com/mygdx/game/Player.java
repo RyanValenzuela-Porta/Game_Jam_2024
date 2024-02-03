@@ -38,7 +38,7 @@ public class Player {
 	private float playerY = 327;
 	private float speed = 200;
 	private int hp = 6;
-	private int maxhp = 6;
+	private int maxhp = 3;
 	private float regen;
 	private float dmg;
 	private boolean facingRight = true;
@@ -59,9 +59,6 @@ public class Player {
 		assetManager.finishLoading();
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
 		hudBatch = newHudBatch;
-		heartList.add(1f);
-		heartList.add(1f);
-		heartList.add(1f);
 	}
 	public void drawHearts(){
 		int heartSize = 50;
@@ -69,7 +66,31 @@ public class Player {
 		fullHeart = new TextureRegion(hearts,0,0,13,12 );
 		halfHeart = new TextureRegion(hearts,16,0,13,12 );
 		halfHeart = new TextureRegion(hearts,32,0,13,12 );
-		hudBatch.draw(fullHeart,10,10,heartSize,heartSize);
+		heartList.clear();
+		//fill up the array list
+		for(int i=0;i<maxhp/2;i++){
+			int tempHp = hp;
+			if(tempHp>=2){ //Health greater than or equal to 2
+				heartList.add(1f);
+				tempHp-=2;
+			}else if(tempHp==1){ //Health is 1
+				heartList.add(0.5f);
+				tempHp-=1;
+			}else{
+				heartList.add(0f);
+			}
+		}
+
+		//draw the array list of hearts to the screen
+		for(int i=0;i<heartList.size();i++){
+			if(heartList.get(i)==1){
+				hudBatch.draw(fullHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}else if(heartList.get(i)==0.5){
+				hudBatch.draw(halfHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}else{
+				hudBatch.draw(emptyHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}
+		}
 		//System.out.println("draw hearts is called");
 	}
 	public void draw() {
