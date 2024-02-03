@@ -5,13 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class MyGdxGame extends ApplicationAdapter {
-
+	ShapeRenderer shapeRenderer;
 	SpriteBatch batch;
 	SpriteBatch hudBatch;
 	OrthographicCamera camera;
@@ -20,7 +22,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	Texture dead;
 	SpriteBatch deathScreen;
 	Menu menu;
-	ShapeRenderer shapeRenderer;
 	Texture upgradeText;
 
 	Sword sword;
@@ -35,11 +36,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create() {
-
+		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		player = new Player(batch, hudBatch);
+		player = new Player(batch,hudBatch,shapeRenderer);
 		music = new Soundtrack();
 		music.load();
 		shapeRenderer = new ShapeRenderer();
@@ -60,8 +61,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void newCreate() {
 		gameState = 1;
-		player = new Player(batch, hudBatch);
-		sword = new Sword(batch);
+		player = new Player(batch,hudBatch,shapeRenderer);
+		sword = new Sword(batch,shapeRenderer);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword, shapeRenderer);
 		waveStarted = false;
@@ -172,6 +173,18 @@ public class MyGdxGame extends ApplicationAdapter {
 		shapeRenderer.end();
 
 		renderHUD();
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(1, 1, 0, 1);
+		player.drawHitbox();
+		sword.drawHitbox();
+		enemies.drawHitboxes(shapeRenderer);
+		shapeRenderer.end();
+		
+		// close game after pressing Esc button
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
 
 		if (player.getHP() < 0) {
 			gameState = 2;

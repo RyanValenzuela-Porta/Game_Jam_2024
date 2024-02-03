@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Archer", "2" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "10" }, { "Archer", "0" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
@@ -56,7 +56,7 @@ public class Enemies {
             // if enemy hits player
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
                 player.setState(true);
-                player.increaseHP(1);
+                player.increaseHP(-1);
             }
         }
         return false;
@@ -84,6 +84,9 @@ public class Enemies {
         }
     }
 
+    public void drawHitboxes(ShapeRenderer shapeRenderer){
+        enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
+    }
     public boolean checkEndOfWave() {
         if (countAliveEnemies() == 0) {
             enemies.clear();
