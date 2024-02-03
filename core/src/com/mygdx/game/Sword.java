@@ -23,6 +23,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
+
 public class Sword {
     // sword should be tied to player at all times
     Texture swordimg;
@@ -38,7 +39,8 @@ public class Sword {
     private boolean swordswung;
 
     private ShapeRenderer shaperender;
-    public Sword(SpriteBatch newBatch ) {
+
+    public Sword(SpriteBatch newBatch) {
         batch = newBatch;
         displaySword();
     }
@@ -46,46 +48,43 @@ public class Sword {
     public void displaySword() {
         if (facingRight) {
             swordimg = new Texture("swordRIGHT.png");
-        }
-        else {
+        } else {
             swordimg = new Texture("sword.png");
         }
         swordswung = false;
     }
-    public void swingSword(){
+
+    public void swingSword() {
         if (facingRight) {
             swordimg = new Texture("swordswungRIGHT.png");
-        }
-        else {
+        } else {
             swordimg = new Texture("swordswung.png");
         }
         swordswung = true;
     }
+
     public void draw() {
-        sword_hitbox = new Rectangle( !facingRight ? swordX+width : swordX,swordY,!facingRight ? -width:width,height);
+        sword_hitbox = new Rectangle(!facingRight ? swordX + width : swordX, swordY, !facingRight ? -width : width,
+                height);
         shaperender = new ShapeRenderer();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             swingSword();
-        }
-        else {
+        } else {
             displaySword();
         }
         if (facingRight) {
-            batch.draw(swordimg,swordX+8,swordY-3); // adjust x and y slightly so sword appears infront of player
+            batch.draw(swordimg, swordX + 8, swordY - 3); // adjust x and y slightly so sword appears infront of player
+        } else {
+            batch.draw(swordimg, swordX - 18, swordY - 3); // adjust x and y slightly so sword appears infront of player
         }
-        else {
-            batch.draw(swordimg,swordX-18,swordY-3); // adjust x and y slightly so sword appears infront of player
-        }
-
-
-
 
     }
 
     public void dispose() {
         swordimg.dispose();
     }
+
     public float getSwordX() {
         return (swordX);
     }
@@ -99,8 +98,9 @@ public class Sword {
     }
 
     public void setSwordY(float y) {
-        swordY =y;
+        swordY = y;
     }
+
     public void setDirectionFacing(boolean bool) {
         facingRight = bool;
     }

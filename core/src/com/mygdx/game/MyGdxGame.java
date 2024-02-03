@@ -67,7 +67,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				screen.begin();
 				menu.render();
 				screen.end();
-				if(menu.check()){
+				if (menu.check()) {
 					gameState = 0;
 				}
 				break;
@@ -161,7 +161,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			player = new Player(batch);
 			sword = new Sword(batch);
 			enemies = new Enemies(batch, player, sword);
