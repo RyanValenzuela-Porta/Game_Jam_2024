@@ -1,15 +1,18 @@
 package com.mygdx.game;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class MyGdxGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
+	SpriteBatch hudBatch;
 	OrthographicCamera camera;
 	Map map;
 	SpriteBatch screen;
@@ -32,7 +35,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
-
+		hudBatch = new SpriteBatch();
+		player = new Player(batch,hudBatch);
 		music = new Soundtrack();
 		music.load();
 
@@ -46,12 +50,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		// death screen
 		deathScreen = new SpriteBatch();
 		dead = new Texture("death.png");
+
+
 		newCreate();
 	}
 
 	public void newCreate(){
 		gameState = 1;
-		player = new Player(batch);
+		player = new Player(batch,hudBatch);
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword);
@@ -64,7 +70,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render() {
 		switch (gameState) {
 			case 0:
+				
 				renderGameMap();
+				
 				break;
 			case 1:
 				screen.begin();
@@ -77,8 +85,16 @@ public class MyGdxGame extends ApplicationAdapter {
 			case 2: // player dies
 				renderDeathScreen();
 		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
+
+	}
+	public void renderHUD(){
+		hudBatch.begin();
+		player.drawHearts();
+		hudBatch.end();
+	}
+	public void renderStartScreen() {
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			gameState = 0;
 		}
 	}
 
@@ -92,6 +108,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				upgrades.generateUpgrade();
 				wave++;
 				waveStarted = false;
 			}
@@ -99,6 +116,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				upgrades.generateUpgrade();
 				wave++;
 				waveStarted = false;
 			}
@@ -136,8 +154,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		enemies.draw();
 		batch.end();
+		renderHUD();
 
-		// change to deathscreen after death
+		
+		// close game after pressing Esc button
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
+
 		if (player.getHP() < 0) {
 			gameState = 2;
 		}
@@ -148,6 +172,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera.viewportWidth = 450f;
 		camera.viewportHeight = 450f * height / width;
 		camera.update();
+
+		
 	}
 
 	public void renderDeathScreen() {
@@ -168,5 +194,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.dispose();
 		map.dispose();
 		sword.dispose();
+		hudBatch.dispose();
+		// zombie.dispose();
 	}
 }
