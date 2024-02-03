@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import java.util.ArrayList;
+
 public class Player {
 	/**
 	 * List:
@@ -37,10 +38,12 @@ public class Player {
 	private float playerX = 505;
 	private float playerY = 327;
 	private float speed = 200;
+	private float baseSpeed = 200;
+	private float sprintSpeed = 400;
 	private int hp = 6;
 	private int maxhp = 3;
 	private float regen;
-	private float dmg;
+	private float dmg = 20;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
@@ -49,9 +52,10 @@ public class Player {
 	int aliveCount;
 	private AssetManager assetManager;
 	private Sound sound;
-	private ArrayList<Float> heartList=new ArrayList<Float>(); //array list that can store 0, 0.5, or 1 corresponding to whether heart is full
+	private ArrayList<Float> heartList = new ArrayList<Float>(); // array list that can store 0, 0.5, or 1 corresponding
+																	// to whether heart is full
 
-	public Player(SpriteBatch newBatch,SpriteBatch newHudBatch) {
+	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch) {
 		batch = newBatch;
 		createIdleAnimation();
 		assetManager = new AssetManager();
@@ -60,7 +64,8 @@ public class Player {
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
 		hudBatch = newHudBatch;
 	}
-	public void drawHearts(){
+
+	public void drawHearts() {
 		int heartSize = 50;
 		hearts = new Texture(Gdx.files.internal("hearts.png"));
 		fullHeart = new TextureRegion(hearts,0,0,13,12 );
@@ -93,6 +98,7 @@ public class Player {
 		}
 		//System.out.println("draw hearts is called");
 	}
+
 	public void draw() {
 
 		player_hitbox = new Rectangle(!facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
@@ -137,7 +143,9 @@ public class Player {
 				facingRight = true;
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				speed = 400;
+				speed = sprintSpeed;
+			} else {
+				speed = baseSpeed;
 			}
 			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
@@ -178,8 +186,9 @@ public class Player {
 		hp = newmax;
 	}
 
-	public void setSpeed(float newspeed) {
-		speed = newspeed;
+	public void increaseSpeed(float newSpeed) {
+		baseSpeed += newSpeed;
+		sprintSpeed += 2 * newSpeed;
 	}
 
 	public float getPlayerX() {
@@ -190,12 +199,26 @@ public class Player {
 		return hp;
 	}
 
+	public float getDmg() {
+		return dmg;
+	}
+
+	public void increaseDmg(float x) {
+		dmg += x;
+	}
+
+	public void increaseHitbox(float x) {
+		width += x;
+		height += x;
+	}
+
 	public float getPlayerY() {
 		return playerY;
 	}
 
-	public void setHP(int x) {
-		hp = x;
+	public void increaseHP(int x) {
+		hp += x;
+		maxhp += x;
 	}
 
 	public boolean isFacingRight() {
