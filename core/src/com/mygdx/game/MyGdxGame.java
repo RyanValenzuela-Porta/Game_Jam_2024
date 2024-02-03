@@ -205,6 +205,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		map.dispose();
 		sword.dispose();
 		hudBatch.dispose();
-		// zombie.dispose();
+		deathScreen.dispose();
+		shapeRenderer.dispose();
+		dead.dispose();
+		screen.dispose();
+		map.dispose();
+		hudBatch.dispose();
 	}
 }
