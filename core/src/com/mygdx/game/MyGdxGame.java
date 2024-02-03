@@ -59,7 +59,9 @@ public class MyGdxGame extends ApplicationAdapter {
 				renderGameMap();
 				break;
 			case 1:
+				screen.begin();
 				renderStartScreen();
+				screen.end();
 				break;
 			case 2: // player dies
 				renderDeathScreen();
@@ -71,9 +73,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			gameState = 0;
 		}
-		screen.begin();
+
 		screen.draw(start, camera.viewportWidth, camera.viewportHeight);
-		screen.end();
+
 	}
 
 	public void upgradeSelect() {
