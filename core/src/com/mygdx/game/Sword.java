@@ -45,6 +45,12 @@ public class Sword {
         displaySword();
     }
 
+    public void update(float playerX, float playerY, boolean facing){
+        swordX = playerX;
+        swordY = playerY;
+        facingRight = facing;
+    }
+
     public void displaySword() {
         if (facingRight) {
             swordimg = new Texture("swordRIGHT.png");
