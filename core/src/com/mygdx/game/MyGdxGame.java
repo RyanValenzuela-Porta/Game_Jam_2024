@@ -3,14 +3,17 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class MyGdxGame extends ApplicationAdapter {
-
+	ShapeRenderer shapeRenderer;
 	SpriteBatch batch;
 	SpriteBatch hudBatch;
 	OrthographicCamera camera;
@@ -33,13 +36,14 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create() {
-
+		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		player = new Player(batch, hudBatch);
+		player = new Player(batch, hudBatch, shapeRenderer);
 		music = new Soundtrack();
 		music.load();
+		shapeRenderer = new ShapeRenderer();
 
 		// instantiate map
 		map = new Map();
@@ -57,10 +61,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void newCreate() {
 		gameState = 1;
-		player = new Player(batch, hudBatch);
-		sword = new Sword(batch);
+		player = new Player(batch, hudBatch, shapeRenderer);
+		sword = new Sword(batch, shapeRenderer);
 		upgrades = new Upgrades(batch, player);
-		enemies = new Enemies(batch, player, sword);
+		enemies = new Enemies(batch, player, sword, shapeRenderer);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;
@@ -69,10 +73,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		switch (gameState) {
-			case 0:
+			case 0: // main game
 				renderGameMap();
 				break;
-			case 1:
+			case 1: // start screen
 				screen.begin();
 				menu.render();
 				screen.end();
@@ -80,7 +84,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					gameState = 0;
 				}
 				break;
-			case 2: // player dies
+			case 2: // end screen
 				renderDeathScreen();
 		}
 		// close game after pressing Esc button
@@ -162,7 +166,27 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		enemies.draw();
 		batch.end();
+
+		shapeRenderer.setProjectionMatrix(camera.combined);
+
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(1, 1, 0, 1);
+		enemies.drawHitbox(shapeRenderer);
+		shapeRenderer.end();
+
 		renderHUD();
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(1, 1, 0, 1);
+		player.drawHitbox();
+		sword.drawHitbox();
+		enemies.drawHitboxes(shapeRenderer);
+		shapeRenderer.end();
+
+		// close game after pressing Esc button
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
 
 		if (player.getHP() < 0) {
 			gameState = 2;
@@ -196,6 +220,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		map.dispose();
 		sword.dispose();
 		hudBatch.dispose();
-		// zombie.dispose();
+		deathScreen.dispose();
+		shapeRenderer.dispose();
+		dead.dispose();
+		screen.dispose();
+		map.dispose();
+		hudBatch.dispose();
 	}
 }
