@@ -32,15 +32,21 @@ public class Player {
 	boolean isHit;
 	Texture walkSheet;
 	Texture hitSheet;
+	float stateTime;
+
+	// hud
 	Texture hearts;
 	TextureRegion fullHeart;
 	TextureRegion halfHeart;
 	TextureRegion emptyHeart;
-	float stateTime;
 	private SpriteBatch hudBatch;
 	private SpriteBatch batch;
+
+	// coordinates
 	private float playerX = 505;
 	private float playerY = 327;
+	
+	// stats
 	private float speed = 200;
 	private float baseSpeed = 200;
 	private float sprintSpeed = 400;
