@@ -34,7 +34,7 @@ public class Upgrades {
                 System.out.println("+speed");
                 break;
             case 1:
-                player.increaseHP(2);
+                player.increaseHPUpgrade(2);
                 System.out.println("+hp");
                 break;
             case 2:
@@ -48,7 +48,7 @@ public class Upgrades {
                 System.out.println("-speed");
                 break;
             case 1:
-                player.increaseHP(-2);
+                player.increaseHPUpgrade(-2);
                 System.out.println("-hp");
                 break;
             case 2:

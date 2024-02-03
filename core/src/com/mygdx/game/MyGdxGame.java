@@ -150,6 +150,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (enemies.checkEndOfWave()) {
+			player.resetHp();
 			upgradeSelect();
 		}
 		enemies.draw();
