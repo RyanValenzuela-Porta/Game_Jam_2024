@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -73,10 +72,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		switch (gameState) {
-			case 0:
+			case 0: // main game
 				renderGameMap();
 				break;
-			case 1:
+			case 1: // start screen
 				screen.begin();
 				menu.render();
 				screen.end();
@@ -84,7 +83,7 @@ public class MyGdxGame extends ApplicationAdapter {
 					gameState = 0;
 				}
 				break;
-			case 2: // player dies
+			case 2: // end screen
 				renderDeathScreen();
 		}
 		// close game after pressing Esc button
@@ -173,7 +172,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		shapeRenderer.end();
 
 		renderHUD();
-
 
 		if (player.getHP() < 0) {
 			gameState = 2;
