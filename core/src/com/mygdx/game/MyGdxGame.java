@@ -3,14 +3,18 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	SpriteBatch hudBatch;
 	Sword sword;
 	Player player;
 	Map map;
@@ -27,12 +31,13 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch screen;
 	Texture start;
 	private Texture dead;
-
+	
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
-		player = new Player(batch);
+		hudBatch = new SpriteBatch();
+		player = new Player(batch,hudBatch);
 		music = new Soundtrack();
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
@@ -50,13 +55,17 @@ public class MyGdxGame extends ApplicationAdapter {
 		deathScreen = new SpriteBatch();
 		start = new Texture("menu.jpg");
 		dead = new Texture("death.png");
+
+
 	}
 
 	@Override
 	public void render() {
 		switch (gameState) {
 			case 0:
+				
 				renderGameMap();
+				
 				break;
 			case 1:
 				screen.begin();
@@ -68,7 +77,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 	}
-
+	public void renderHUD(){
+		hudBatch.begin();
+		player.drawHearts();
+		hudBatch.end();
+	}
 	public void renderStartScreen() {
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			gameState = 0;
@@ -139,7 +152,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
+		renderHUD();
 
+		
 		// close game after pressing Esc button
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
@@ -155,6 +170,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera.viewportWidth = 450f;
 		camera.viewportHeight = 450f * height / width;
 		camera.update();
+
+		
 	}
 
 	public void renderDeathScreen() {
@@ -163,7 +180,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			Gdx.app.exit();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			player = new Player(batch);
+			player = new Player(batch,hudBatch);
 			sword = new Sword(batch);
 			enemies = new Enemies(batch, player, sword);
 			waveStarted = false;
@@ -181,7 +198,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.dispose();
 		map.dispose();
 		sword.dispose();
-
+		hudBatch.dispose();
 		// zombie.dispose();
 	}
 }

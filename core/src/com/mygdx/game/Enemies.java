@@ -79,7 +79,7 @@ public class Enemies {
             }
             // if enemy hits player
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
-                player.setHP(player.getHP() - 5);
+                player.setHP(player.getHP() - 1);
             }
         }
         return false;
@@ -100,7 +100,7 @@ public class Enemies {
 
         checkCollision();
 
-        for (int i = 0; i < enemies.size() - 1; i++) {
+        for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() < 0) {
                 enemies.get(i).setAlive(false);
                 System.out.println("killed 1 enemy");

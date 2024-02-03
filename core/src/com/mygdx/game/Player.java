@@ -153,15 +153,17 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
-
+import java.util.ArrayList;
 public class Player {
 	/**
 	 * List:
@@ -179,8 +181,9 @@ public class Player {
 	Texture hearts;
 	TextureRegion fullHeart;
 	TextureRegion halfHeart;
+	TextureRegion emptyHeart;
 	float stateTime;
-
+	private SpriteBatch hudBatch;
 	private SpriteBatch batch;
 	private float playerX = 505;
 	private float playerY = 327;
@@ -196,18 +199,29 @@ public class Player {
 	int aliveCount;
 	private AssetManager assetManager;
 	private Sound sound;
+	private ArrayList<Float> heartList; //array list that can store 0, 0.5, or 1 corresponding to whether heart is full
 
-	public Player(SpriteBatch newBatch) {
+	public Player(SpriteBatch newBatch,SpriteBatch newHudBatch) {
 		batch = newBatch;
 		createIdleAnimation();
 		assetManager = new AssetManager();
 		assetManager.load("playerdeath.mp3", Sound.class);
 		assetManager.finishLoading();
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
-
+		hudBatch = newHudBatch;
+		heartList.add(1f);
+		heartList.add(1f);
+		heartList.add(1f);
 	}
 	public void drawHearts(){
-
+		int numHearts = hp/2;
+		int heartSize = 50;
+		hearts = new Texture(Gdx.files.internal("hearts.png"));
+		fullHeart = new TextureRegion(hearts,0,0,13,12 );
+		halfHeart = new TextureRegion(hearts,16,0,12,11 );
+		halfHeart = new TextureRegion(hearts,32,0,12,11 );
+		hudBatch.draw(fullHeart,10,10,heartSize,heartSize);
+		//System.out.println("draw hearts is called");
 	}
 	public void draw() {
 
