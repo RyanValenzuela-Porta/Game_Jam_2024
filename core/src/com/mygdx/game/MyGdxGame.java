@@ -25,8 +25,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	boolean waveStarted = false;
 	Enemies enemies;
 	SpriteBatch screen;
-	Texture start;
+	Texture start1;
+	Texture start2;
 	private Texture dead;
+	Menu menu;
 
 	@Override
 	public void create() {
@@ -47,8 +49,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		map = new Map();
 
 		screen = new SpriteBatch();
+		menu = new Menu(screen);
+
 		deathScreen = new SpriteBatch();
-		start = new Texture("menu.jpg");
+		start1 = new Texture("menu1.png");
+		start2 = new Texture("menu2.png");
 		dead = new Texture("death.png");
 	}
 
@@ -60,8 +65,11 @@ public class MyGdxGame extends ApplicationAdapter {
 				break;
 			case 1:
 				screen.begin();
-				renderStartScreen();
+				menu.render();
 				screen.end();
+				if(menu.check()){
+					gameState = 0;
+				}
 				break;
 			case 2: // player dies
 				renderDeathScreen();
@@ -69,14 +77,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 
-	public void renderStartScreen() {
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			gameState = 0;
-		}
+	/*public void renderStartScreen() {
+		
+		
+		screen.draw(start1, camera.viewportWidth, camera.viewportHeight);
 
-		screen.draw(start, camera.viewportWidth, camera.viewportHeight);
-
-	}
+	}*/
 
 	public void upgradeSelect() {
 		upgrades.draw();
