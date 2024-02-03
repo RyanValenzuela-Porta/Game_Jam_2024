@@ -1,6 +1,9 @@
 package com.mygdx.game;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Upgrades {
     private SpriteBatch batch;
@@ -15,6 +18,48 @@ public class Upgrades {
     public Upgrades(SpriteBatch newBatch, Player newPlayer) {
         batch = newBatch;
         player = newPlayer;
+    }
+
+    public void generateUpgrade() {
+        int benefit;
+        int downside;
+        Random rand = new Random();
+        benefit = rand.nextInt(3);
+        do {
+            downside = rand.nextInt(4);
+        } while (benefit == downside);
+        switch (benefit) {
+            case 0:
+                player.increaseSpeed(50);
+                System.out.println("+speed");
+                break;
+            case 1:
+                player.increaseHP(2);
+                System.out.println("+hp");
+                break;
+            case 2:
+                player.increaseDmg(5);
+                System.out.println("+dmg");
+                break;
+        }
+        switch (downside) {
+            case 0:
+                player.increaseSpeed(-100);
+                System.out.println("-speed");
+                break;
+            case 1:
+                player.increaseHP(-2);
+                System.out.println("-hp");
+                break;
+            case 2:
+                player.increaseDmg(-5);
+                System.out.println("-dmg");
+                break;
+            case 3:
+                player.increaseHitbox(8);
+                System.out.println("-hitbox");
+
+        }
     }
 
     public void draw() {

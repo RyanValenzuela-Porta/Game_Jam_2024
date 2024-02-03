@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import java.util.ArrayList;
+
 public class Player {
 	/**
 	 * List:
@@ -42,10 +43,12 @@ public class Player {
 	private float playerX = 505;
 	private float playerY = 327;
 	private float speed = 200;
+	private float baseSpeed = 200;
+	private float sprintSpeed = 400;
 	private int hp = 1000;
-	private int maxhp = 6;
+	private int maxhp = 3;
 	private float regen;
-	private float dmg;
+	private float dmg = 20;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
@@ -54,9 +57,10 @@ public class Player {
 	int aliveCount;
 	private AssetManager assetManager;
 	private Sound sound;
-	private ArrayList<Float> heartList=new ArrayList<Float>(); //array list that can store 0, 0.5, or 1 corresponding to whether heart is full
+	private ArrayList<Float> heartList = new ArrayList<Float>(); // array list that can store 0, 0.5, or 1 corresponding
+																	// to whether heart is full
 
-	public Player(SpriteBatch newBatch,SpriteBatch newHudBatch) {
+	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch) {
 		batch = newBatch;
 		createIdleAnimation();
 		createHitAnimation();
@@ -65,17 +69,39 @@ public class Player {
 		assetManager.finishLoading();
 		sound = assetManager.get("playerdeath.mp3", Sound.class);
 		hudBatch = newHudBatch;
-		heartList.add(1f);
-		heartList.add(1f);
-		heartList.add(1f);
 	}
-	public void drawHearts(){
+
+	public void drawHearts() {
 		int heartSize = 50;
 		hearts = new Texture(Gdx.files.internal("hearts.png"));
 		fullHeart = new TextureRegion(hearts,0,0,13,12 );
 		halfHeart = new TextureRegion(hearts,16,0,13,12 );
 		halfHeart = new TextureRegion(hearts,32,0,13,12 );
-		hudBatch.draw(fullHeart,10,10,heartSize,heartSize);
+		heartList.clear();
+		//fill up the array list
+		for(int i=0;i<maxhp/2;i++){
+			int tempHp = hp;
+			if(tempHp>=2){ //Health greater than or equal to 2
+				heartList.add(1f);
+				tempHp-=2;
+			}else if(tempHp==1){ //Health is 1
+				heartList.add(0.5f);
+				tempHp-=1;
+			}else{
+				heartList.add(0f);
+			}
+		}
+
+		//draw the array list of hearts to the screen
+		for(int i=0;i<heartList.size();i++){
+			if(heartList.get(i)==1){
+				hudBatch.draw(fullHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}else if(heartList.get(i)==0.5){
+				hudBatch.draw(halfHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}else{
+				hudBatch.draw(emptyHeart,10+(i*heartSize),10,heartSize,heartSize);
+			}
+		}
 		//System.out.println("draw hearts is called");
 	}
 
@@ -109,7 +135,9 @@ public class Player {
 				facingRight = true;
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				speed = 400;
+				speed = sprintSpeed;
+			} else {
+				speed = baseSpeed;
 			}
 			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
@@ -187,8 +215,9 @@ public class Player {
 		hp = newmax;
 	}
 
-	public void setSpeed(float newspeed) {
-		speed = newspeed;
+	public void increaseSpeed(float newSpeed) {
+		baseSpeed += newSpeed;
+		sprintSpeed += 2 * newSpeed;
 	}
 
 	public float getPlayerX() {
@@ -199,12 +228,26 @@ public class Player {
 		return hp;
 	}
 
+	public float getDmg() {
+		return dmg;
+	}
+
+	public void increaseDmg(float x) {
+		dmg += x;
+	}
+
+	public void increaseHitbox(float x) {
+		width += x;
+		height += x;
+	}
+
 	public float getPlayerY() {
 		return playerY;
 	}
 
-	public void setHP(int x) {
-		hp = x;
+	public void increaseHP(int x) {
+		hp += x;
+		maxhp += x;
 	}
 
 	public boolean isFacingRight() {
