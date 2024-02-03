@@ -15,7 +15,7 @@ public class Map {
     }
     
     public void create(){
-		tiledMap =  new TmxMapLoader().load("newmap2.tmx");
+		tiledMap =  new TmxMapLoader().load("newmap3.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
 

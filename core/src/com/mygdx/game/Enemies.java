@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "3" }, { "Pumpkin", "0" } },
-                              { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0"}}};
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "1" }, { "Pumpkin", "0" } },
+                              { { "Zombie", "0" }, { "Zombie", "0" }, { "Zombie", "0"}}};
     
     SpriteBatch batch;
     Player player;
