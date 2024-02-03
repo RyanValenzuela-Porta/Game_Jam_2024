@@ -14,6 +14,7 @@ public class Enemies {
     Sword sword;
     int aliveCount;
     ShapeRenderer renderer;
+    SoundEffects sound = new SoundEffects();
 
 
     public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
@@ -51,6 +52,7 @@ public class Enemies {
             // if sword hits enemy
             if (enemies.get(i).getHitbox().overlaps(sword.getHitbox()) && sword.isSwung()) {
                 enemies.get(i).setHp(enemies.get(i).getHp() - player.getDmg());
+                sound.monsterDeath();
                 return true;
             }
             // if enemy hits player
