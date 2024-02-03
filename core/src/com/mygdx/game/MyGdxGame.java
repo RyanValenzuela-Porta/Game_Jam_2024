@@ -83,14 +83,18 @@ public class MyGdxGame extends ApplicationAdapter {
 		// move player back to start so buttons are in correct place
 		player.setPlayerX(505);
 		player.setPlayerY(327);
-		if (Gdx.input.getX() > 800 && Gdx.input.getX() < 940
-				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
+		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+			System.out.println(Gdx.input.getX());
+			System.out.println(Gdx.input.getY());
+		}
+		if (Gdx.input.getX() > 400 && Gdx.input.getX() < 480
+				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 				System.out.println("left clicked");
 			}
-		} else if (Gdx.input.getX() > 1800 && Gdx.input.getX() < 1940
-				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
+		} else if (Gdx.input.getX() > 870 && Gdx.input.getX() < 950
+				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 				System.out.println("right clicked");
@@ -131,7 +135,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			upgradeSelect();
 		}
 		// zombie.draw(player.getPlayerX(),player.getPlayerY());
-		enemies.draw();
+		// enemies.draw();
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
