@@ -84,6 +84,11 @@ public class Enemy {
     public Rectangle getHitbox() {
         return enemy_hitbox;
     }
+    public float getPrevX(){ return prevX;}
+    public float getPrevY(){return prevY;}
+
+    public void setX(float x) { enemyX = x; }
+    public void setY(float y) { enemyY = y; }
 
 
 }
