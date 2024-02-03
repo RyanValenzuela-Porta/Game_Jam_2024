@@ -120,5 +120,5 @@ public class Archer extends Enemy{
 
     public void setX(float x) { enemyX = x; }
     public void setY(float y) { enemyY = y; }
-}
+
 }
