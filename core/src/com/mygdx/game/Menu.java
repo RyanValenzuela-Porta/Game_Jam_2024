@@ -13,7 +13,7 @@ public class Menu {
     boolean state;
     int x;
 
-    public Menu(SpriteBatch screen){
+    public Menu(SpriteBatch screen) {
         start1 = new Texture("menu1.png");
         start2 = new Texture("menu2.png");
         state = true;
@@ -21,22 +21,26 @@ public class Menu {
         this.screen = screen;
     }
 
-    public void render(){
-        if(state){
-            screen.draw(start1,0,0);
+    public void render() {
+        if (state) {
+            screen.draw(start1, 0, 0);
             x++;
-            if(x == 30){state = false;}
-        } else{
-            screen.draw(start2,0,0);
+            if (x == 30) {
+                state = false;
+            }
+        } else {
+            screen.draw(start2, 0, 0);
             x--;
-            if(x == 0){state = true;}
+            if (x == 0) {
+                state = true;
+            }
         }
     }
 
-    public boolean check(){
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			return true;
-		}
+    public boolean check() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            return true;
+        }
         return false;
     }
 }
