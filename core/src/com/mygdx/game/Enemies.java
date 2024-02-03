@@ -63,7 +63,6 @@ public class Enemies {
                 return true;
             }
             // if enemy hits player
-            System.err.println(enemies.get(i).getHp());
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
                 player.setHP(player.getHP() - 5);
             }

@@ -25,8 +25,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	boolean waveStarted = false;
 	Enemies enemies;
 	SpriteBatch screen;
-	Texture start;
+	Texture start1;
+	Texture start2;
 	private Texture dead;
+	Menu menu;
 
 	@Override
 	public void create() {
@@ -47,8 +49,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		map = new Map();
 
 		screen = new SpriteBatch();
+		menu = new Menu(screen);
+
 		deathScreen = new SpriteBatch();
-		start = new Texture("menu.jpg");
+		start1 = new Texture("menu1.png");
+		start2 = new Texture("menu2.png");
 		dead = new Texture("death.png");
 	}
 
@@ -60,8 +65,11 @@ public class MyGdxGame extends ApplicationAdapter {
 				break;
 			case 1:
 				screen.begin();
-				renderStartScreen();
+				menu.render();
 				screen.end();
+				if(menu.check()){
+					gameState = 0;
+				}
 				break;
 			case 2: // player dies
 				renderDeathScreen();
@@ -69,29 +77,31 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 
-	public void renderStartScreen() {
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			gameState = 0;
-		}
+	/*public void renderStartScreen() {
+		
+		
+		screen.draw(start1, camera.viewportWidth, camera.viewportHeight);
 
-		screen.draw(start, camera.viewportWidth, camera.viewportHeight);
-
-	}
+	}*/
 
 	public void upgradeSelect() {
 		upgrades.draw();
 		// move player back to start so buttons are in correct place
 		player.setPlayerX(505);
 		player.setPlayerY(327);
-		if (Gdx.input.getX() > 800 && Gdx.input.getX() < 940
-				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
+		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+			System.out.println(Gdx.input.getX());
+			System.out.println(Gdx.input.getY());
+		}
+		if (Gdx.input.getX() > 400 && Gdx.input.getX() < 480
+				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.leftHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 				wave++;
 				System.out.println("WAVES HAS BEEN INCREMENTED");
 			}
-		} else if (Gdx.input.getX() > 1800 && Gdx.input.getX() < 1940
-				&& Gdx.input.getY() > 450 && Gdx.input.getY() < 550) {
+		} else if (Gdx.input.getX() > 870 && Gdx.input.getX() < 950
+				&& Gdx.input.getY() > 170 && Gdx.input.getY() < 230) {
 			upgrades.rightHovered();
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 				wave++;
@@ -133,7 +143,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			upgradeSelect();
 		}
 		// zombie.draw(player.getPlayerX(),player.getPlayerY());
-		enemies.draw();
+		// enemies.draw();
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
