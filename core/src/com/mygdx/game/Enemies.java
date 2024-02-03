@@ -6,24 +6,24 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "10" }, { "Archer", "0" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Archer", "1" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
     Player player;
     Sword sword;
     int aliveCount;
-    ShapeRenderer renderer;
     SoundEffects sound = new SoundEffects();
+    checkCollidable collisionDetector;
 
     public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
         sword = newSword;
-        renderer = shapeRenderer;
+        collisionDetector = new checkCollidable(newPlayer, enemies, newSword);
     }
 
-    public void spawnEnemies(int wave) {
+    public void spawnEnemies(int wave, ShapeRenderer renderer) {
         for (int j = 0; j < waveList[wave].length; j++) {
             switch (waveList[wave][j][0]) {
                 case "Pumpkin":
@@ -39,7 +39,7 @@ public class Enemies {
                     break;
                 case "Archer":
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
-                        enemies.add(new Archer(batch, renderer));
+                        enemies.add(new Archer(batch, renderer, player));
                     }
                     break;
             }
@@ -76,7 +76,7 @@ public class Enemies {
     public void draw() {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.draw(player.getPlayerX(), player.getPlayerY()));
 
-        checkCollision();
+        collisionDetector.checkEnemyPlayerCollision();
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() < 0) {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
-public class Enemy {
+public class Enemy extends MyGdxGame{
     //All subclasses of enemies must have these variables.
     SpriteBatch batch;
     float stateTime;

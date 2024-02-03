@@ -17,9 +17,10 @@ public class Archer extends Enemy{
     SpriteBatch batch;
     Rock rock;
     ShapeRenderer shapeRenderer;
+    checkCollidable collisionDetector;
 
-    public Archer(SpriteBatch newBatch, ShapeRenderer renderer) {
-        shapeRenderer = new ShapeRenderer();
+    public Archer(SpriteBatch newBatch, ShapeRenderer newRenderer, Player player) {
+        shapeRenderer = newRenderer;
         batch = newBatch;
         createAnimation();
         // Initialising variables from superclass
@@ -32,7 +33,8 @@ public class Archer extends Enemy{
         facingRight = true;
         spawn = true;
         alive = true;
-        rock = new Rock(newBatch, enemyX, enemyY);
+        rock = new Rock(newBatch, enemyX, enemyY, player);
+        collisionDetector = new checkCollidable(player, rock);
 
     }
 
@@ -49,6 +51,7 @@ public class Archer extends Enemy{
         if (alive) {
             currentFrame = huntAnimation.getKeyFrame(stateTime, true);
             rock.draw(targetX, targetY);
+            collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox());
             hunt(currentFrame, targetX, targetY);
         } else {
 
@@ -97,8 +100,8 @@ public class Archer extends Enemy{
     }
 
     public void drawHitbox(ShapeRenderer renderer){
-        
 		renderer.circle(enemyX+8, enemyY+8, 100);
+        renderer.circle(rock.getProjectileX()+5, rock.getProjectileY()+5, 5);
     }
 
     public void dispose() {

@@ -4,14 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Rock extends Projectile{
     Texture rockSheet;
-    Rectangle rock_hitbox;
+    Circle rock_hitbox;
     SpriteBatch batch;
+    ShapeRenderer myRenderer;
 
-    public Rock(SpriteBatch newBatch, float enemyX, float enemyY) {
+    public Rock(SpriteBatch newBatch, float enemyX, float enemyY, Player player) {
         batch = newBatch;
         // Initialising variables from superclass
         projectileX = enemyX; //This is where the rock will spawn - change so its not random.
@@ -22,7 +26,8 @@ public class Rock extends Projectile{
         hp = 50;
         spawn = true;
         active = true;
-
+        myRenderer = new ShapeRenderer();
+        rock_hitbox = new Circle(projectileX, projectileY, 5);
     }
 
     @Override
@@ -37,6 +42,7 @@ public class Rock extends Projectile{
         }
         if (active) {
             hunt(rock, targetX, targetY);
+            
         }
     }
 
@@ -56,13 +62,23 @@ public class Rock extends Projectile{
         
         batch.draw(rock, projectileX, projectileY,width,height);
 
+        rock_hitbox = new Circle(projectileX, projectileY, 5);
+
+    }
+
+    public float getProjectileX(){
+        return projectileX;
+    }
+
+    public float getProjectileY(){
+        return projectileY;
     }
 
     public void dispose() {
         rockSheet.dispose();
     }
 
-    public Rectangle getHitbox() {
+    public Circle getRockHitbox() {
         return rock_hitbox;
     }
 

@@ -33,7 +33,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	int wave;
 	boolean waveStarted;
 	Enemies enemies;
-	checkCollidable collideCheck;
 
 	@Override
 	public void create() {
@@ -66,7 +65,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		sword = new Sword(batch, shapeRenderer);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword, shapeRenderer);
-		collideCheck = new checkCollidable(player, enemies, sword);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;
@@ -158,7 +156,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.draw();
 		sword.draw();
 		if (!waveStarted) {
-			enemies.spawnEnemies(wave);
+			enemies.spawnEnemies(wave, shapeRenderer);
 			waveStarted = true;
 		}
 
@@ -183,6 +181,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.drawHitbox();
 		sword.drawHitbox();
 		enemies.drawHitboxes(shapeRenderer);
+
 		shapeRenderer.end();
 
 		// close game after pressing Esc button
