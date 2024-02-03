@@ -141,6 +141,7 @@ public class Upgrades {
                 System.out.println("-hitbox");
         }
         generatedLeft[1] = 5;
+        generatedRight[1] = 5;
     }
 
     public void applyUpgradeR() {
@@ -176,6 +177,7 @@ public class Upgrades {
                 System.out.println("-hitbox");
         }
         generatedRight[1] = 5;
+        generatedLeft[1] = 5;
     }
 
     public void draw() {

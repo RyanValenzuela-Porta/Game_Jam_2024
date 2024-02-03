@@ -15,7 +15,6 @@ public class Enemies {
     int aliveCount;
     ShapeRenderer renderer;
 
-
     public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
@@ -84,9 +83,10 @@ public class Enemies {
         }
     }
 
-    public void drawHitboxes(ShapeRenderer shapeRenderer){
+    public void drawHitboxes(ShapeRenderer shapeRenderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
     }
+
     public boolean checkEndOfWave() {
         if (countAliveEnemies() == 0) {
             enemies.clear();
@@ -96,7 +96,7 @@ public class Enemies {
         }
     }
 
-    public void drawHitbox(ShapeRenderer renderer){
+    public void drawHitbox(ShapeRenderer renderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(renderer));
     }
 }
