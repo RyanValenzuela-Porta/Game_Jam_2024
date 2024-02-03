@@ -10,6 +10,7 @@ public class Upgrades {
     private Player player;
     private Texture leftUpgrade = new Texture("leftupgrade.png");
     private Texture rightUpgrade = new Texture("rightupgrade.png");
+    private Texture upgradeText = new Texture("upgradeText.png");
 
     private float leftX;
     private float Y;
@@ -34,7 +35,7 @@ public class Upgrades {
                 System.out.println("+speed");
                 break;
             case 1:
-                player.increaseHP(2);
+                player.increaseHPUpgrade(2);
                 System.out.println("+hp");
                 break;
             case 2:
@@ -48,7 +49,7 @@ public class Upgrades {
                 System.out.println("-speed");
                 break;
             case 1:
-                player.increaseHP(-2);
+                player.increaseHPUpgrade(-2);
                 System.out.println("-hp");
                 break;
             case 2:
@@ -68,6 +69,7 @@ public class Upgrades {
         rightX = 555;
         batch.draw(leftUpgrade, leftX, Y);
         batch.draw(rightUpgrade, rightX, Y);
+        batch.draw(upgradeText, 420, 300);
     }
 
     public void leftHovered() {

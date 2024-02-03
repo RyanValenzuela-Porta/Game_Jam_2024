@@ -22,24 +22,25 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch deathScreen;
 	Menu menu;
 	ShapeRenderer shapeRenderer;
+	Texture upgradeText;
 
 	Sword sword;
 	Player player;
 	Upgrades upgrades;
 	Soundtrack music;
 	int gameState; // gameState 0 means load the actual game, 1 means load the start screen, more
-						// states can be added later
+					// states can be added later
 	int wave;
 	boolean waveStarted;
 	Enemies enemies;
 
 	@Override
 	public void create() {
-		
+
 		camera = new OrthographicCamera();
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		player = new Player(batch,hudBatch);
+		player = new Player(batch, hudBatch);
 		music = new Soundtrack();
 		music.load();
 		shapeRenderer = new ShapeRenderer();
@@ -53,13 +54,14 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		// death screen
 		deathScreen = new SpriteBatch();
-		dead = new Texture("death.png");
+		dead = new Texture("endscreen.png");
+
 		newCreate();
 	}
 
-	public void newCreate(){
+	public void newCreate() {
 		gameState = 1;
-		player = new Player(batch,hudBatch);
+		player = new Player(batch, hudBatch);
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, player, sword, shapeRenderer);
@@ -85,12 +87,19 @@ public class MyGdxGame extends ApplicationAdapter {
 			case 2: // player dies
 				renderDeathScreen();
 		}
+		// close game after pressing Esc button
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
+
 	}
-	public void renderHUD(){
+
+	public void renderHUD() {
 		hudBatch.begin();
 		player.drawHearts();
 		hudBatch.end();
 	}
+
 	public void renderStartScreen() {
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			gameState = 0;
@@ -99,6 +108,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void upgradeSelect() {
 		upgrades.draw();
+
 		// move player back to start so buttons are in correct place
 		player.setPlayerX(505);
 		player.setPlayerY(327);
@@ -129,15 +139,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void renderGameMap() {
 		// set background color and update map
 		ScreenUtils.clear(42 / 255f, 45 / 255f, 60 / 255f, 1);
-		map.render(camera); 
+		map.render(camera);
 
 		// focus camera to player
-		camera.position.set(player.getPlayerX(), player.getPlayerY(), 0); 
+		camera.position.set(player.getPlayerX(), player.getPlayerY(), 0);
 		camera.update();
 
 		// stick sword to player
 		sword.update(player.getPlayerX(), player.getPlayerY(), player.isFacingRight());
-		
+
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
 		// All draw methods here
@@ -149,6 +159,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (enemies.checkEndOfWave()) {
+			player.resetHp();
 			upgradeSelect();
 		}
 		enemies.draw();
@@ -163,11 +174,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		renderHUD();
 
-		
-		// close game after pressing Esc button
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
 
 		if (player.getHP() < 0) {
 			gameState = 2;
@@ -180,15 +186,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera.viewportHeight = 450f * height / width;
 		camera.update();
 
-		
 	}
 
 	public void renderDeathScreen() {
 
 		deathScreen.begin();
-		deathScreen.draw(dead,0,0);
+		deathScreen.draw(dead, 0, 0);
 		deathScreen.end();
-		
+
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			newCreate();
 		}
