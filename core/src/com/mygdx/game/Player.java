@@ -107,6 +107,17 @@ public class Player {
 		standAnimation = new Animation<TextureRegion>(0.5f, standFrames);
         stateTime = 0f;
 	}
+	// start of upgrade methods...
+
+	public void changeHP(int newmax) {
+		// this can be used to upgrade / downgrade hp depending on upgrade choice
+		hp = newmax;
+	}
+	public void setSpeed(float newspeed) {
+		speed = newspeed;
+	}
+
+	
 
 	public float getPlayerX() {
 		return playerX;
