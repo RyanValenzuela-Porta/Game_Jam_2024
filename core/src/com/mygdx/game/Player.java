@@ -29,7 +29,6 @@ public class Player {
 	Animation<TextureRegion> standAnimation;
 	Animation<TextureRegion> hitAnimation;
 	Animation<TextureRegion> standHitAnimation;
-	int hitTimer;
 	boolean isHit;
 	Texture walkSheet;
 	Texture hitSheet;
@@ -47,13 +46,11 @@ public class Player {
 	private float sprintSpeed = 400;
 	private int hp = 1000;
 	private int maxhp = 3;
-	private float regen;
 	private float dmg = 20;
 	private boolean facingRight = true;
 	private float width = 16;
 	private float height = 16;
 	private Rectangle player_hitbox;
-	private ShapeRenderer shaperender;
 	int aliveCount;
 	private AssetManager assetManager;
 	private Sound sound;
@@ -105,7 +102,7 @@ public class Player {
 		//System.out.println("draw hearts is called");
 	}
 
-	public void control(TextureRegion currentFrame, TextureRegion currentFrame2){
+	public void control(TextureRegion frame1, TextureRegion frame2){
 		int maxY = 655;
 		int minY = 55;
 		int maxX = 1205;
@@ -115,7 +112,7 @@ public class Player {
 				&& !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
 			// If the player is not facing right, draw the player with negative width to
 			// flip them.
-			batch.draw(currentFrame2, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
+			batch.draw(frame2, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
 		}
 		// Input being pressed
@@ -139,7 +136,7 @@ public class Player {
 			} else {
 				speed = baseSpeed;
 			}
-			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
+			batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
 		}
 	}
@@ -150,18 +147,24 @@ public class Player {
 				height);
 		shaperender = new ShapeRenderer();
 		stateTime += Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
+		TextureRegion walkFrame = walkAnimation.getKeyFrame(stateTime, true);
 		// If the player is not facing right, draw the player with negative width to
 		// flip them.
-
-		TextureRegion currentFrame2 = standAnimation.getKeyFrame(stateTime, true);
-		
+		TextureRegion standFrame = standAnimation.getKeyFrame(stateTime, true);
+		TextureRegion hitFrame = hitAnimation.getKeyFrame(stateTime, true);
+		TextureRegion standHitFrame = standHitAnimation.getKeyFrame(stateTime, true);
 		// No input being pressed
 		// System.out.println(hp);
 		if (hp < 0) {
 			sound.play();
 		}
-		control(currentFrame, currentFrame2);
+
+		if(isHit){
+			control(hitFrame, standHitFrame);
+			isHit = false;
+		} else{
+			control(walkFrame, standFrame);
+		}
 	}
 
 	public void dispose() {
@@ -198,9 +201,11 @@ public class Player {
 		TextureRegion[][] tmp = TextureRegion.split(hitSheet, hitSheet.getWidth() / cols, hitSheet.getHeight() / rows);
 		TextureRegion[] hitFrames = new TextureRegion[cols * rows];
 		TextureRegion[] standHitFrames = new TextureRegion[2];
-		for(int i=0;i<rows;i++){
-			hitFrames[i] = tmp[0][i];
-			i++;
+		int index = 0;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				hitFrames[index++] = tmp[i][j];
+			}
 		}
 		standHitFrames[0] = tmp[0][0];
 		standHitFrames[1] = tmp[0][1];
@@ -270,15 +275,4 @@ public class Player {
 		isHit = value;
 	}
 
-	public void drawHit(){
-		if(hitTimer == 30){
-			setState(false);
-		}
-		stateTime += Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = hitAnimation.getKeyFrame(stateTime, true);
-		TextureRegion currentFrame2 = standHitAnimation.getKeyFrame(stateTime, true);
-		control(currentFrame, currentFrame2);
-		
-		hitTimer++;
-	}
 }
