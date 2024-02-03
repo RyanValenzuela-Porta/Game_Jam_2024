@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Archer extends Enemy{
@@ -12,9 +13,13 @@ public class Archer extends Enemy{
     Animation<TextureRegion> huntAnimation;
     Texture archerSheet;
     Rectangle enemy_hitbox;
+    Rectangle projectile_hitbox;
     SpriteBatch batch;
+    Rock rock;
+    ShapeRenderer shapeRenderer;
 
-    public Archer(SpriteBatch newBatch) {
+    public Archer(SpriteBatch newBatch, ShapeRenderer renderer) {
+        shapeRenderer = new ShapeRenderer();
         batch = newBatch;
         createAnimation();
         // Initialising variables from superclass
@@ -27,6 +32,8 @@ public class Archer extends Enemy{
         facingRight = true;
         spawn = true;
         alive = true;
+        rock = new Rock(newBatch, enemyX, enemyY);
+
     }
 
     public void draw(float targetX, float targetY) {
@@ -38,8 +45,10 @@ public class Archer extends Enemy{
             batch.draw(currentFrame, enemyX, enemyY);
             spawn = false;
         }
+
         if (alive) {
             currentFrame = huntAnimation.getKeyFrame(stateTime, true);
+            rock.draw(targetX, targetY);
             hunt(currentFrame, targetX, targetY);
         } else {
 
@@ -85,6 +94,11 @@ public class Archer extends Enemy{
         }
         huntAnimation = new Animation<TextureRegion>(0.33f, frames);
         stateTime = 0f;
+    }
+
+    public void drawHitbox(ShapeRenderer renderer){
+        
+		renderer.circle(enemyX, enemyY, 50);
     }
 
     public void dispose() {

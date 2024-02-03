@@ -17,6 +17,7 @@ public class Enemy {
     int maxX = 1205;
     int minX = 50;
     Random randomiser = new Random();
+    
     public Enemy createEnemy(){
         Zombie test = new Zombie(batch);
         return test;
@@ -83,5 +84,6 @@ public class Enemy {
     public Rectangle getHitbox() {
         return enemy_hitbox;
     }
+
 
 }

@@ -36,11 +36,13 @@ public class Sword {
     private float height = 9;
     private boolean facingRight;
     private boolean swordswung;
+    SoundEffects sound;
 
     private ShapeRenderer shapeRenderer;
 
     public Sword(SpriteBatch newBatch,ShapeRenderer newShapeRenderer) {
         batch = newBatch;
+        sound = new SoundEffects();
         displaySword();
         shapeRenderer = newShapeRenderer;
     }
@@ -82,6 +84,7 @@ public class Sword {
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             swingSword();
+            sound.swordplay();
         } else {
             displaySword();
         }
@@ -95,6 +98,7 @@ public class Sword {
 
     public void dispose() {
         swordimg.dispose();
+        sound.dispose();
     }
 
     public float getSwordX() {

@@ -34,15 +34,21 @@ public class Player {
 	boolean isHit;
 	Texture walkSheet;
 	Texture hitSheet;
+	float stateTime;
+
+	// hud
 	Texture hearts;
 	TextureRegion fullHeart;
 	TextureRegion halfHeart;
 	TextureRegion emptyHeart;
-	float stateTime;
 	private SpriteBatch hudBatch;
 	private SpriteBatch batch;
+
+	// coordinates
 	private float playerX = 505;
 	private float playerY = 327;
+	
+	// stats
 	private float speed = 200;
 	private float baseSpeed = 200;
 	private float sprintSpeed = 400;
@@ -75,39 +81,38 @@ public class Player {
 	public void drawHearts() {
 		int heartSize = 50;
 		hearts = new Texture(Gdx.files.internal("hearts.png"));
-		fullHeart = new TextureRegion(hearts,0,0,13,12 );
-		halfHeart = new TextureRegion(hearts,16,0,13,12 );
-		emptyHeart = new TextureRegion(hearts,32,0,13,12 );
+		fullHeart = new TextureRegion(hearts, 0, 0, 13, 12);
+		halfHeart = new TextureRegion(hearts, 16, 0, 13, 12);
+		emptyHeart = new TextureRegion(hearts, 32, 0, 13, 12);
 		heartList.clear();
 		int tempHp = hp;
-		//fill up the array list
-		for(int i=0;i<maxhp/2;i++){
-			
-			if(tempHp>=2){ //Health greater than or equal to 2
+		// fill up the array list
+		for (int i = 0; i < maxhp / 2; i++) {
+
+			if (tempHp >= 2) { // Health greater than or equal to 2
 				heartList.add(1f);
-				tempHp-=2;
-			}else if(tempHp==1){ //Health is 1
+				tempHp -= 2;
+			} else if (tempHp == 1) { // Health is 1
 				heartList.add(0.5f);
-				tempHp-=1;
-			}else{
+				tempHp -= 1;
+			} else {
 				heartList.add(0f);
 			}
 		}
-		System.out.println(heartList.toString());
-		//draw the array list of hearts to the screen
-		for(int i=0;i<heartList.size();i++){
-			if(heartList.get(i)==1){
-				hudBatch.draw(fullHeart,10+(i*heartSize),10,heartSize,heartSize);
-			}else if(heartList.get(i)==0.5){
-				hudBatch.draw(halfHeart,10+(i*heartSize),10,heartSize,heartSize);
-			}else{
-				hudBatch.draw(emptyHeart,10+(i*heartSize),10,heartSize,heartSize);
+		// draw the array list of hearts to the screen
+		for (int i = 0; i < heartList.size(); i++) {
+			if (heartList.get(i) == 1) {
+				hudBatch.draw(fullHeart, 10 + (i * heartSize), 10, heartSize, heartSize);
+			} else if (heartList.get(i) == 0.5) {
+				hudBatch.draw(halfHeart, 10 + (i * heartSize), 10, heartSize, heartSize);
+			} else {
+				hudBatch.draw(emptyHeart, 10 + (i * heartSize), 10, heartSize, heartSize);
 			}
 		}
-		//System.out.println("draw hearts is called");
+		// System.out.println("draw hearts is called");
 	}
 
-	public void control(TextureRegion frame1, TextureRegion frame2){
+	public void control(TextureRegion frame1, TextureRegion frame2) {
 		int maxY = 655;
 		int minY = 55;
 		int maxX = 1205;
@@ -169,10 +174,10 @@ public class Player {
 			sound.play();
 		}
 
-		if(isHit){
+		if (isHit) {
 			control(hitFrame, standHitFrame);
 			isHit = false;
-		} else{
+		} else {
 			control(walkFrame, standFrame);
 		}
 	}
@@ -205,7 +210,7 @@ public class Player {
 		stateTime = 0f;
 	}
 
-	public void createHitAnimation(){
+	public void createHitAnimation() {
 		hitSheet = new Texture("dinohit.png");
 
 		TextureRegion[][] tmp = TextureRegion.split(hitSheet, hitSheet.getWidth() / cols, hitSheet.getHeight() / rows);
@@ -242,9 +247,11 @@ public class Player {
 	public int getHP() {
 		return hp;
 	}
-	public void resetHp(){
+
+	public void resetHp() {
 		hp = maxhp;
 	}
+
 	public float getDmg() {
 		return dmg;
 	}
@@ -266,10 +273,12 @@ public class Player {
 		hp += x;
 		// /maxhp += x;
 	}
+
 	public void increaseHPUpgrade(int x) {
 		hp += x;
 		maxhp += x;
 	}
+
 	public boolean isFacingRight() {
 		return facingRight;
 	}
@@ -285,8 +294,8 @@ public class Player {
 	public Rectangle getHitbox() {
 		return player_hitbox;
 	}
-	
-	public void setState(boolean value){
+
+	public void setState(boolean value) {
 		isHit = value;
 	}
 
