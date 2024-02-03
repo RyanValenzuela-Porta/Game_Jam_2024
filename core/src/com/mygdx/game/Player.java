@@ -79,7 +79,9 @@ public class Player {
 				facingRight = true;
 			}
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				speed *= 2;
+				speed = 400;
+			} else {
+				speed = 200;
 			}
 			batch.draw(currentFrame, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
 					height);
@@ -135,7 +137,15 @@ public class Player {
 		return playerY;
 	}
 
+	public void setHP(int x) {
+		hp = x;
+	}
+
 	public boolean isFacingRight() {
 		return facingRight;
+	}
+
+	public Rectangle getHitbox() {
+		return player_hitbox;
 	}
 }
