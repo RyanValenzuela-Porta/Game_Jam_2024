@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Archer extends Enemy{
@@ -13,6 +14,7 @@ public class Archer extends Enemy{
     Animation<TextureRegion> huntAnimation;
     Texture archerSheet;
     Rectangle enemy_hitbox;
+    Circle range_hitbox;
     Rectangle projectile_hitbox;
     SpriteBatch batch;
     Rock rock;
@@ -36,6 +38,7 @@ public class Archer extends Enemy{
         alive = true;
         rock = new Rock(newBatch, enemyX, enemyY, player);
         collisionDetector = new checkCollidable(player, rock);
+        range_hitbox = new Circle(enemyX+8, enemyY+8, 100);
 
     }
 
@@ -85,6 +88,7 @@ public class Archer extends Enemy{
 
         batch.draw(currentFrame, !facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
         enemy_hitbox = new Rectangle(!facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
+        range_hitbox = new Circle(enemyX+8, enemyY+8, 100);
     }
 
     public void createAnimation() {

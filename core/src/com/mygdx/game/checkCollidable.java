@@ -40,9 +40,9 @@ public class checkCollidable {
         return false;
     }
 
-    public boolean checkProjectilePlayerCollision(Circle hitbox){
+    public boolean checkProjectilePlayerCollision(Circle rockHitbox){
         
-        if (Intersector.overlaps(hitbox, player.getHitbox())) {
+        if (Intersector.overlaps(rockHitbox, player.getHitbox())) {
             player.setState(true);
             player.increaseHP(-1); //IF POSITIVE U ARE INVINCIBLE
             return true;
