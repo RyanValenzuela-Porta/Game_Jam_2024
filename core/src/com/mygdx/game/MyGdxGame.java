@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -19,6 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Texture dead;
 	SpriteBatch deathScreen;
 	Menu menu;
+	ShapeRenderer shapeRenderer;
 
 	Sword sword;
 	Player player;
@@ -39,6 +42,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch,hudBatch);
 		music = new Soundtrack();
 		music.load();
+		shapeRenderer = new ShapeRenderer();
 
 		// instantiate map
 		map = new Map();
@@ -50,8 +54,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		// death screen
 		deathScreen = new SpriteBatch();
 		dead = new Texture("death.png");
-
-
 		newCreate();
 	}
 
@@ -60,7 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch,hudBatch);
 		sword = new Sword(batch);
 		upgrades = new Upgrades(batch, player);
-		enemies = new Enemies(batch, player, sword);
+		enemies = new Enemies(batch, player, sword, shapeRenderer);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;
@@ -70,9 +72,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render() {
 		switch (gameState) {
 			case 0:
-				
 				renderGameMap();
-				
 				break;
 			case 1:
 				screen.begin();
@@ -85,7 +85,6 @@ public class MyGdxGame extends ApplicationAdapter {
 			case 2: // player dies
 				renderDeathScreen();
 		}
-
 	}
 	public void renderHUD(){
 		hudBatch.begin();
@@ -154,6 +153,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		enemies.draw();
 		batch.end();
+
+		shapeRenderer.setProjectionMatrix(camera.combined);
+
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(1, 1, 0, 1);
+		enemies.drawHitbox(shapeRenderer);
+		shapeRenderer.end();
+
 		renderHUD();
 
 		

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -12,11 +13,14 @@ public class Enemies {
     Player player;
     Sword sword;
     int aliveCount;
+    ShapeRenderer renderer;
 
-    public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword) {
+
+    public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
         sword = newSword;
+        renderer = shapeRenderer;
     }
 
     public void spawnEnemies(int wave) {
@@ -35,7 +39,7 @@ public class Enemies {
                     break;
                 case "Archer":
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
-                        enemies.add(new Archer(batch));
+                        enemies.add(new Archer(batch, renderer));
                     }
                     break;
             }
@@ -86,5 +90,9 @@ public class Enemies {
         } else {
             return false;
         }
+    }
+
+    public void drawHitbox(ShapeRenderer renderer){
+        enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(renderer));
     }
 }

@@ -1,5 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 public class Enemy {
@@ -15,6 +17,7 @@ public class Enemy {
     int maxX = 1205;
     int minX = 50;
     Random randomiser = new Random();
+    
     public Enemy createEnemy(){
         Zombie test = new Zombie(batch);
         return test;
@@ -81,5 +84,7 @@ public class Enemy {
     public Rectangle getHitbox() {
         return enemy_hitbox;
     }
+
+    public void drawHitbox(ShapeRenderer renderer){}
 
 }
