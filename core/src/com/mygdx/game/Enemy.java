@@ -10,7 +10,7 @@ public class Enemy {
     float stateTime;
 
     Rectangle enemy_hitbox;
-    float enemyX,enemyY,speed,hp,dmg,targetX,targetY,width,height;
+    float enemyX,enemyY,speed,hp,dmg,targetX,targetY,width,height,prevX,prevY;
     boolean facingRight,spawn,alive;
     int maxY = 655;
     int minY = 55;
