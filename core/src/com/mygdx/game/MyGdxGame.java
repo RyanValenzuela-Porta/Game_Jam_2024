@@ -129,7 +129,11 @@ public class MyGdxGame extends ApplicationAdapter {
 			upgradeSelect();
 		}
 		// zombie.draw(player.getPlayerX(),player.getPlayerY());
+<<<<<<< HEAD
 		//enemies.draw();
+=======
+		enemies.draw();
+>>>>>>> a1dc5c41a9c120750e41cf6f3d8b650a5e81f294
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.end();
