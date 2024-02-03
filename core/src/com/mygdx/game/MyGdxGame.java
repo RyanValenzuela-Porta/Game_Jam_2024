@@ -142,12 +142,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
 		// All draw methods here
-		if(player.isHit){
-			//player.drawHit();
-			player.draw();
-		} else{
-			player.draw();
-		}
+		player.draw();
 		sword.draw();
 		if (!waveStarted) {
 			enemies.spawnEnemies(wave);
