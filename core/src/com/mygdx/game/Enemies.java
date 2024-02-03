@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "10" }, { "Archer", "0" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "1" }, { "Archer", "0" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
@@ -56,7 +56,12 @@ public class Enemies {
             // if enemy hits player
             if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) && enemies.get(i).getHp() > 0) {
                 player.setState(true);
-                player.increaseHP(-1);
+                
+                
+                if(!player.isInvincible()){
+                    player.setInvincibiity(true);
+                    player.increaseHP(-1);
+                }
             }
         }
         return false;

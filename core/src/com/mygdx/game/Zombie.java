@@ -21,7 +21,7 @@ public class Zombie extends Enemy {
         // Initialising variables from superclass
         enemyY = randomiser.nextInt(maxY - minY) + minY;
         enemyX = randomiser.nextInt(maxX - minX) + minX;
-        speed = 100;
+        speed = 0;
         width = 32;
         height = 32;
         hp = 50;

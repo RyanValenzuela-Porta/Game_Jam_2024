@@ -49,8 +49,8 @@ public class Sword {
 
     public void update(float playerX, float playerY, boolean newFacingRight){
         facingRight = newFacingRight;
-        swordX = facingRight? playerX+10:playerX-10;
-        swordY = playerY;
+        swordX = facingRight? playerX+10:playerX-15;
+        swordY = playerY-2;
         
     }
     public void drawHitbox(){
