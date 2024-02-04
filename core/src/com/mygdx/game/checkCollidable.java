@@ -7,19 +7,19 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
 public class checkCollidable {
-    
+
     Player player;
     ArrayList<Enemy> enemiesArray;
     Sword swordObject;
     Rock rock;
 
-    public checkCollidable(Player newPlayer, ArrayList<Enemy> newEnemies, Sword newSword){
+    public checkCollidable(Player newPlayer, ArrayList<Enemy> newEnemies, Sword newSword) {
         player = newPlayer;
         enemiesArray = newEnemies;
         swordObject = newSword;
     }
 
-    public checkCollidable(Player newPlayer, Rock newRock){
+    public checkCollidable(Player newPlayer, Rock newRock) {
         player = newPlayer;
         rock = newRock;
     }
@@ -34,21 +34,32 @@ public class checkCollidable {
             // if enemy hits player
             if (enemiesArray.get(i).getHitbox().overlaps(player.getHitbox()) && enemiesArray.get(i).getHp() > 0) {
                 player.setState(true);
-                player.increaseHP(1); //IF POSITIVE U ARE INVINCIBLE
+
+                if (!player.isInvincible()) {
+                    player.setInvincibiity(true);
+                    player.increaseHP(-1); // IF POSITIVE U ARE INVINCIBLE
+                }
+            }
+            // if enemy collides with enemy
+            for (int k = i + 1; k < enemiesArray.size(); k++) {
+                if (enemiesArray.get(k).getHp() > 0
+                        && enemiesArray.get(i).getHitbox().overlaps(enemiesArray.get(k).getHitbox())) {
+                    enemiesArray.get(i).setX(enemiesArray.get(i).getPrevX());
+                    enemiesArray.get(i).setY(enemiesArray.get(i).getPrevY());
+                }
             }
         }
         return false;
     }
 
-    public boolean checkProjectilePlayerCollision(Circle rockHitbox){
-        
+    public boolean checkProjectilePlayerCollision(Circle rockHitbox) {
+
         if (Intersector.overlaps(rockHitbox, player.getHitbox())) {
             player.setState(true);
-            player.increaseHP(-1); //IF POSITIVE U ARE INVINCIBLE
+            player.increaseHP(-1); // IF POSITIVE U ARE INVINCIBLE
             return true;
         }
         return false;
     }
-
 
 }

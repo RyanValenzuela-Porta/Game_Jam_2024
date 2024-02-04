@@ -19,6 +19,7 @@ public class Upgrades {
     private int downsideL;
     private int benefitR;
     private int downsideR;
+    private ArrayList<int[]> bossUpgrades = new ArrayList<>();
 
     private float leftX;
     private float Y;
@@ -109,7 +110,7 @@ public class Upgrades {
     }
 
     public void applyUpgradeL() {
-        switch (benefitR) {
+        switch (benefitL) {
             case 0:
                 player.increaseSpeed(50);
                 System.out.println("+speed");
@@ -140,6 +141,7 @@ public class Upgrades {
                 player.increaseHitbox(8);
                 System.out.println("-hitbox");
         }
+        bossUpgrades.add(generatedRight);
         generatedLeft[1] = 5;
         generatedRight[1] = 5;
     }
@@ -176,6 +178,7 @@ public class Upgrades {
                 player.increaseHitbox(8);
                 System.out.println("-hitbox");
         }
+        bossUpgrades.add(generatedLeft);
         generatedRight[1] = 5;
         generatedLeft[1] = 5;
     }

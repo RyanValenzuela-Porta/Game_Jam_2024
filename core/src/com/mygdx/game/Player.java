@@ -47,7 +47,7 @@ public class Player {
 	// coordinates
 	private float playerX = 505;
 	private float playerY = 327;
-	
+
 	// stats
 	private float speed = 200;
 	private float baseSpeed = 200;
@@ -65,10 +65,11 @@ public class Player {
 	private ShapeRenderer shapeRenderer;
 	private ArrayList<Float> heartList = new ArrayList<Float>(); // array list that can store 0, 0.5, or 1 corresponding
 																	// to whether heart is full
-	private boolean invincible=false;
-	private int invincibilityTimer=0;
-	private boolean invincibleCooldownTimerRunning=false;
-	private int invincibilityCooldownTimer=0;
+	private boolean invincible = false;
+	private int invincibilityTimer = 0;
+	private boolean invincibleCooldownTimerRunning = false;
+	private int invincibilityCooldownTimer = 0;
+
 	public Player(SpriteBatch newBatch, SpriteBatch newHudBatch, ShapeRenderer newShapeRenderer) {
 		batch = newBatch;
 		createIdleAnimation();
@@ -121,25 +122,26 @@ public class Player {
 		int maxX = 1205;
 		int minX = 52;
 		batch.setColor(1, 1, 1, 1);
-		if(invincible){
+		if (invincible) {
 			batch.setColor(1f, 1f, 1f, 1f);
-			//batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,height);
-			
+			// batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY,
+			// !facingRight ? -width : width,height);
+
 			invincibilityTimer++;
-			if(invincibilityTimer==180){
-				invincible=false;
-				invincibilityTimer=0;
-				invincibleCooldownTimerRunning=true;
+			if (invincibilityTimer == 180) {
+				invincible = false;
+				invincibilityTimer = 0;
+				invincibleCooldownTimerRunning = true;
 			}
 		}
-		if(invincibleCooldownTimerRunning){
-			if(invincibilityCooldownTimer==30){
-				invincibleCooldownTimerRunning=false;
+		if (invincibleCooldownTimerRunning) {
+			if (invincibilityCooldownTimer == 30) {
+				invincibleCooldownTimerRunning = false;
 			}
 			invincibilityCooldownTimer++;
-			
-		}else{
-			invincibilityCooldownTimer=0;
+
+		} else {
+			invincibilityCooldownTimer = 0;
 		}
 		if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S)
 				&& !Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -169,24 +171,24 @@ public class Player {
 			} else {
 				speed = baseSpeed;
 			}
-			//if invincible, make the dino translucent
-			batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,height);
+			// if invincible, make the dino translucent
+			batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY, !facingRight ? -width : width,
+					height);
 		}
 		batch.setColor(1, 1, 1, 1);
-		System.out.println(isInvincible());
-		System.out.println(invincibilityTimer);
 	}
-	public void drawHitbox(){
-		
+
+	public void drawHitbox() {
 
 		shapeRenderer.rect(playerX, playerY, width,
-		height);
+				height);
 	}
+
 	public void draw() {
 
 		player_hitbox = new Rectangle(playerX, playerY, width,
 				height);
-		
+
 		stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion walkFrame = walkAnimation.getKeyFrame(stateTime, true);
 		// If the player is not facing right, draw the player with negative width to
@@ -203,10 +205,10 @@ public class Player {
 		if (isHit) {
 			control(hitFrame, standHitFrame);
 			isHit = false;
-			if(!invincibleCooldownTimerRunning){
-				invincible=true;
+			if (!invincibleCooldownTimerRunning) {
+				invincible = true;
 			}
-			
+
 		} else {
 			control(walkFrame, standFrame);
 		}
@@ -257,7 +259,7 @@ public class Player {
 		hitAnimation = new Animation<TextureRegion>(0.11f, hitFrames);
 		standHitAnimation = new Animation<TextureRegion>(0.5f, standHitFrames);
 		stateTime = 0f;
-		
+
 	}
 	// start of upgrade methods...
 
@@ -329,10 +331,12 @@ public class Player {
 	public void setState(boolean value) {
 		isHit = value;
 	}
-	public boolean isInvincible(){
+
+	public boolean isInvincible() {
 		return invincible;
 	}
-	public void setInvincibiity(boolean x){
+
+	public void setInvincibiity(boolean x) {
 		invincible = x;
 	}
 }
