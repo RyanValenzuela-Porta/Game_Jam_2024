@@ -56,7 +56,10 @@ public class checkCollidable {
 
         if (Intersector.overlaps(rockHitbox, player.getHitbox())) {
             player.setState(true);
-            player.increaseHP(-1); // IF POSITIVE U ARE INVINCIBLE
+            if (!player.isInvincible()) {
+                player.setInvincibiity(true);
+                player.increaseHP(-1); // IF POSITIVE U ARE
+            }
             return true;
         }
         return false;
