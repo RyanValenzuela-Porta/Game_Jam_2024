@@ -15,6 +15,8 @@ public class Zombie extends Enemy {
     Rectangle enemy_hitbox;
     SpriteBatch batch;
     float prevX =0,prevY=0;
+    boolean isDead = true;
+    SoundEffects deathSound = new SoundEffects();
 
     public Zombie(SpriteBatch newBatch) {
         batch = newBatch;
@@ -52,6 +54,10 @@ public class Zombie extends Enemy {
             batch.setColor(0.1f, 0.1f, 0.1f, 0.7f);
             batch.draw(currentFrame, enemyX, enemyY);
             batch.setColor(1, 1, 1, 1);
+            if(isDead){
+                deathSound.monsterDeath();
+                isDead = false;
+            }
         }
     }
     @Override
