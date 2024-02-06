@@ -84,8 +84,6 @@ public class Boss extends Enemy {
                 sound.monsterDeath();
                 soundflip = false;
             }
-            isBossDead = true;
-            goToCredits();
             batch.setColor(0.1f, 0.1f, 0.1f, 0.7f);
             batch.draw(currentFrame, enemyX, enemyY);
             batch.setColor(1, 1, 1, 1);
@@ -151,7 +149,12 @@ public class Boss extends Enemy {
     public boolean goToCredits(){
         return true;
     }
-
+    public boolean isBossDead(){
+        if(hp <= 0){
+            return true;
+        }
+        return false;
+    }
     public float getPrevX(){ return prevX;}
     public float getPrevY(){return prevY;}
 

@@ -72,7 +72,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch,hudBatch, player, sword, shapeRenderer);
 		waveStarted = false;
-		gameState = 1;
 		wave = 0;
 	}
 
@@ -92,8 +91,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				break;
 			case 2: // death screen
 				renderDeathScreen();
+				break;
 			case 4: // ending screen
 				renderEndingScreen();
+				break;
 		}
 		// close game after pressing Esc button
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -106,12 +107,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.drawHearts();
 		enemies.drawEnemyHUD();
 		hudBatch.end();
-	}
-
-	public void renderStartScreen() {
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			gameState = 0;
-		}
 	}
 
 	public void upgradeSelect() {
@@ -169,8 +164,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		if(enemies.isBossDead()){
 			gameState = 4;
-		}
-		if (enemies.checkEndOfWave() && (!enemies.isBossDead())) {
+		} else if (enemies.checkEndOfWave()){
 			player.resetHp();
 			upgradeSelect();
 		}
