@@ -74,39 +74,6 @@ public class Enemies {
             }
         }
     }
-    /*
-     * public boolean checkCollision() {
-     * for (int i = 0; i < enemies.size(); i++) {
-     * // if sword hits enemy
-     * if (enemies.get(i).getHitbox().overlaps(sword.getHitbox()) &&
-     * sword.isSwung()) {
-     * enemies.get(i).setHp(enemies.get(i).getHp() - player.getDmg());
-     * sound.monsterDeath();
-     * return true;
-     * }
-     * // if enemy hits player
-     * if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) &&
-     * enemies.get(i).getHp() > 0) {
-     * player.setState(true);
-     * 
-     * if (!player.isInvincible()) {
-     * player.setInvincibiity(true);
-     * player.increaseHP(-1);
-     * }
-     * }
-     * 
-     * // if enemy collides with enemy
-     * for (int k = i + 1; k < enemies.size(); k++) {
-     * if (enemies.get(i).getHitbox().overlaps(enemies.get(k).getHitbox())) {
-     * enemies.get(i).setX(enemies.get(i).getPrevX());
-     * enemies.get(i).setY(enemies.get(i).getPrevY());
-     * }
-     * }
-     * 
-     * }
-     * return false;
-     * }
-     */
 
     public int countAliveEnemies() {
         aliveCount = 0;
@@ -152,5 +119,9 @@ public class Enemies {
 
     public void drawHitbox(ShapeRenderer renderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(renderer));
+    }
+
+    public Boss getBoss() {
+        return boss;
     }
 }
