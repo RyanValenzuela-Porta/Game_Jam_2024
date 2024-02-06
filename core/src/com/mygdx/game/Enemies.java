@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "BiggerMonster", "0" }, { "Boss", "1" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "BiggerMonster", "1" }, { "Boss", "0" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
