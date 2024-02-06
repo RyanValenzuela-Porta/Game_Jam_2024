@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = {{{ "Pumpkin", "5" }, { "Zombie", "5" }, { "Boss", "0" }},
-                             {{ "Pumpkin", "0" }, { "Zombie", "5" }, { "Archer", "0" } },
-                             {{ "smallEnemy", "5" }, { "BiggerMonster", "5" } },
-                             {{ "smallEnemy", "0" }, { "BiggerMonster", "2" }, { "Archer", "0" } },
-                            {{ "Boss", "1" } } };
+    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "5" }, { "Boss", "0" } },
+            { { "Pumpkin", "3" }, { "Zombie", "5" }, { "Archer", "2" } },
+            { { "smallEnemy", "5" }, { "BiggerMonster", "5" } },
+            { { "smallEnemy", "5" }, { "BiggerMonster", "2" }, { "Archer", "2" } },
+            { { "Boss", "1" } } };
 
     SpriteBatch batch;
     SpriteBatch hudBatch;
