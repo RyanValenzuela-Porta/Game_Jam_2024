@@ -9,18 +9,21 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Rock extends Projectile{
+public class Rock extends Projectile {
     Texture rockSheet;
     Circle rock_hitbox;
     SpriteBatch batch;
     ShapeRenderer myRenderer;
+    float targetX;
+    float targetY;
+    float gradient;
 
     public Rock(SpriteBatch newBatch, float enemyX, float enemyY, Player player) {
         batch = newBatch;
         // Initialising variables from superclass
-        projectileX = enemyX; //This is where the rock will spawn - change so its not random.
+        projectileX = enemyX; // This is where the rock will spawn - change so its not random.
         projectileY = enemyY;
-        speed = 150;
+        speed = 1;
         width = 10;
         height = 10;
         hp = 50;
@@ -28,16 +31,23 @@ public class Rock extends Projectile{
         active = true;
         myRenderer = new ShapeRenderer();
         rock_hitbox = new Circle(projectileX, projectileY, 5);
+        targetX = player.getPlayerX();
+        targetY = player.getPlayerY();
+
     }
 
     @Override
-    public void draw(float targetX, float targetY) {
+    public void draw(float x, float y) {
         stateTime += Gdx.graphics.getDeltaTime(); // Used for animation
 
         Texture currentFrame = new Texture(Gdx.files.internal("rock.png"));
-        TextureRegion rock = new TextureRegion(currentFrame,10,10);
+        TextureRegion rock = new TextureRegion(currentFrame, 10, 10);
         if (spawn) {
-            batch.draw(rock, projectileX, projectileY,width,height);
+            batch.draw(rock, projectileX, projectileY, width, height);
+            gradient = ((targetY - projectileY) / (targetX - projectileX));
+            if (gradient < 0) {
+                gradient *= -1;
+            }
             spawn = false;
         }
         if (active) {
@@ -47,29 +57,29 @@ public class Rock extends Projectile{
 
     public void hunt(TextureRegion rock, float targetX, float targetY) {
         if (projectileX > targetX) {
-            projectileX -= (Gdx.graphics.getDeltaTime() * speed);
+            projectileX -= (speed);
         }
         if (projectileX < targetX) {
-            projectileX += (Gdx.graphics.getDeltaTime() * speed);
+            projectileX += (speed);
         }
         if (projectileY > targetY) {
-            projectileY -= (Gdx.graphics.getDeltaTime() * speed);
+            projectileY -= (speed * gradient);
         }
         if (projectileY < targetY) {
-            projectileY += (Gdx.graphics.getDeltaTime() * speed);
+            projectileY += (speed * gradient);
         }
-        
-        batch.draw(rock, projectileX, projectileY,width,height);
+
+        batch.draw(rock, projectileX, projectileY, width, height);
 
         rock_hitbox = new Circle(projectileX, projectileY, 5);
 
     }
 
-    public float getProjectileX(){
+    public float getProjectileX() {
         return projectileX;
     }
 
-    public float getProjectileY(){
+    public float getProjectileY() {
         return projectileY;
     }
 
@@ -85,8 +95,8 @@ public class Rock extends Projectile{
         return active;
     }
 
-    public void deactivate(){
+    public void deactivate() {
         active = false;
     }
-    
+
 }

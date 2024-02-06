@@ -21,6 +21,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch screen;
 	Texture dead;
 	SpriteBatch deathScreen;
+	SpriteBatch endingScreen;
+	Texture credits;
 	Menu menu;
 	Texture upgradeText;
 
@@ -54,7 +56,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		// death screen
 		deathScreen = new SpriteBatch();
-		dead = new Texture("endscreen.png");
+		dead = new Texture("deathscreen.png");
+
+		// end screen
+		endingScreen = new SpriteBatch();
+		credits = new Texture("credits.png");
 
 		newCreate();
 	}
@@ -84,8 +90,10 @@ public class MyGdxGame extends ApplicationAdapter {
 					gameState = 0;
 				}
 				break;
-			case 2: // end screen
+			case 2: // death screen
 				renderDeathScreen();
+			case 4: // ending screen
+				renderEndingScreen();
 		}
 		// close game after pressing Esc button
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -211,6 +219,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			newCreate();
 		}
+	}
+
+	public void renderEndingScreen(){
+		endingScreen.begin();
+		endingScreen.draw(credits,0,0);
+		endingScreen.end();
 	}
 
 	@Override
