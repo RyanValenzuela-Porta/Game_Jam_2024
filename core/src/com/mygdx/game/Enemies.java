@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "BiggerMonster", "0" }, { "Boss", "1" } },
-            { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
+    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "3" }, { "Boss", "0" } },
+            { { "Pumpkin", "7" }, { "Zombie", "5" }, { "Archer", "2" } },
+            { { "smallEnemy", "5" }, { "BiggerMonster", "5" } },
+            { { "smallEnemy", "7" }, { "BiggerMonster", "2" }, { "Archer", "2" } },
+            { { "Boss", "1" } } };
 
     SpriteBatch batch;
     SpriteBatch hudBatch;
@@ -16,9 +19,11 @@ public class Enemies {
     int aliveCount;
     SoundEffects sound = new SoundEffects();
     checkCollidable collisionDetector;
-    boolean bossSpawn=false;
+    boolean bossSpawn = false;
     Boss boss;
-    public Enemies(SpriteBatch newBatch,SpriteBatch newHudBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
+
+    public Enemies(SpriteBatch newBatch, SpriteBatch newHudBatch, Player newPlayer, Sword newSword,
+            ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
         sword = newSword;
@@ -46,16 +51,14 @@ public class Enemies {
                     }
                     break;
                 case "Boss":
-                  
-                    
-                    
-                    boss = new Boss(batch,hudBatch);
+
+                    boss = new Boss(batch, hudBatch);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(boss);
-                        enemies.add(new BossSword(batch,boss));
-                        bossSpawn=true;
+                        enemies.add(new BossSword(batch, boss));
+                        bossSpawn = true;
                     }
-                    
+
                     break;
 
                 case "BiggerMonster":
@@ -116,7 +119,7 @@ public class Enemies {
     }
 
     public void draw() {
-        //System.out.println(enemies.toString());
+        // System.out.println(enemies.toString());
         enemies.forEach(enemyToSpawn -> enemyToSpawn.draw(player.getPlayerX(), player.getPlayerY()));
 
         collisionDetector.checkEnemyPlayerCollision();
@@ -127,8 +130,9 @@ public class Enemies {
             }
         }
     }
-    public void drawEnemyHUD(){
-        if(bossSpawn){
+
+    public void drawEnemyHUD() {
+        if (bossSpawn) {
             boss.drawHealthBar();
         }
         
