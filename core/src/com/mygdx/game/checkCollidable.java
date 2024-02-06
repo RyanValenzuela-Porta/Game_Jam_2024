@@ -55,7 +55,7 @@ public class checkCollidable {
 
     public boolean checkProjectilePlayerCollision(Circle rockHitbox) {
 
-        if (Intersector.overlaps(rockHitbox, player.getHitbox())) {
+        if (Intersector.overlaps(rockHitbox, player.getHitbox())){
             player.setState(true);
             if (!player.isInvincible()) {
                 player.setInvincibiity(true);

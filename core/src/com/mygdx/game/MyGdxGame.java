@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 
 public class MyGdxGame extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
@@ -30,6 +31,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Player player;
 	Upgrades upgrades;
 	Soundtrack music;
+	SoundEffects sound;
 	int gameState; // gameState 0 means load the actual game, 1 means load the start screen, more
 					// states can be added later
 	int wave;
@@ -46,6 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		music = new Soundtrack();
 		music.load();
 		shapeRenderer = new ShapeRenderer();
+		sound = new SoundEffects();
 
 		// instantiate map
 		map = new Map();
@@ -72,7 +75,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch,hudBatch, player, sword, shapeRenderer);
 		waveStarted = false;
-		gameState = 1;
 		wave = 0;
 	}
 
@@ -92,8 +94,10 @@ public class MyGdxGame extends ApplicationAdapter {
 				break;
 			case 2: // death screen
 				renderDeathScreen();
+				break;
 			case 4: // ending screen
 				renderEndingScreen();
+				break;
 		}
 		// close game after pressing Esc button
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -106,12 +110,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.drawHearts();
 		enemies.drawEnemyHUD();
 		hudBatch.end();
-	}
-
-	public void renderStartScreen() {
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			gameState = 0;
-		}
 	}
 
 	public void upgradeSelect() {
@@ -168,9 +166,9 @@ public class MyGdxGame extends ApplicationAdapter {
 			waveStarted = true;
 		}
 		if(enemies.isBossDead()){
+			sound.monsterDeath();
 			gameState = 4;
-		}
-		if (enemies.checkEndOfWave() && (!enemies.isBossDead())) {
+		} else if (enemies.checkEndOfWave()){
 			player.resetHp();
 			upgradeSelect();
 		}

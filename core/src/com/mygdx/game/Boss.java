@@ -17,7 +17,7 @@ public class Boss extends Enemy {
      */
     Animation<TextureRegion> huntAnimation;
     Texture bossSheet;
-    int maxhp=1000;
+    int maxhp=5000;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
     SpriteBatch hudBatch;
@@ -39,7 +39,7 @@ public class Boss extends Enemy {
         speed = 200;
         width = 32;
         height = 32;
-        hp = 1000;
+        hp = 5000;
         facingRight = true;
         spawn = true;
         alive = true;
@@ -85,8 +85,6 @@ public class Boss extends Enemy {
                 sound.monsterDeath();
                 soundflip = false;
             }
-            isBossDead = true;
-            goToCredits();
             batch.setColor(0.1f, 0.1f, 0.1f, 0.7f);
             batch.draw(currentFrame, enemyX, enemyY);
             batch.setColor(1, 1, 1, 1);
@@ -152,7 +150,12 @@ public class Boss extends Enemy {
     public boolean goToCredits(){
         return true;
     }
-
+    public boolean isBossDead(){
+        if(hp <= 0){
+            return true;
+        }
+        return false;
+    }
     public float getPrevX(){ return prevX;}
     public float getPrevY(){return prevY;}
 

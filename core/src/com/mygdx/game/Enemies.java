@@ -138,7 +138,7 @@ public class Enemies {
         
     }
     public boolean isBossDead(){
-        return boss.isBossDead;
+        return boss.isBossDead();
     }
     
     public void drawHitboxes(ShapeRenderer shapeRenderer) {
