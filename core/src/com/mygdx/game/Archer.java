@@ -44,6 +44,7 @@ public class Archer extends Enemy{
         player = newPlayer;
         collisionDetector = new checkCollidable(player, rock);
         range_hitbox = new Circle(enemyX+8, enemyY+8, 100);
+        dmg=1;
     }
 
     public void draw(float targetX, float targetY) {

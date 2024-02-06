@@ -17,7 +17,7 @@ public class Boss extends Enemy {
      */
     Animation<TextureRegion> huntAnimation;
     Texture bossSheet;
-    int maxhp=1000;
+    int maxhp=5000;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
     SpriteBatch hudBatch;
@@ -39,10 +39,11 @@ public class Boss extends Enemy {
         speed = 200;
         width = 32;
         height = 32;
-        hp = 1000;
+        hp = 5000;
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg=2;
     }
     public void drawHealthBar(){
         TextureRegion blankHealth =new TextureRegion( new Texture(Gdx.files.internal("bossBar.png")),169,26); 

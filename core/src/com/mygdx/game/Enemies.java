@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Boss", "1" } },
     String[][][] waveList = { { { "Archer", "5" }, { "Zombie", "3" }, { "Boss", "0" } },
             { { "Pumpkin", "7" }, { "Zombie", "5" }, { "Archer", "2" } },
             { { "smallEnemy", "5" }, { "BiggerMonster", "5" } },
