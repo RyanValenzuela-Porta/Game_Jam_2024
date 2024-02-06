@@ -32,7 +32,7 @@ public class Sword {
     private float swordX = 505;
     private float swordY = 327;
 
-    private float width = 21;
+    private float width = 30;
     private float height = 9;
     private boolean facingRight;
     private boolean swordswung;

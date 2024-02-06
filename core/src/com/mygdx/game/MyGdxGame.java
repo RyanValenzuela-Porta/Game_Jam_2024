@@ -181,16 +181,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(1, 1, 0, 1);
-		enemies.drawHitbox(shapeRenderer);
+		//enemies.drawHitbox(shapeRenderer);
 		shapeRenderer.end();
 
 		renderHUD();
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(1, 1, 0, 1);
-		player.drawHitbox();
-		sword.drawHitbox();
-		enemies.drawHitboxes(shapeRenderer);
+		//player.drawHitbox();
+		//sword.drawHitbox();
+		//enemies.drawHitboxes(shapeRenderer);
 
 		shapeRenderer.end();
 

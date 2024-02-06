@@ -43,7 +43,8 @@ public class checkCollidable {
             // if enemy collides with enemy
             for (int k = i + 1; k < enemiesArray.size(); k++) {
                 if (enemiesArray.get(k).getHp() > 0
-                        && enemiesArray.get(i).getHitbox().overlaps(enemiesArray.get(k).getHitbox())) {
+                        && enemiesArray.get(i).getHitbox().overlaps(enemiesArray.get(k).getHitbox())
+                        && enemiesArray.get(i).getSpeed() == enemiesArray.get(k).getSpeed()) {
                     enemiesArray.get(i).setX(enemiesArray.get(i).getPrevX());
                     enemiesArray.get(i).setY(enemiesArray.get(i).getPrevY());
                 }
