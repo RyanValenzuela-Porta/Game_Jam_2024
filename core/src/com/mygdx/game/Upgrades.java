@@ -219,4 +219,8 @@ public class Upgrades {
     public float getRightX() {
         return rightX;
     }
+
+    public ArrayList<int[]> getBossUpgrades(){
+        return bossUpgrades;
+    }
 }

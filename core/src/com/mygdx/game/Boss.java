@@ -7,32 +7,58 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
+import java.util.ArrayList;
 public class Boss extends Enemy {
-
+    /**
+     * To do:
+     * Health bar
+     * Sword
+     * Upgrades 
+     */
     Animation<TextureRegion> huntAnimation;
-    Texture zombieSheet;
+    Texture bossSheet;
+    int maxhp=1000;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
+    SpriteBatch hudBatch;
     float prevX =0,prevY=0;
-
-    public Boss(SpriteBatch newBatch) {
+    ArrayList<int[]> bossUpgrades;
+    public Boss(SpriteBatch newBatch, SpriteBatch newhudBatch) {
         batch = newBatch;
+        hudBatch = newhudBatch;
         createAnimation();
         Random rand = new Random();
         // Initialising variables from superclass
         enemyY = randomiser.nextInt(maxY - minY) + minY;
         enemyX = randomiser.nextInt(maxX - minX) + minX;
         int random = rand.nextInt(8);
-        speed = 100+random*3;
-        width = 32-random*2;
-        height = 32-random*2;
-        hp = 50+random;
+        speed = 200;
+        width = 32;
+        height = 32;
+        hp = 1000;
         facingRight = true;
         spawn = true;
         alive = true;
     }
-
+    public void drawHealthBar(){
+        TextureRegion blankHealth =new TextureRegion( new Texture(Gdx.files.internal("bossBar.png")),169,26); 
+        TextureRegion redHealth=new TextureRegion( new Texture(Gdx.files.internal("bossBar2.png")),159,13);
+        //in bossBar.png the width of the fillable area is 159px wide and 14px high, meaning the black border on the left and right sides is 5px and 6px on the top and bottom
+        float blankHealthWidth=Gdx.graphics.getWidth()-100;
+        float blankHealthHeight=30;
+        float blankHealthX = Gdx.graphics.getWidth()/2 - blankHealthWidth/2;
+        float blankHealthY = Gdx.graphics.getHeight()-blankHealthHeight-10;
+        float healthBarScaleX = blankHealthWidth/169;
+        float healthBarScaleY = blankHealthHeight/26;
+        float redHealthWidth = 159* healthBarScaleX * (hp/maxhp);
+        float redHealthHeight = 16* healthBarScaleY;
+        float redHealthX = blankHealthX+(5*healthBarScaleX) ;
+        float redHealthY = blankHealthY+(6*healthBarScaleY);
+        System.out.println(redHealthWidth);
+        System.out.println(redHealthHeight);
+        hudBatch.draw(blankHealth,blankHealthX,blankHealthY,blankHealthWidth,blankHealthHeight);
+        hudBatch.draw(redHealth,redHealthX,redHealthY,redHealthWidth,redHealthHeight);
+    }
     @Override
     public void draw(float targetX, float targetY) {
         stateTime += Gdx.graphics.getDeltaTime(); // Used for animation
@@ -83,11 +109,11 @@ public class Boss extends Enemy {
     }
 
     public void createAnimation() {
-        zombieSheet = new Texture(Gdx.files.internal("dinoBossWalksheet.png"));
+        bossSheet = new Texture(Gdx.files.internal("dinoBossWalksheet.png"));
 
-        TextureRegion[][] tmp = TextureRegion.split(zombieSheet,
+        TextureRegion[][] tmp = TextureRegion.split(bossSheet,
                 16,
-                zombieSheet.getHeight());
+                bossSheet.getHeight());
 
         TextureRegion[] frames = new TextureRegion[3];
         int index = 0;
@@ -100,7 +126,7 @@ public class Boss extends Enemy {
     }
 
     public void dispose() {
-        zombieSheet.dispose();
+        bossSheet.dispose();
     }
 
     public Rectangle getHitbox() {

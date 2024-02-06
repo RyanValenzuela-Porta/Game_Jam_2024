@@ -16,7 +16,8 @@ public class Enemies {
     int aliveCount;
     SoundEffects sound = new SoundEffects();
     checkCollidable collisionDetector;
-
+    boolean bossSpawn=false;
+    Boss boss;
     public Enemies(SpriteBatch newBatch,SpriteBatch newHudBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
@@ -45,10 +46,15 @@ public class Enemies {
                     }
                     break;
                 case "Boss":
-                    System.out.println("Boss found");
+                  
+                    
+                    
+                    boss = new Boss(batch,hudBatch);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
-                        enemies.add(new Boss(batch));
+                        enemies.add(boss);
+                        bossSpawn=true;
                     }
+                    
                     break;
             }
         }
@@ -98,7 +104,7 @@ public class Enemies {
     }
 
     public void draw() {
-        System.out.println(enemies.toString());
+        //System.out.println(enemies.toString());
         enemies.forEach(enemyToSpawn -> enemyToSpawn.draw(player.getPlayerX(), player.getPlayerY()));
 
         collisionDetector.checkEnemyPlayerCollision();
@@ -109,7 +115,11 @@ public class Enemies {
             }
         }
     }
-
+    public void drawEnemyHUD(){
+        if(bossSpawn){
+            boss.drawHealthBar();
+        }
+    }
     public void drawHitboxes(ShapeRenderer shapeRenderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
     }

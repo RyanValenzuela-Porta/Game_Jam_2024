@@ -105,6 +105,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void renderHUD() {
 		hudBatch.begin();
 		player.drawHearts();
+		enemies.drawEnemyHUD();
 		hudBatch.end();
 	}
 
