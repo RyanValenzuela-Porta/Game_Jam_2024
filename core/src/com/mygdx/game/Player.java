@@ -67,6 +67,8 @@ public class Player {
 																	// to whether heart is full
 	private boolean invincible = false;
 	private int invincibilityTimer = 0;
+	private int invincibilityDuration=30;
+	private int invincibilityCooldownDuration=30;
 	private boolean invincibleCooldownTimerRunning = false;
 	private int invincibilityCooldownTimer = 0;
 
@@ -121,21 +123,21 @@ public class Player {
 		int minY = 55;
 		int maxX = 1205;
 		int minX = 52;
-		batch.setColor(1, 1, 1, 1);
+		//batch.setColor(1, 1, 1, 1);
 		if (invincible) {
-			batch.setColor(1f, 1f, 1f, 1f);
+			batch.setColor(1f, 1f, 1f, 0.5f);
 			// batch.draw(frame1, !facingRight ? playerX + width : playerX, playerY,
 			// !facingRight ? -width : width,height);
 
 			invincibilityTimer++;
-			if (invincibilityTimer == 180) {
+			if (invincibilityTimer == invincibilityDuration) {
 				invincible = false;
 				invincibilityTimer = 0;
 				invincibleCooldownTimerRunning = true;
 			}
 		}
 		if (invincibleCooldownTimerRunning) {
-			if (invincibilityCooldownTimer == 30) {
+			if (invincibilityCooldownTimer == invincibilityCooldownDuration) {
 				invincibleCooldownTimerRunning = false;
 			}
 			invincibilityCooldownTimer++;

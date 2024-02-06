@@ -54,11 +54,12 @@ public class Boss extends Enemy {
         float redHealthHeight = 16* healthBarScaleY;
         float redHealthX = blankHealthX+(5*healthBarScaleX) ;
         float redHealthY = blankHealthY+(6*healthBarScaleY);
-        System.out.println(redHealthWidth);
-        System.out.println(redHealthHeight);
+        //System.out.println(redHealthWidth);
+        //System.out.println(redHealthHeight);
         hudBatch.draw(blankHealth,blankHealthX,blankHealthY,blankHealthWidth,blankHealthHeight);
         hudBatch.draw(redHealth,redHealthX,redHealthY,redHealthWidth,redHealthHeight);
     }
+    
     @Override
     public void draw(float targetX, float targetY) {
         stateTime += Gdx.graphics.getDeltaTime(); // Used for animation

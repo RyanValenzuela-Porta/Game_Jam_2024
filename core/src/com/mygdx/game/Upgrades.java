@@ -24,14 +24,14 @@ public class Upgrades {
     private float leftX;
     private float Y;
     private float rightX;
-
     public Upgrades(SpriteBatch newBatch, Player newPlayer) {
         batch = newBatch;
         player = newPlayer;
-    }
+            
 
-    public void generateUpgradeLeft() {
-        if (generatedLeft[1] == 5) {
+    }
+    public void generateUpgradeLeft(){
+        if(generatedLeft[1]==5){
             Random rand = new Random();
             benefitL = rand.nextInt(3);
             // ensure benefit and downside can't be the same
@@ -65,11 +65,10 @@ public class Upgrades {
             generatedLeft[0] = benefitL;
             generatedLeft[1] = downsideL;
         }
+       
         batch.draw(benefitPic[0], 420, 150);
         batch.draw(downsidePic[0], 420, 125);
-
     }
-
     public void generateUpgradeRight() {
         if (generatedRight[1] == 5) {
             Random rand = new Random();

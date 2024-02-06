@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Boss", "1" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "BiggerMonster", "0" }, { "Boss", "1" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
@@ -52,6 +52,7 @@ public class Enemies {
                     boss = new Boss(batch,hudBatch);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(boss);
+                        enemies.add(new BossSword(batch,boss));
                         bossSpawn=true;
                     }
                     
