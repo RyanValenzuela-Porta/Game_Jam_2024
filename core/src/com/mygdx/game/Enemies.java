@@ -135,8 +135,12 @@ public class Enemies {
         if (bossSpawn) {
             boss.drawHealthBar();
         }
+        
     }
-
+    public boolean isBossDead(){
+        return boss.isBossDead;
+    }
+    
     public void drawHitboxes(ShapeRenderer shapeRenderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
     }

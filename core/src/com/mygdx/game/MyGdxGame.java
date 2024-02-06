@@ -99,7 +99,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
-
 	}
 
 	public void renderHUD() {
@@ -168,8 +167,10 @@ public class MyGdxGame extends ApplicationAdapter {
 			enemies.spawnEnemies(wave, shapeRenderer);
 			waveStarted = true;
 		}
-
-		if (enemies.checkEndOfWave()) {
+		if(enemies.isBossDead()){
+			gameState = 4;
+		}
+		if (enemies.checkEndOfWave() && (!enemies.isBossDead())) {
 			player.resetHp();
 			upgradeSelect();
 		}
@@ -201,6 +202,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (player.getHP() <= 0) {
 			gameState = 2;
 		}
+
+		
 	}
 
 	@Override
