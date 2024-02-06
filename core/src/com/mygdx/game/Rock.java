@@ -17,13 +17,15 @@ public class Rock extends Projectile {
     float targetX;
     float targetY;
     float gradient;
+    boolean latchX;
+    boolean latchY;
 
     public Rock(SpriteBatch newBatch, float enemyX, float enemyY, Player player) {
         batch = newBatch;
         // Initialising variables from superclass
         projectileX = enemyX; // This is where the rock will spawn - change so its not random.
         projectileY = enemyY;
-        speed = 1;
+        speed = 2;
         width = 10;
         height = 10;
         hp = 50;
@@ -48,6 +50,8 @@ public class Rock extends Projectile {
             if (gradient < 0) {
                 gradient *= -1;
             }
+            if(projectileX > targetX){latchX = true;} else{latchX=false;}
+            if(projectileY > targetY){latchY = true;} else{latchY=false;}
             spawn = false;
         }
         if (active) {
@@ -56,16 +60,16 @@ public class Rock extends Projectile {
     }
 
     public void hunt(TextureRegion rock, float targetX, float targetY) {
-        if (projectileX > targetX) {
+        if (latchX) {
             projectileX -= (speed);
         }
-        if (projectileX < targetX) {
+        else {
             projectileX += (speed);
         }
-        if (projectileY > targetY) {
+        if (latchY) {
             projectileY -= (speed * gradient);
         }
-        if (projectileY < targetY) {
+        else {
             projectileY += (speed * gradient);
         }
 
