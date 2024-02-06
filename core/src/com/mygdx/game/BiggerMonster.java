@@ -95,7 +95,7 @@ public class BiggerMonster extends Enemy {
                 frames[index++] = tmp[i][j];
             }
         }
-        huntAnimation = new Animation<TextureRegion>(0.33f, frames);
+        huntAnimation = new Animation<TextureRegion>(0.18f, frames);
     }
 
     public void dispose() {
