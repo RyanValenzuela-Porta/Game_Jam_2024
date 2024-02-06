@@ -50,6 +50,17 @@ public class Enemies {
                         enemies.add(new Boss(batch));
                     }
                     break;
+
+                case "BiggerMonster":
+                    for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
+                        enemies.add(new BiggerMonster(batch));
+                    }
+                    break;
+                case "smallEnemy":
+                    for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
+                        enemies.add(new smallEnemy(batch));
+                    }
+                    break;
             }
         }
     }
