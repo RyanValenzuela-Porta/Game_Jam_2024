@@ -28,6 +28,7 @@ public class Pumpkin extends Enemy{
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg=1;
     }
 
     public void draw(float targetX, float targetY) {

@@ -31,6 +31,7 @@ public class BiggerMonster extends Enemy {
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg=2;
     }
 
     @Override

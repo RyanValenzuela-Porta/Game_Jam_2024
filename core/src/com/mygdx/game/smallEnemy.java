@@ -33,6 +33,7 @@ public class smallEnemy extends Enemy{
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg=1;
     }
 
     @Override

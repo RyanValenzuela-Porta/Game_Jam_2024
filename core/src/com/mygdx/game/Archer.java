@@ -39,7 +39,7 @@ public class Archer extends Enemy{
         rock = new Rock(newBatch, enemyX, enemyY, player);
         collisionDetector = new checkCollidable(player, rock);
         range_hitbox = new Circle(enemyX+8, enemyY+8, 100);
-
+        dmg=1;
     }
 
     public void draw(float targetX, float targetY) {

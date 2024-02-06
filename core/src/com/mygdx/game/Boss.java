@@ -43,6 +43,7 @@ public class Boss extends Enemy {
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg=2;
     }
     public void drawHealthBar(){
         TextureRegion blankHealth =new TextureRegion( new Texture(Gdx.files.internal("bossBar.png")),169,26); 
