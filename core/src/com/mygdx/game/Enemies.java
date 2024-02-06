@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "5" }, { "Boss", "0" } },
-            { { "Pumpkin", "0" }, { "Zombie", "5" }, { "Archer", "0" } },
-            { { "smallEnemy", "5" }, { "BiggerMonster", "0" } },
-            { { "smallEnemy", "0" }, { "BiggerMonster", "2" }, { "Archer", "0" } },
-            { { "Boss", "1" } } };
+    String[][][] waveList = {{{ "Pumpkin", "5" }, { "Zombie", "5" }, { "Boss", "0" }},
+                             {{ "Pumpkin", "0" }, { "Zombie", "5" }, { "Archer", "0" } },
+                             {{ "smallEnemy", "5" }, { "BiggerMonster", "5" } },
+                             {{ "smallEnemy", "0" }, { "BiggerMonster", "2" }, { "Archer", "0" } },
+                            {{ "Boss", "1" } } };
 
     SpriteBatch batch;
     SpriteBatch hudBatch;
@@ -20,7 +20,7 @@ public class Enemies {
     SoundEffects sound = new SoundEffects();
     checkCollidable collisionDetector;
     boolean bossSpawn = false;
-    Boss boss;
+    Boss boss = new Boss(batch, hudBatch, player);
 
     public Enemies(SpriteBatch newBatch, SpriteBatch newHudBatch, Player newPlayer, Sword newSword,
             ShapeRenderer shapeRenderer) {
@@ -52,7 +52,6 @@ public class Enemies {
                     break;
                 case "Boss":
 
-                    boss = new Boss(batch, hudBatch, player);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(boss);
                         enemies.add(new BossSword(batch, boss));

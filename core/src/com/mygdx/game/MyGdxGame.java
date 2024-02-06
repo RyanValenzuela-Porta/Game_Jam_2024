@@ -75,7 +75,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		upgrades = new Upgrades(batch, player);
 		enemies = new Enemies(batch, hudBatch, player, sword, shapeRenderer);
 		waveStarted = false;
-		wave = 0;
+		wave = 2;
 	}
 
 	@Override
