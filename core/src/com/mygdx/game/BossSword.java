@@ -12,7 +12,7 @@ public class BossSword extends Enemy{
     Texture swordimg;
     float stateTime;
     private SpriteBatch batch;
-    private float width = 21;
+    private float width = 0;
     private float height = 9;
     private boolean facingRight;
     //private Rectangle enemy_hitbox;
@@ -48,7 +48,7 @@ public class BossSword extends Enemy{
         enemy_hitbox = new Rectangle(enemyX, enemyY,width,
                 height);
         facingRight = boss.getFacingRight();
-        enemyX = boss.getEnemyX()+(facingRight?20:-15);
+        enemyX = boss.getEnemyX();
         enemyY = boss.getEnemyY();
         //shaperender = new ShapeRenderer();
 

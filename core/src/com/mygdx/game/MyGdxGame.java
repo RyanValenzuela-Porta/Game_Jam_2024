@@ -73,7 +73,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch, hudBatch, shapeRenderer);
 		sword = new Sword(batch, shapeRenderer);
 		upgrades = new Upgrades(batch, player);
-		enemies = new Enemies(batch,hudBatch, player, sword, shapeRenderer);
+		enemies = new Enemies(batch, hudBatch, player, sword, shapeRenderer);
 		waveStarted = false;
 		wave = 0;
 	}
@@ -127,6 +127,9 @@ public class MyGdxGame extends ApplicationAdapter {
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 				upgrades.applyUpgradeL();
 				wave++;
+				if (wave == 4) {
+					upgrades.applyBossUpgrades(enemies.getBoss());
+				}
 				waveStarted = false;
 			}
 		} else if (Gdx.input.getX() > 870 && Gdx.input.getX() < 950
@@ -135,6 +138,9 @@ public class MyGdxGame extends ApplicationAdapter {
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 				upgrades.applyUpgradeR();
 				wave++;
+				if (wave == 4) {
+					upgrades.applyBossUpgrades(enemies.getBoss());
+				}
 				waveStarted = false;
 			}
 		} else {
@@ -179,16 +185,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(1, 1, 0, 1);
-		enemies.drawHitbox(shapeRenderer);
+		//enemies.drawHitbox(shapeRenderer);
 		shapeRenderer.end();
 
 		renderHUD();
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(1, 1, 0, 1);
-		player.drawHitbox();
-		sword.drawHitbox();
-		enemies.drawHitboxes(shapeRenderer);
+		//player.drawHitbox();
+		//sword.drawHitbox();
+		//enemies.drawHitboxes(shapeRenderer);
 
 		shapeRenderer.end();
 
@@ -223,9 +229,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
-	public void renderEndingScreen(){
+	public void renderEndingScreen() {
 		endingScreen.begin();
-		endingScreen.draw(credits,0,0);
+		endingScreen.draw(credits, 0, 0);
 		endingScreen.end();
 	}
 

@@ -207,7 +207,35 @@ public class Upgrades {
         return rightX;
     }
 
-    public ArrayList<int[]> getBossUpgrades() {
-        return bossUpgrades;
+    public void applyBossUpgrades(Boss boss) {
+        for (int i = 0; i < bossUpgrades.size(); i++) {
+            switch (bossUpgrades.get(i)[0]) {
+                case 0:
+                    boss.increaseSpeed(50);
+                    break;
+                case 1:
+                    boss.increaseHP(500);
+                    break;
+                case 2:
+                    boss.increaseDmg(1);
+                    break;
+            }
+            switch (bossUpgrades.get(i)[1]) {
+                case 0:
+                    boss.increaseSpeed(-40);
+                    break;
+                case 1:
+                    boss.increaseHP(-500);
+                    break;
+                case 2:
+                    if (boss.getDmg() != 1) {
+                        boss.increaseDmg(-1);
+                    }
+                    break;
+                case 3:
+                    boss.increaseHitbox(8);
+            }
+        }
     }
+
 }

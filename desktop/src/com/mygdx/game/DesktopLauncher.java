@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setTitle("Dino Dungeon");
 		config.useVsync(true);
 		config.setWindowedMode(1280,720);
+		config.setResizable(false);
 		//config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}

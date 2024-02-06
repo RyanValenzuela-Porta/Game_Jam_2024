@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Boss", "1" } },
-            { { "Pumpkin", "5" }, { "Zombie", "7" }, { "Archer", "1" } },
-            { { "smallEnemy", "5" }, { "BiggerMonster", "3" } },
-            { { "smallEnemy", "7" }, { "BiggerMonster", "2" }, { "Archer", "2" } },
+    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "5" }, { "Boss", "0" } },
+            { { "Pumpkin", "0" }, { "Zombie", "5" }, { "Archer", "0" } },
+            { { "smallEnemy", "5" }, { "BiggerMonster", "0" } },
+            { { "smallEnemy", "0" }, { "BiggerMonster", "2" }, { "Archer", "0" } },
             { { "Boss", "1" } } };
 
     SpriteBatch batch;
@@ -102,12 +102,13 @@ public class Enemies {
         if (bossSpawn) {
             boss.drawHealthBar();
         }
-        
+
     }
-    public boolean isBossDead(){
+
+    public boolean isBossDead() {
         return boss.isBossDead();
     }
-    
+
     public void drawHitboxes(ShapeRenderer shapeRenderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(shapeRenderer));
     }
@@ -123,5 +124,9 @@ public class Enemies {
 
     public void drawHitbox(ShapeRenderer renderer) {
         enemies.forEach(enemyToSpawn -> enemyToSpawn.drawHitbox(renderer));
+    }
+
+    public Boss getBoss() {
+        return boss;
     }
 }
