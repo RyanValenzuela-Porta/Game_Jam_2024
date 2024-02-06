@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import java.util.ArrayList;
 
 public class Archer extends Enemy{
     private static final int rows = 1;
@@ -20,9 +21,13 @@ public class Archer extends Enemy{
     Rock rock;
     ShapeRenderer shapeRenderer;
     float prevX= 0,prevY = 0;
+    float rockCooldownDuration = 100;
+    boolean rockCooldownActive = false;
     checkCollidable collisionDetector;
+    Player player;
+    ArrayList<Rock> rocksArray = new ArrayList<>();
 
-    public Archer(SpriteBatch newBatch, ShapeRenderer newRenderer, Player player) {
+    public Archer(SpriteBatch newBatch, ShapeRenderer newRenderer, Player newPlayer) {
         shapeRenderer = newRenderer;
         batch = newBatch;
         createAnimation();
@@ -36,10 +41,10 @@ public class Archer extends Enemy{
         facingRight = true;
         spawn = true;
         alive = true;
-        rock = new Rock(newBatch, enemyX, enemyY, player);
+        player = newPlayer;
         collisionDetector = new checkCollidable(player, rock);
         range_hitbox = new Circle(enemyX+8, enemyY+8, 100);
-
+        dmg=1;
     }
 
     public void draw(float targetX, float targetY) {
@@ -54,10 +59,25 @@ public class Archer extends Enemy{
 
         if (alive) {
             currentFrame = huntAnimation.getKeyFrame(stateTime, true);
-            if (collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox())){
-                rock.deactivate();;
+            
+            if(rockCooldownActive == false){
+                rocksArray.add(new Rock(batch, enemyX, enemyY, player));
+                rockCooldownActive = true;
             }
-            rock.draw(targetX, targetY);
+            else{
+                rockCooldownDuration --;
+                if(rockCooldownDuration == 0){
+                    rockCooldownActive = false;
+                    rockCooldownDuration = 100;
+                }
+            }
+            rocksArray.forEach(rock -> {if(collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox())){
+                rock.deactivate();
+            }});
+            
+                
+        
+            rocksArray.forEach(rock -> rock.draw(targetX, targetY));
             hunt(currentFrame, targetX, targetY);
         } else {
 
@@ -110,7 +130,11 @@ public class Archer extends Enemy{
 
     public void drawHitbox(ShapeRenderer renderer){
 		renderer.circle(enemyX+8, enemyY+8, 100);
-        renderer.circle(rock.getProjectileX()+5, rock.getProjectileY()+5, 5);
+
+        rocksArray.forEach(rock -> {
+            renderer.circle(rock.getProjectileX()+5, rock.getProjectileY()+5, 5);
+        });
+        
     }
 
     public void dispose() {

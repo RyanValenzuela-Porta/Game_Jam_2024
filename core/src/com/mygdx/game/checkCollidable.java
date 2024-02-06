@@ -37,13 +37,14 @@ public class checkCollidable {
 
                 if (!player.isInvincible()) {
                     player.setInvincibiity(true);
-                    player.increaseHP(-1); // IF POSITIVE U ARE INVINCIBLE
+                    player.increaseHP(-1 * enemiesArray.get(i).getDmg()); // IF POSITIVE U ARE INVINCIBLE
                 }
             }
             // if enemy collides with enemy
             for (int k = i + 1; k < enemiesArray.size(); k++) {
                 if (enemiesArray.get(k).getHp() > 0
-                        && enemiesArray.get(i).getHitbox().overlaps(enemiesArray.get(k).getHitbox())) {
+                        && enemiesArray.get(i).getHitbox().overlaps(enemiesArray.get(k).getHitbox())
+                        && enemiesArray.get(i).getSpeed() == enemiesArray.get(k).getSpeed()) {
                     enemiesArray.get(i).setX(enemiesArray.get(i).getPrevX());
                     enemiesArray.get(i).setY(enemiesArray.get(i).getPrevY());
                 }
@@ -54,7 +55,7 @@ public class checkCollidable {
 
     public boolean checkProjectilePlayerCollision(Circle rockHitbox) {
 
-        if (Intersector.overlaps(rockHitbox, player.getHitbox())) {
+        if (Intersector.overlaps(rockHitbox, player.getHitbox())){
             player.setState(true);
             if (!player.isInvincible()) {
                 player.setInvincibiity(true);

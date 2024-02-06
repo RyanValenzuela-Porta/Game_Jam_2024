@@ -19,8 +19,7 @@ public class Boss extends Enemy {
      */
     Animation<TextureRegion> huntAnimation;
     Texture bossSheet;
-    int maxhp = 1000;
-    int damage = 2;
+    int maxhp = 5000;
     Rectangle enemy_hitbox;
     SpriteBatch batch;
     SpriteBatch hudBatch;
@@ -42,10 +41,11 @@ public class Boss extends Enemy {
         speed = 200;
         width = 32;
         height = 32;
-        hp = 1000;
+        hp = 5000;
         facingRight = true;
         spawn = true;
         alive = true;
+        dmg = 2;
     }
 
     public void drawHealthBar() {
@@ -154,6 +154,17 @@ public class Boss extends Enemy {
         return alive;
     }
 
+    public boolean goToCredits() {
+        return true;
+    }
+
+    public boolean isBossDead() {
+        if (hp <= 0) {
+            return true;
+        }
+        return false;
+    }
+
     public void increaseSpeed(int x) {
         speed += x;
     }
@@ -163,7 +174,7 @@ public class Boss extends Enemy {
     }
 
     public void increaseDmg(int x) {
-        damage += x;
+        dmg += x;
     }
 
     public void increaseHitbox(int x) {
@@ -186,4 +197,5 @@ public class Boss extends Enemy {
     public void setY(float y) {
         enemyY = y;
     }
+
 }

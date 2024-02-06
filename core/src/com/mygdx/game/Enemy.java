@@ -10,8 +10,8 @@ public class Enemy extends MyGdxGame{
     float stateTime;
 
     Rectangle enemy_hitbox;
-    float enemyX,enemyY,speed,hp,dmg,targetX,targetY,width,height,prevX,prevY;
-  
+    float enemyX,enemyY,speed,hp,targetX,targetY,width,height,prevX,prevY;
+    int dmg;
     boolean facingRight,spawn,alive;
     int maxY = 655;
     int minY = 55;
@@ -30,6 +30,7 @@ public class Enemy extends MyGdxGame{
     public void createAnimation(){}
 
     //Getters and setters are shared between all methods
+
     public float getEnemyY() {
         return enemyY;
     }
@@ -73,11 +74,11 @@ public class Enemy extends MyGdxGame{
         this.targetX = targetX;
     }
 
-    public float getDmg() {
+    public int getDmg() {
         return dmg;
     }
 
-    public void setDmg(float dmg) {
+    public void setDmg(int dmg) {
         this.dmg = dmg;
     }
 

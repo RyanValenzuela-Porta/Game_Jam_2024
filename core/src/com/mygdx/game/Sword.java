@@ -32,11 +32,17 @@ public class Sword {
     private float swordX = 505;
     private float swordY = 327;
 
-    private float width = 21;
+    private float width = 30;
     private float height = 9;
     private boolean facingRight;
     private boolean swordswung;
     SoundEffects sound;
+
+	private int swordswungTimer = 0;
+	private int swordswungDuration=30; //how many frames the sword is active for
+	private int swordswungCooldownDuration=10;
+	private boolean swordswungCooldownTimerRunning = false;
+	private int swordswungCooldownTimer = 0;
 
     private ShapeRenderer shapeRenderer;
 
@@ -82,13 +88,29 @@ public class Sword {
                 height);
         //shaperender = new ShapeRenderer();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !swordswungCooldownTimerRunning) || swordswung ==true) {
             swingSword();
             sound.swordplay();
+            if(swordswungTimer == swordswungDuration){
+                swordswungCooldownTimerRunning = true;
+                swordswung=false;
+                swordswungTimer=0;
+            }
+            swordswungTimer++;
+            
         } else {
             displaySword();
             sound.restart();
+            if(swordswungCooldownTimer == swordswungCooldownDuration){
+                swordswungCooldownTimerRunning=false;
+                swordswungCooldownTimer=0;
+            }
+            if(swordswungCooldownTimerRunning){
+                swordswungCooldownTimer++;
+            }
+
         }
+        
         if (facingRight) {
             batch.draw(swordimg, swordX , swordY ); // adjust x and y slightly so sword appears infront of player
         } else {
