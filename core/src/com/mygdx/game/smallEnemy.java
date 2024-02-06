@@ -27,8 +27,8 @@ public class smallEnemy extends Enemy{
         enemyX = randomiser.nextInt(maxX - minX) + minX;
         int random = rand.nextInt(8);
         speed = 100+random*3;
-        width = 52-random*2;
-        height = 52-random*2;
+        width = 28-random*2;
+        height = 28-random*2;
         hp = 50+random;
         facingRight = true;
         spawn = true;
@@ -101,7 +101,7 @@ public class smallEnemy extends Enemy{
 
 
 
-        huntAnimation = new Animation<TextureRegion>(0.33f, frames);
+        huntAnimation = new Animation<TextureRegion>(0.22f, frames);
     }
 
     public void dispose() {
