@@ -20,7 +20,7 @@ public class Enemies {
     SoundEffects sound = new SoundEffects();
     checkCollidable collisionDetector;
     boolean bossSpawn = false;
-    Boss boss = new Boss(batch, hudBatch, player);
+    Boss boss;
 
     public Enemies(SpriteBatch newBatch, SpriteBatch newHudBatch, Player newPlayer, Sword newSword,
             ShapeRenderer shapeRenderer) {
@@ -51,7 +51,7 @@ public class Enemies {
                     }
                     break;
                 case "Boss":
-
+                    boss = new Boss(batch, hudBatch, player);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(boss);
                         enemies.add(new BossSword(batch, boss));
