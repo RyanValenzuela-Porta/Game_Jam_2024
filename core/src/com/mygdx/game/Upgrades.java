@@ -24,14 +24,15 @@ public class Upgrades {
     private float leftX;
     private float Y;
     private float rightX;
+
     public Upgrades(SpriteBatch newBatch, Player newPlayer) {
         batch = newBatch;
         player = newPlayer;
-            
 
     }
-    public void generateUpgradeLeft(){
-        if(generatedLeft[1]==5){
+
+    public void generateUpgradeLeft() {
+        if (generatedLeft[1] == 5) {
             Random rand = new Random();
             benefitL = rand.nextInt(3);
             // ensure benefit and downside can't be the same
@@ -65,10 +66,11 @@ public class Upgrades {
             generatedLeft[0] = benefitL;
             generatedLeft[1] = downsideL;
         }
-       
+
         batch.draw(benefitPic[0], 420, 150);
         batch.draw(downsidePic[0], 420, 125);
     }
+
     public void generateUpgradeRight() {
         if (generatedRight[1] == 5) {
             Random rand = new Random();
@@ -112,33 +114,26 @@ public class Upgrades {
         switch (benefitL) {
             case 0:
                 player.increaseSpeed(50);
-                System.out.println("+speed");
                 break;
             case 1:
                 player.increaseHPUpgrade(2);
-                System.out.println("+hp");
                 break;
             case 2:
                 player.increaseDmg(5);
-                System.out.println("+dmg");
                 break;
         }
         switch (downsideL) {
             case 0:
-                player.increaseSpeed(-50);
-                System.out.println("-speed");
+                player.increaseSpeed(-40);
                 break;
             case 1:
-                player.increaseHPUpgrade(-2);
-                System.out.println("-hp");
+                player.increaseHPUpgrade(-1);
                 break;
             case 2:
-                player.increaseDmg(-5);
-                System.out.println("-dmg");
+                player.increaseDmg(-4);
                 break;
             case 3:
                 player.increaseHitbox(8);
-                System.out.println("-hitbox");
         }
         bossUpgrades.add(generatedRight);
         generatedLeft[1] = 5;
@@ -149,33 +144,26 @@ public class Upgrades {
         switch (benefitR) {
             case 0:
                 player.increaseSpeed(50);
-                System.out.println("+speed");
                 break;
             case 1:
                 player.increaseHPUpgrade(2);
-                System.out.println("+hp");
                 break;
             case 2:
                 player.increaseDmg(5);
-                System.out.println("+dmg");
                 break;
         }
         switch (downsideR) {
             case 0:
-                player.increaseSpeed(-50);
-                System.out.println("-speed");
+                player.increaseSpeed(-40);
                 break;
             case 1:
-                player.increaseHPUpgrade(-2);
-                System.out.println("-hp");
+                player.increaseHPUpgrade(-1);
                 break;
             case 2:
-                player.increaseDmg(-5);
-                System.out.println("-dmg");
+                player.increaseDmg(-4);
                 break;
             case 3:
                 player.increaseHitbox(8);
-                System.out.println("-hitbox");
         }
         bossUpgrades.add(generatedLeft);
         generatedRight[1] = 5;
@@ -219,7 +207,7 @@ public class Upgrades {
         return rightX;
     }
 
-    public ArrayList<int[]> getBossUpgrades(){
+    public ArrayList<int[]> getBossUpgrades() {
         return bossUpgrades;
     }
 }
