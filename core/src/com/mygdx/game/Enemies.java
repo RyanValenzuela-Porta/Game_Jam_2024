@@ -6,20 +6,22 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Archer", "1" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Boss", "1" } },
             { { "Zombie", "5" }, { "Zombie", "0" }, { "Zombie", "0" } } };
 
     SpriteBatch batch;
+    SpriteBatch hudBatch;
     Player player;
     Sword sword;
     int aliveCount;
     SoundEffects sound = new SoundEffects();
     checkCollidable collisionDetector;
 
-    public Enemies(SpriteBatch newBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
+    public Enemies(SpriteBatch newBatch,SpriteBatch newHudBatch, Player newPlayer, Sword newSword, ShapeRenderer shapeRenderer) {
         batch = newBatch;
         player = newPlayer;
         sword = newSword;
+        hudBatch = newHudBatch;
         collisionDetector = new checkCollidable(newPlayer, enemies, newSword);
     }
 
@@ -40,6 +42,12 @@ public class Enemies {
                 case "Archer":
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(new Archer(batch, renderer, player));
+                    }
+                    break;
+                case "Boss":
+                    System.out.println("Boss found");
+                    for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
+                        enemies.add(new Boss(batch));
                     }
                     break;
             }
@@ -90,6 +98,7 @@ public class Enemies {
     }
 
     public void draw() {
+        System.out.println(enemies.toString());
         enemies.forEach(enemyToSpawn -> enemyToSpawn.draw(player.getPlayerX(), player.getPlayerY()));
 
         collisionDetector.checkEnemyPlayerCollision();

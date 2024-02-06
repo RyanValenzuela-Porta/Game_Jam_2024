@@ -64,7 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		player = new Player(batch, hudBatch, shapeRenderer);
 		sword = new Sword(batch, shapeRenderer);
 		upgrades = new Upgrades(batch, player);
-		enemies = new Enemies(batch, player, sword, shapeRenderer);
+		enemies = new Enemies(batch,hudBatch, player, sword, shapeRenderer);
 		waveStarted = false;
 		gameState = 1;
 		wave = 0;
