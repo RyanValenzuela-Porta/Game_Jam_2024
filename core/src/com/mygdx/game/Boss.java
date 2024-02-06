@@ -25,6 +25,7 @@ public class Boss extends Enemy {
     ArrayList<int[]> bossUpgrades;
     SoundEffects sound;
     boolean soundflip = true;
+    boolean isBossDead = false;
     public Boss(SpriteBatch newBatch, SpriteBatch newhudBatch) {
         batch = newBatch;
         hudBatch = newhudBatch;
@@ -83,6 +84,8 @@ public class Boss extends Enemy {
                 sound.monsterDeath();
                 soundflip = false;
             }
+            isBossDead = true;
+            goToCredits();
             batch.setColor(0.1f, 0.1f, 0.1f, 0.7f);
             batch.draw(currentFrame, enemyX, enemyY);
             batch.setColor(1, 1, 1, 1);
@@ -144,9 +147,15 @@ public class Boss extends Enemy {
     public boolean getAlive() {
         return alive;
     }
+
+    public boolean goToCredits(){
+        return true;
+    }
+
     public float getPrevX(){ return prevX;}
     public float getPrevY(){return prevY;}
 
     public void setX(float x) { enemyX = x; }
     public void setY(float y) { enemyY = y; }
+
 }
