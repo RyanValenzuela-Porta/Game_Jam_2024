@@ -26,7 +26,14 @@ public class Boss extends Enemy {
     SoundEffects sound;
     boolean soundflip = true;
     boolean isBossDead = false;
-    public Boss(SpriteBatch newBatch, SpriteBatch newhudBatch) {
+    ArrayList<Rock> rocksArray = new ArrayList<>();
+    float rockCooldownDuration = 100;
+    boolean rockCooldownActive = false;
+    Player player;
+    Rock rock;
+    checkCollidable collisionDetector;
+
+    public Boss(SpriteBatch newBatch, SpriteBatch newhudBatch, Player newPlayer) {
         batch = newBatch;
         hudBatch = newhudBatch;
         createAnimation();
@@ -36,13 +43,15 @@ public class Boss extends Enemy {
         enemyY = randomiser.nextInt(maxY - minY) + minY;
         enemyX = randomiser.nextInt(maxX - minX) + minX;
         int random = rand.nextInt(8);
-        speed = 200;
+        speed = 150;
         width = 32;
         height = 32;
         hp = 1000;
         facingRight = true;
         spawn = true;
         alive = true;
+        player = newPlayer;
+        collisionDetector = new checkCollidable(player, rock);
     }
     public void drawHealthBar(){
         TextureRegion blankHealth =new TextureRegion( new Texture(Gdx.files.internal("bossBar.png")),169,26); 
@@ -76,6 +85,24 @@ public class Boss extends Enemy {
         }
         if (alive) {
             currentFrame = huntAnimation.getKeyFrame(stateTime, true);
+
+            if(rockCooldownActive == false){
+                rocksArray.add(new Rock(batch, enemyX, enemyY, player));
+                rockCooldownActive = true;
+            }
+            else{
+                rockCooldownDuration --;
+                if(rockCooldownDuration == 0){
+                    rockCooldownActive = false;
+                    rockCooldownDuration = 100;
+                }
+            }
+            rocksArray.forEach(rock -> {if(collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox(), rock.getActive())){
+                rock.deactivate();
+            }});
+            
+            rocksArray.forEach(rock -> rock.draw(targetX, targetY));
+
             hunt(currentFrame, targetX, targetY);
         } else {
 

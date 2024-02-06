@@ -70,12 +70,10 @@ public class Archer extends Enemy{
                     rockCooldownDuration = 100;
                 }
             }
-            rocksArray.forEach(rock -> {if(collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox())){
+            rocksArray.forEach(rock -> {if(collisionDetector.checkProjectilePlayerCollision(rock.getRockHitbox(), rock.getActive())){
                 rock.deactivate();
             }});
             
-                
-        
             rocksArray.forEach(rock -> rock.draw(targetX, targetY));
             hunt(currentFrame, targetX, targetY);
         } else {

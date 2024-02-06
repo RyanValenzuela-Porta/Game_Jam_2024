@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Enemies {
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    String[][][] waveList = { { { "Pumpkin", "5" }, { "Zombie", "3" }, { "Boss", "0" } },
-            { { "Pumpkin", "7" }, { "Zombie", "5" }, { "Archer", "2" } },
-            { { "smallEnemy", "5" }, { "BiggerMonster", "5" } },
+    String[][][] waveList = { { { "Pumpkin", "0" }, { "Zombie", "0" }, { "Boss", "1" } },
+            { { "Pumpkin", "5" }, { "Zombie", "7" }, { "Archer", "1" } },
+            { { "smallEnemy", "5" }, { "BiggerMonster", "3" } },
             { { "smallEnemy", "7" }, { "BiggerMonster", "2" }, { "Archer", "2" } },
             { { "Boss", "1" } } };
 
@@ -52,7 +52,7 @@ public class Enemies {
                     break;
                 case "Boss":
 
-                    boss = new Boss(batch, hudBatch);
+                    boss = new Boss(batch, hudBatch, player);
                     for (int k = 0; k < Integer.valueOf(waveList[wave][j][1]); k++) {
                         enemies.add(boss);
                         enemies.add(new BossSword(batch, boss));
@@ -74,39 +74,6 @@ public class Enemies {
             }
         }
     }
-    /*
-     * public boolean checkCollision() {
-     * for (int i = 0; i < enemies.size(); i++) {
-     * // if sword hits enemy
-     * if (enemies.get(i).getHitbox().overlaps(sword.getHitbox()) &&
-     * sword.isSwung()) {
-     * enemies.get(i).setHp(enemies.get(i).getHp() - player.getDmg());
-     * sound.monsterDeath();
-     * return true;
-     * }
-     * // if enemy hits player
-     * if (enemies.get(i).getHitbox().overlaps(player.getHitbox()) &&
-     * enemies.get(i).getHp() > 0) {
-     * player.setState(true);
-     * 
-     * if (!player.isInvincible()) {
-     * player.setInvincibiity(true);
-     * player.increaseHP(-1);
-     * }
-     * }
-     * 
-     * // if enemy collides with enemy
-     * for (int k = i + 1; k < enemies.size(); k++) {
-     * if (enemies.get(i).getHitbox().overlaps(enemies.get(k).getHitbox())) {
-     * enemies.get(i).setX(enemies.get(i).getPrevX());
-     * enemies.get(i).setY(enemies.get(i).getPrevY());
-     * }
-     * }
-     * 
-     * }
-     * return false;
-     * }
-     */
 
     public int countAliveEnemies() {
         aliveCount = 0;

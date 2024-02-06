@@ -52,11 +52,11 @@ public class checkCollidable {
         return false;
     }
 
-    public boolean checkProjectilePlayerCollision(Circle rockHitbox) {
+    public boolean checkProjectilePlayerCollision(Circle rockHitbox, boolean active) {
 
         if (Intersector.overlaps(rockHitbox, player.getHitbox())){
             player.setState(true);
-            if (!player.isInvincible()) {
+            if (!player.isInvincible() && active == true) {
                 player.setInvincibiity(true);
                 player.increaseHP(-1); // IF POSITIVE U ARE
             }
