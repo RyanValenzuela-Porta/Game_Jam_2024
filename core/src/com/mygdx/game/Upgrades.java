@@ -214,10 +214,10 @@ public class Upgrades {
                     boss.increaseSpeed(50);
                     break;
                 case 1:
-                    boss.increaseHP(2);
+                    boss.increaseHP(500);
                     break;
                 case 2:
-                    boss.increaseDmg(5);
+                    boss.increaseDmg(1);
                     break;
             }
             switch (bossUpgrades.get(i)[1]) {
@@ -225,10 +225,12 @@ public class Upgrades {
                     boss.increaseSpeed(-40);
                     break;
                 case 1:
-                    boss.increaseHP(-1);
+                    boss.increaseHP(-500);
                     break;
                 case 2:
-                    boss.increaseDmg(-4);
+                    if (boss.getDmg() != 1) {
+                        boss.increaseDmg(-1);
+                    }
                     break;
                 case 3:
                     boss.increaseHitbox(8);
