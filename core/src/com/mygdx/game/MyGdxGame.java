@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 
 public class MyGdxGame extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
@@ -30,6 +31,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Player player;
 	Upgrades upgrades;
 	Soundtrack music;
+	SoundEffects sound;
 	int gameState; // gameState 0 means load the actual game, 1 means load the start screen, more
 					// states can be added later
 	int wave;
@@ -46,6 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		music = new Soundtrack();
 		music.load();
 		shapeRenderer = new ShapeRenderer();
+		sound = new SoundEffects();
 
 		// instantiate map
 		map = new Map();
@@ -163,6 +166,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			waveStarted = true;
 		}
 		if(enemies.isBossDead()){
+			sound.monsterDeath();
 			gameState = 4;
 		} else if (enemies.checkEndOfWave()){
 			player.resetHp();
