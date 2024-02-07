@@ -37,7 +37,7 @@ public class checkCollidable {
 
                 if (!player.isInvincible()) {
                     player.setInvincibiity(true);
-                    player.increaseHP(1 * enemiesArray.get(i).getDmg()); // IF POSITIVE U ARE INVINCIBLE
+                    player.increaseHP(-1 * enemiesArray.get(i).getDmg()); // IF POSITIVE U ARE INVINCIBLE
                 }
             }
             // if enemy collides with enemy
