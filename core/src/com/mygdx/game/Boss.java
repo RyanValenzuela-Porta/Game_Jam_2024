@@ -24,7 +24,7 @@ public class Boss extends Enemy {
     SpriteBatch batch;
     SpriteBatch hudBatch;
     float prevX = 0, prevY = 0;
-    ArrayList<int[]> bossUpgrades;
+    ArrayList<int[]> bossUpgrades = new ArrayList<int[]>();
     SoundEffects sound;
     boolean soundflip = true;
     boolean isBossDead = false;
@@ -33,6 +33,7 @@ public class Boss extends Enemy {
     boolean rockCooldownActive = false;
     Player player;
     Rock rock;
+    
     checkCollidable collisionDetector;
 
     public Boss(SpriteBatch newBatch, SpriteBatch newhudBatch, Player newPlayer) {
@@ -55,6 +56,8 @@ public class Boss extends Enemy {
         player = newPlayer;
         collisionDetector = new checkCollidable(player, rock);
         dmg = 2;
+        
+        
     }
 
     public void drawHealthBar() {
@@ -73,10 +76,52 @@ public class Boss extends Enemy {
         float redHealthHeight = 16 * healthBarScaleY;
         float redHealthX = blankHealthX + (5 * healthBarScaleX);
         float redHealthY = blankHealthY + (6 * healthBarScaleY);
+        
         // System.out.println(redHealthWidth);
         // System.out.println(redHealthHeight);
         hudBatch.draw(blankHealth, blankHealthX, blankHealthY, blankHealthWidth, blankHealthHeight);
         hudBatch.draw(redHealth, redHealthX, redHealthY, redHealthWidth, redHealthHeight);
+
+        float bossBuffWidth = blankHealthWidth/8;
+        float bossBuffHeight = 200;
+        System.out.println(bossUpgrades.toString());
+        //hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("+speed.png"))),blankHealthX+(2*0*bossBuffWidth),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+        for (int i = 0; i < bossUpgrades.size(); i++) {
+            switch (bossUpgrades.get(i)[0]) { //draw buffs
+                case 0:
+                    //boss.increaseSpeed(50);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("+speed.png"))),blankHealthX+(2*i*bossBuffWidth),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+                case 1:
+                    //boss.increaseHP(500);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("+hp.png"))),blankHealthX+(2*i*bossBuffWidth),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+                case 2:
+                    //boss.increaseDmg(1);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("+dmg.png"))),blankHealthX+(2*i*bossBuffWidth),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+            }
+            switch (bossUpgrades.get(i)[1]) { //draw negatives
+                case 0:
+                    //boss.increaseSpeed(-40);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("-speed.png"))),blankHealthX+((2*i*bossBuffWidth)+1),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+                case 1:
+                    //boss.increaseHP(-500);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("-hp.png"))),blankHealthX+((2*i*bossBuffWidth)+1),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+                case 2:
+                    // if (boss.getDmg() != 1) {
+                    //     boss.increaseDmg(-1);
+                    // }
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("-dmg.png"))),blankHealthX+((2*i*bossBuffWidth)+1),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+                case 3:
+                    //boss.increaseHitbox(8);
+                    hudBatch.draw(new TextureRegion(new Texture(Gdx.files.internal("+size.png"))),blankHealthX+((2*i*bossBuffWidth)+1),blankHealthY-bossBuffHeight,bossBuffWidth,bossBuffHeight);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -224,5 +269,7 @@ public class Boss extends Enemy {
     public void setY(float y) {
         enemyY = y;
     }
-
+    public void addUpgrade(int[] upgrade){
+        bossUpgrades.add(upgrade);
+    }
 }

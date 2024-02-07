@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,7 +22,10 @@ public class Upgrades {
     private int benefitR;
     private int downsideR;
     private ArrayList<int[]> bossUpgrades = new ArrayList<>();
-
+    private Texture bossImg;
+    private TextureRegion bossHead;
+    private boolean rightHovered;
+    private boolean leftHovered;
     private float leftX;
     private float Y;
     private float rightX;
@@ -28,7 +33,8 @@ public class Upgrades {
     public Upgrades(SpriteBatch newBatch, Player newPlayer) {
         batch = newBatch;
         player = newPlayer;
-
+        bossImg = new Texture("dinoBossWalksheet.png");
+        bossHead = new TextureRegion(bossImg,0,3,16,18);
     }
 
     public void generateUpgradeLeft() {
@@ -177,22 +183,32 @@ public class Upgrades {
         batch.draw(leftUpgrade, leftX, Y);
         batch.draw(rightUpgrade, rightX, Y);
         batch.draw(upgradeText, 420, 300);
+        if(rightHovered){
+            batch.draw(bossHead,leftX+35,300-36,32,36);
+        }
+        if(leftHovered){
+            batch.draw(bossHead,rightX+40+32,300-36,-32,36);
+        }
     }
 
     public void leftHovered() {
         leftUpgrade = new Texture("leftselected.png");
+        leftHovered=true;
     }
 
     public void leftNotHovered() {
         leftUpgrade = new Texture("leftupgrade.png");
+        leftHovered=false;
     }
 
     public void rightHovered() {
         rightUpgrade = new Texture("rightselected.png");
+        rightHovered=true;
     }
 
     public void rightNotHovered() {
         rightUpgrade = new Texture("rightupgrade.png");
+        rightHovered=false;
     }
 
     public float getY() {
@@ -206,12 +222,16 @@ public class Upgrades {
     public float getRightX() {
         return rightX;
     }
-
+    public ArrayList <int[]> getBossUpgrades(){
+        return bossUpgrades;
+    }
     public void applyBossUpgrades(Boss boss) {
         for (int i = 0; i < bossUpgrades.size(); i++) {
+            boss.addUpgrade(bossUpgrades.get(i));
             switch (bossUpgrades.get(i)[0]) {
                 case 0:
                     boss.increaseSpeed(50);
+                    
                     break;
                 case 1:
                     boss.increaseHP(500);

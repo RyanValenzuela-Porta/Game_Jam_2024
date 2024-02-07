@@ -1,10 +1,13 @@
 
 package com.mygdx.game;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Pumpkin extends Enemy{
@@ -19,12 +22,14 @@ public class Pumpkin extends Enemy{
         batch = newBatch;
         createAnimation();
         // Initialising variables from superclass
+        Random rand = new Random();
+        int random = rand.nextInt(8);
         enemyY = randomiser.nextInt(maxY - minY) + minY;
         enemyX = randomiser.nextInt(maxX - minX) + minX;
-        speed = 100;
-        width = 32;
-        height = 40;
-        hp = 50;
+        speed = 100+random*3;
+        width = 32-random*2;
+        height = 32-random*2;
+        hp = 50+random;
         facingRight = true;
         spawn = true;
         alive = true;
@@ -71,7 +76,7 @@ public class Pumpkin extends Enemy{
         }
 
         batch.draw(currentFrame, !facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
-        enemy_hitbox = new Rectangle(!facingRight ? enemyX + width : enemyX, enemyY, !facingRight ? -width : width, height);
+        enemy_hitbox = new Rectangle(enemyX, enemyY, width, height);
     }
 
     public void createAnimation() {
@@ -90,7 +95,11 @@ public class Pumpkin extends Enemy{
         huntAnimation = new Animation<TextureRegion>(0.33f, frames);
         stateTime = 0f;
     }
-
+    @Override
+    public void drawHitbox(ShapeRenderer shapeRenderer){
+        shapeRenderer.rect(enemyX, enemyY, width,
+        height);
+    }
     public void dispose() {
         pumpkinSheet.dispose();
     }
